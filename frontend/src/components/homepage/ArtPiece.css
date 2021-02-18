@@ -24,6 +24,7 @@
 .kijken {
   position: absolute;
   top: 30%;
+  right: 40%;
   font-size: 3rem;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
@@ -46,7 +47,7 @@
 .beeldenmaker {
   position: absolute;
   font-size: 3rem;
-  top: 10%;
+  top: 15%;
   right: 50%;
   /*left:0%;*/
   animation-iteration-count: infinite;

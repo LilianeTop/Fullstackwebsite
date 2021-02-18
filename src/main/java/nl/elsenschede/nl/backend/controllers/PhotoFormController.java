@@ -1,15 +1,16 @@
 package nl.elsenschede.nl.backend.controllers;
 
+import nl.elsenschede.nl.backend.backingbeans.Adaptation;
 import nl.elsenschede.nl.backend.backingbeans.Color;
 import nl.elsenschede.nl.backend.backingbeans.Theme;
-import nl.elsenschede.nl.backend.backingbeans.UploadPhotoForm;
 import nl.elsenschede.nl.backend.dao.PhotoDao;
+import nl.elsenschede.nl.backend.dao.SpecialDao;
 import nl.elsenschede.nl.backend.model.Photo;
+import nl.elsenschede.nl.backend.model.Special;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.spring5.expression.Fields;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,10 +22,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping({"/api"})
-@CrossOrigin(origins = {"http://localhost:3000/admin"})
+@CrossOrigin(origins="http://localhost:3000")
 public class PhotoFormController {
 
     private PhotoDao photoDao;
+    private SpecialDao specialDao;
 
     @Autowired
     public PhotoFormController(PhotoDao photoDao) {
@@ -38,11 +40,10 @@ public class PhotoFormController {
         return photos;
     }
 
-
     //TODO: where to connect with /addArtpiece?
     @RequestMapping("/addArtpiece")
-    public String submitForm(@RequestParam("type") String type,
-                             @RequestParam("special") String special,
+    public String submitForm( @RequestParam("type") String type,
+                              @RequestParam("special") String special,
                              @RequestParam("beschrijving") String description,
                              @RequestParam("theme") String theme,
                              @RequestParam("color") String color,
@@ -56,9 +57,18 @@ public class PhotoFormController {
         Color pickedColor = Color.valueOf(color);
         colors.add(pickedColor);
 
-        Photo photo = new Photo(description, file.getPath(), themes, colors);
-        photoDao.save(photo);
-        model.addAttribute("message", "Successful upload!");
+        Adaptation adaptation = Adaptation.valueOf("special");
+
+        if(type == "photo"){
+            Photo photo = new Photo(description, file.getPath(), themes, colors);
+            photoDao.save(photo);
+            model.addAttribute("message", "Successful upload!");
+        } else if (type == "special"){
+            Special piece  = new Special(description, file.getPath(), themes, colors, adaptation);
+            specialDao.save(piece);
+        }
+
+
         return "redirect:/admin";
 
     }

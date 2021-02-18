@@ -1,9 +1,4 @@
-html {
-    margin: 5%;
-    background-color: #354440;
-    font-family: Roboto, sans-serif;
 
-}
 label {
     color: #d9e76b;
 }
@@ -18,6 +13,26 @@ label {
     margin-left: 25px;
     padding: 5px;
     font-size: 2rem;
+}
+
+form {
+    margin-top: 50px;
+}
+.knop {
+    display: block;
+    margin: 15px auto;
+    padding: 15px;
+    font-size: 2rem;
+}
+
+.kiesknop {
+    display: block;
+
+    margin: 0 auto;
+    padding: 30px;
+    font-size: 2rem;
+
+
 }
 
 /*input[type='radio']:checked:after {*/

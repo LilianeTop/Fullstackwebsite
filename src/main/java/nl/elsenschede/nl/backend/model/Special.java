@@ -21,6 +21,16 @@ public class Special extends Artpiece {
         this.adaptation = adaptation;
     }
 
+    public Special(String description, String imagePath, List<Theme> themes, List<Color> colors, Adaptation adaptation) {
+        super(description, imagePath, themes, colors);
+        this.adaptation = adaptation;
+    }
+
+    public Special(String description, String imagePath, Portfolio portfolio, List<Theme> themes, List<Color> colors, Adaptation adaptation) {
+        super(description, imagePath, portfolio, themes, colors);
+        this.adaptation = adaptation;
+    }
+
     public Special(int idArtpiece, String description, String imagePath, Portfolio portfolio, List<Theme> themes, List<Color> colors, Adaptation adaptation) {
         super(idArtpiece, description, imagePath, portfolio, themes, colors);
         this.adaptation = adaptation;

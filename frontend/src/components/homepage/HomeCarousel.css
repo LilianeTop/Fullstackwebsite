@@ -1,11 +1,14 @@
 .wrapper {
     overflow: hidden;
+    margin-top: 15px;
+
 }
 .sliding-background {
     background: url("Homepageimage.jpg") repeat-x;
     height: 510px;
     width: 4000px;
     animation: slide 30s linear infinite;
+
 }
 
 
@@ -19,36 +22,17 @@
     }
 }
 
-/*.carousel {
-    autoplay: true;
-    wrap: true;
-    data-interval: 1000;
-    !*pause: none;*!
-    !*interval: 0;*!
-}*/
-
-
-
 .carousel-inner {
     height: 500px;
+
 }
 
-
-
-/*FIXME: How to remove duplicate code?*/
-.carousel-control-next-icon {
+.carousel-control-next-icon .carousel-control-prev-icon{
     display: none;
 }
 
-.carousel-control-prev-icon {
-    display: none;
-}
-/*FIXME:how to get rid of all the controls */
 .carousel-indicators,
 .carousel-indicators li {
-    /*cursor: default;*/
-    /*pointer-events: none;*/
-    /*display: none;*/
     visibility: hidden;
 }
 

@@ -10,10 +10,7 @@ const Admin = () => {
     return (
         <div>
             <LoginScherm />
-
             <PhotoForm />
-            {/*<ArtpieceUploadForm />*/}
-
         </div>
 
     )

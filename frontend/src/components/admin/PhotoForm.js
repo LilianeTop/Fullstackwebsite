@@ -1,5 +1,12 @@
 import "./PhotoForm.css";
 import React, {Component} from 'react';
+import axios from "axios";
+import Type from "./PhotoFormType";
+import Form from 'react-bootstrap/Form';
+import Themes from "./PhotoFormThemes";
+import Colors from "./PhotoFormColors";
+import ImageURL from "./PhotoFormImageURL";
+import Description from "./PhotoFormDescription";
 
 export default class PhotoForm extends Component {
     //do we need props in our constructor and where do they come from? it still works without the props
@@ -7,17 +14,25 @@ export default class PhotoForm extends Component {
     // an API to the db? as a POST request? I would think that the artpieceInfo should contain all info that will be submitted to the db?
     //TODO: style this form its a mess
     //TODO: how does it work if instead to upload the images itself to the DB I use the pathName of the chosen File and use a Filesystem how does that work?
-//TODO: validation you have to choose at least a theme or color and upload am image
+    //TODO: validation you have to choose at least a theme or color and upload am image
+
     constructor(props) {
         super(props)
         this.state = {
             selectedFile: "",
-            description: "",
+            // description: "",
             sort: "photo",
             specials: "",
             themes: [],
             colors: [],
-            //artpieceInfo: [{}]//an array of object? with all info of the setState?
+            // artpieceInfo: [{
+            //     selectedFile: "",
+            //     description: "",
+            //     sort: "photo",
+            //     specials: "",
+            //     themes: [],
+            //     colors: [],
+            // }]//an array of object? with all info of the setState?
         };
         this.onFormSubmit = this.onFormSubmit.bind(this)
         this.renderSpecials = this.renderSpecials.bind(this)
@@ -29,9 +44,27 @@ export default class PhotoForm extends Component {
         this.changeSpecial = this.changeSpecial.bind(this)
 
     }
+//TODO: how to upload to the db? which API  url to use?
+    componentDidMount() {
+        axios.get("http://localhost:8080/api/addArtpiece")
+            .then(response => response.data)
+            .then((data) =>{
+                this.setState({description : data});
+            });
+    }
 
-    //TODO: how to upload to the db? which API to use?
+    //FIXME: how to show alert message with chosen themes and colors?
     onFormSubmit(e) {
+        alert('Type: ' + this.state.sort +
+        '\nSpecial: ' + this.state.specials +
+        '\nBeschrijving: ' + this.state.description +
+        "\nThema's : " +  this.state.themes.map( theme => {
+                    return (
+                        {theme}.toString()
+                    )
+                }) +
+        "\nKleuren: " + this.state.colors +
+        "\nFotoURL: " + this.state.selectedFile)
         e.preventDefault();
         console.log(this.state.sort)
         console.log(this.state.special)
@@ -97,7 +130,6 @@ export default class PhotoForm extends Component {
                         value="photo"
                         checked={this.state.sort === "photo"}
                         onChange={this.changeSpecial}
-                        defaultChecked={"photo"}
                         />
                 </label>
                 <label>Special
@@ -119,39 +151,42 @@ export default class PhotoForm extends Component {
                        placeholder="Geef titel of beschrijf het werk"
                        onChange={this.handleChange}
                 />
+                {/*<Description />*/}
                 <br />
                 <hr />
                 <h2>Entered information</h2>
-                <p>Chosen type: {this.state.sort} </p>
-                <p>Chosen special: {this.state.specials}</p>
-                <p>Description is: {this.state.description}</p>
-                <p>Chosen file: {this.state.selectedFile}</p>
-                <p>Chosen themes are: </p>
+                <h2>Chosen type: {this.state.sort} </h2>
+                <h2>Chosen special: {this.state.specials}</h2>
+                <h2>Description is: {this.state.description}</h2>
+                <h2>Chosen themes are: </h2>
                 {this.state.themes.map( theme => {
                     return (
-                        <p key={theme.name}>{theme.name}</p>
+                        <h2 key={theme.name}>{theme.name}</h2>
                     )
                 })}
+                <h2>Chosen colors are: </h2>
+                {this.state.colors.map( color => {
+                    return (
+                        <h2 key={color.name}>{color.name}</h2>
+                    )
+                })}
+                <h2>Chosen file: {this.state.selectedFile}</h2>
+
                 <hr />
                 <p>Kies de thema's</p>
                 {this.renderThemes()}
-                <p>Chosen colors are: </p>
-                {this.state.colors.map( color => {
-                    return (
-                        <p key={color.name}>{color.name}</p>
-                    )
-                })}
+
                 <hr />
                 <p>Kies de kleuren:</p>
                 { this.renderColors() }
                 <hr />
                 <p>klik op kies bestand</p>
-                <input type='file'
+                <input className='kiesknop' type='file'
                        name='selectedFile'
                        onChange={this.handleChange}
                 />
                 <br />
-                <button type='submit'>Verzenden</button>
+                <button className='knop' type='submit'>Verzenden</button>
             </form>
 
         )
@@ -215,7 +250,7 @@ export default class PhotoForm extends Component {
         const themes = ['Landschap', 'Stad', 'Buiten', 'Reizen', 'Water', 'Mensen', 'Abstract', 'Industrieel', 'Scenes'];
         return themes.map((theme, i) => {
             return (
-                    <label key={i}> {theme}
+                    <label key={i} > {theme}
                     <input
                         type='checkbox'
                         name={theme}
@@ -232,7 +267,7 @@ export default class PhotoForm extends Component {
         const colors = ['Blauw', 'Geel', 'Groen', 'Rood', 'Oranje', 'Paars', 'Kleurrijk'];
         return colors.map((color, i) => {
             return (
-                <label key={i}>
+                <label key={i} >
                     {color}
                     <input
                         type="checkbox"
