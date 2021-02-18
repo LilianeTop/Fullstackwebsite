@@ -42,12 +42,12 @@ public class PhotoFormController {
 
     //TODO: where to connect with /addArtpiece?
     @RequestMapping("/addArtpiece")
-    public String submitForm( @RequestParam("type") String type,
+    public String submitForm( @RequestParam("sort") String type,
                               @RequestParam("special") String special,
-                             @RequestParam("beschrijving") String description,
-                             @RequestParam("theme") String theme,
-                             @RequestParam("color") String color,
-                             @RequestParam("picture") File file,
+                             @RequestParam("description") String description,
+                             @RequestParam("themes") String theme,
+                             @RequestParam("colors") String color,
+                             @RequestParam("selectedFile") File file,
                              Model model) {
         List<Theme> themes = new ArrayList<>();
         Theme pickedTheme = Theme.valueOf(theme);
@@ -59,11 +59,11 @@ public class PhotoFormController {
 
         Adaptation adaptation = Adaptation.valueOf("special");
 
-        if(type == "photo"){
+        if(type.equals("photo")){
             Photo photo = new Photo(description, file.getPath(), themes, colors);
             photoDao.save(photo);
             model.addAttribute("message", "Successful upload!");
-        } else if (type == "special"){
+        } else if (type.equals( "special")){
             Special piece  = new Special(description, file.getPath(), themes, colors, adaptation);
             specialDao.save(piece);
         }

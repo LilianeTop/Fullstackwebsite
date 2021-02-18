@@ -20,7 +20,7 @@ export default class PhotoForm extends Component {
         super(props)
         this.state = {
             selectedFile: "",
-            // description: "",
+            description: "",
             sort: "photo",
             specials: "",
             themes: [],
@@ -45,33 +45,46 @@ export default class PhotoForm extends Component {
 
     }
 //TODO: how to upload to the db? which API  url to use?
-    componentDidMount() {
+   /* componentDidMount() {
+
+
         axios.get("http://localhost:8080/api/addArtpiece")
             .then(response => response.data)
             .then((data) =>{
+                this.setState({sort: data})
+                this.setState({special: data})
+
                 this.setState({description : data});
             });
-    }
+    }*/
+
 
     //FIXME: how to show alert message with chosen themes and colors?
     onFormSubmit(e) {
-        alert('Type: ' + this.state.sort +
-        '\nSpecial: ' + this.state.specials +
-        '\nBeschrijving: ' + this.state.description +
-        "\nThema's : " +  this.state.themes.map( theme => {
-                    return (
-                        {theme}.toString()
-                    )
-                }) +
-        "\nKleuren: " + this.state.colors +
-        "\nFotoURL: " + this.state.selectedFile)
+        // alert('Type: ' + this.state.sort +
+        // '\nSpecial: ' + this.state.specials +
+        // '\nBeschrijving: ' + this.state.description +
+        // "\nThema's : " +  this.state.themes.map( theme => {
+        //             return (
+        //                 {theme}.toString()
+        //             )
+        //         }) +
+        // "\nKleuren: " + this.state.colors +
+        // "\nFotoURL: " + this.state.selectedFile)
         e.preventDefault();
-        console.log(this.state.sort)
-        console.log(this.state.special)
-        console.log(this.state.description)
-        console.log(this.state.selectedFile)
-        console.log(this.state.themes)
-        console.log(this.state.colors)
+       axios.post("http://localhost:8080/api/addArtpiece", {
+           sort: this.state.sort,
+           specials: this.state.special,
+           description: this.state.description,
+           themes: this.state.themes,
+           colors: this.state.colors,
+           selectedFile: this.state.selectedFile,
+
+
+       // }).then(res => {
+       //     console.log(res);
+       //     console.log(res.data);
+       })
 
 
     }
