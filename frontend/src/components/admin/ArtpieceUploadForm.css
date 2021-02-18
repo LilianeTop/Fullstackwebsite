@@ -1,0 +1,40 @@
+.formulier {
+    margin: 0 auto;
+    padding: 5%;
+    color: #d9e76b;
+}
+
+.header{
+    margin: 15px auto;
+
+}
+
+input {
+    width: 25%;
+    display: block;
+    margin-left: 25px;
+
+}
+
+.errorMessage {
+    color: red;
+
+
+}
+
+label{
+    font-size: 2rem;
+    padding: 10px 25px;
+    margin-right: 20px;
+
+}
+
+button {
+    font-family: Roboto, sans-serif;
+    font-size: 25px;
+    color: #d9e76b;
+    height: 50px;
+    width: 150px;
+    margin: 0 auto;
+    background-color: #354440;
+}
