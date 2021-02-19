@@ -19,20 +19,13 @@ export default class PhotoForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedFile: "",
-            description: "",
             sort: "photo",
             specials: "",
+            description: "",
             themes: [],
             colors: [],
-            // artpieceInfo: [{
-            //     selectedFile: "",
-            //     description: "",
-            //     sort: "photo",
-            //     specials: "",
-            //     themes: [],
-            //     colors: [],
-            // }]//an array of object? with all info of the setState?
+            selectedFile: "",
+            // artpieceInfos : []
         };
         this.onFormSubmit = this.onFormSubmit.bind(this)
         this.renderSpecials = this.renderSpecials.bind(this)
@@ -45,33 +38,18 @@ export default class PhotoForm extends Component {
 
     }
 //TODO: how to upload to the db? which API  url to use?
-   /* componentDidMount() {
-
-
-        axios.get("http://localhost:8080/api/addArtpiece")
-            .then(response => response.data)
-            .then((data) =>{
-                this.setState({sort: data})
-                this.setState({special: data})
-
-                this.setState({description : data});
-            });
-    }*/
+//    componentDidMount = () => {
+//        // axios.get("http://localhost:8080/api/addArtpiece")
+//        axios.post("api/addArtpiece")
+//             .then(response => {
+//                 this.setState({ artpieceInfos : response.data})
+//             });
+//     }
 
 
     //FIXME: how to show alert message with chosen themes and colors?
-    onFormSubmit(e) {
-        // alert('Type: ' + this.state.sort +
-        // '\nSpecial: ' + this.state.specials +
-        // '\nBeschrijving: ' + this.state.description +
-        // "\nThema's : " +  this.state.themes.map( theme => {
-        //             return (
-        //                 {theme}.toString()
-        //             )
-        //         }) +
-        // "\nKleuren: " + this.state.colors +
-        // "\nFotoURL: " + this.state.selectedFile)
-        e.preventDefault();
+    onFormSubmit = values => {
+        // console.log('Form data', values)
        axios.post("http://localhost:8080/api/addArtpiece", {
            sort: this.state.sort,
            specials: this.state.special,
@@ -79,13 +57,7 @@ export default class PhotoForm extends Component {
            themes: this.state.themes,
            colors: this.state.colors,
            selectedFile: this.state.selectedFile,
-
-
-       // }).then(res => {
-       //     console.log(res);
-       //     console.log(res.data);
        })
-
 
     }
 

@@ -11,6 +11,7 @@ const Admin = () => {
         <div>
             <LoginScherm />
             <PhotoForm />
+            {/*<YoutubeForm />*/}
         </div>
 
     )
