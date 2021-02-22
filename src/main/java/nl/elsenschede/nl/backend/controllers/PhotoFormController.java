@@ -3,8 +3,10 @@ package nl.elsenschede.nl.backend.controllers;
 import nl.elsenschede.nl.backend.backingbeans.Adaptation;
 import nl.elsenschede.nl.backend.backingbeans.Color;
 import nl.elsenschede.nl.backend.backingbeans.Theme;
+import nl.elsenschede.nl.backend.backingbeans.UploadPhotoForm;
 import nl.elsenschede.nl.backend.dao.PhotoDao;
 import nl.elsenschede.nl.backend.dao.SpecialDao;
+import nl.elsenschede.nl.backend.model.Artpiece;
 import nl.elsenschede.nl.backend.model.Photo;
 import nl.elsenschede.nl.backend.model.Special;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,56 +49,90 @@ public class PhotoFormController {
         return photos;
     }
 
-//    @GetMapping("/showPhotoForm")
-//    public List<Photo> getAllPhotos() {
-//        List<Photo> photos = new ArrayList<>();
-//        photoDao.findAll().forEach(photos::add);
-//        return photos;
-//    }
-//@PostMapping(path = "/add")
-//@ResponseBody
-//public String createProduct(@RequestBody Product product){
-//    productRespository.save(product);
-//    return "OK";
+
+//@PostMapping("/addArtpiece")
+////  "message": "Required request body is missing: public java.lang.String
+////  nl.elsenschede.nl.backend.controllers.PhotoFormController.submitForm(nl.elsenschede.nl.backend.model.Special)",
+//    public String submitForm(@RequestBody Artpiece artpiece){
+//
+//        String description = artpiece.getDescription();
+//        String imagePath = artpiece.getImagePath();
+//        List<Theme> themes = artpiece.getThemes();
+//        List<Color> colors = artpiece.getColors();
+//        Adaptation adaptation;
+//
+//
+//    if(true){
+//            Photo photo = new Photo(description, imagePath, themes, colors);
+//            photoDao.save(photo);
+//        } else {
+//            Special piece  = new Special(description, imagePath, themes, colors, adaptation);
+//            specialDao.save(piece);
+//        }
+//    return "redirect:/admin";
+//
 //}
 
+//
+    //@PostMapping("/greeting")
+//  public String greetingSubmit(@ModelAttribute Greeting greeting, Model model) {
+//    model.addAttribute("greeting", greeting);
+//    return "result";
+//  }
+//FIXME: give error code 500 at the form is not connected to anything?
+    @PostMapping("/addArtpiece")
+    public String submitForm(@ModelAttribute UploadPhotoForm form, Model model) {
+        String sort = form.getSort();
+        String description = form.getDescription();
+        String imagePath = form.getImagePath();
+        List<Theme> themes = form.getThemes();
+        List<Color> colors = form.getColors();
+        Adaptation adaptation = form.getAdaptation();
 
-
-    //TODO: where to connect with /addArtpiece?
-    @RequestMapping("/addArtpiece")
-    public String submitForm( @RequestParam() String type,
-                              @RequestParam(required = false) String special,
-                              @RequestParam("description") String description,
-                              @RequestParam("themes") String theme,
-                              @RequestParam("colors") String color,
-                              @RequestParam("selectedFile") File file,
-                              Model model)  {
-
-
-        List<Theme> themes = new ArrayList<>();
-        Theme pickedTheme = Theme.valueOf(theme);
-        themes.add(pickedTheme);
-
-        List<Color> colors = new ArrayList<>();
-        Color pickedColor = Color.valueOf(color);
-        colors.add(pickedColor);
-
-        Adaptation adaptation = Adaptation.valueOf(special);
-
-        if(type.equals("photo")){
-            Photo photo = new Photo(description, file.getPath(), themes, colors);
+        if(sort.equals("photo")){
+            Photo photo = new Photo(description, imagePath, themes, colors);
             photoDao.save(photo);
             model.addAttribute("message", "Successful upload of photo!");
-        } else if (type.equals( "special")){
-            Special piece  = new Special(description, file.getPath(), themes, colors, adaptation);
+        } else if (sort.equals( "special")){
+            Special piece  = new Special(description, imagePath, themes, colors, adaptation);
             specialDao.save(piece);
             model.addAttribute("message", "Successful upload of Special!");
         }
-
-
         return "redirect:/admin";
-
     }
+//    @RequestMapping("/addArtpiece")
+//    public String submitForm( @RequestParam() String type,
+//                              @RequestParam(required = false) String special,
+//                              @RequestParam("description") String description,
+//                              @RequestParam("themes") String theme,
+//                              @RequestParam("colors") String color,
+//                              @RequestParam("selectedFile") File file,
+//                              Model model)  {
+//
+//
+//        List<Theme> themes = new ArrayList<>();
+//        Theme pickedTheme = Theme.valueOf(theme);
+//        themes.add(pickedTheme);
+//
+//        List<Color> colors = new ArrayList<>();
+//        Color pickedColor = Color.valueOf(color);
+//        colors.add(pickedColor);
+//
+//        Adaptation adaptation = Adaptation.valueOf(special);
+//
+//        if(type.equals("photo")){
+//            Photo photo = new Photo(description, file.getPath(), themes, colors);
+//            photoDao.save(photo);
+//            model.addAttribute("message", "Successful upload of photo!");
+//        } else if (type.equals( "special")){
+//            Special piece  = new Special(description, file.getPath(), themes, colors, adaptation);
+//            specialDao.save(piece);
+//            model.addAttribute("message", "Successful upload of Special!");
+//        }
+//
+//        return "redirect:/admin";
+//
+//    }
 
 
     //    @Autowired

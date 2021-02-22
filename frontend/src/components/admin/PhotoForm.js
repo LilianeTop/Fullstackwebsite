@@ -63,11 +63,10 @@ export default class PhotoForm extends Component {
     // }
 
     //FIXME: how to show alert message with chosen themes and colors?
-    onFormSubmit = (e) => {
-//FIXME: this creates an error with code 400 why?
-        e.preventDefault();
+    onFormSubmit(e) {
+        e.preventDefault()
     alert('Artpiece was submitted with description: ' + this.state.description);
-
+//FIXME: output gives the catch error but what went wrong?
        axios.post("http://localhost:8080/api/addArtpiece", {
            sort: this.state.sort,
            specials: this.state.specials,
@@ -75,25 +74,25 @@ export default class PhotoForm extends Component {
            themes: this.state.themes,
            colors: this.state.colors,
            selectedFile: this.state.selectedFile
-       }).then(response => {
-           if(response.data != null){
-               this.setState(this.initialState)
-               alert("Photo saved successful");
-           } else {
-               alert("something went wrong")
-           }
        })
+           .then((response) => {
+               console.log(response.data);
+           }).catch((error) => {
+               console.log("Something went wrong" + error);
+       });
+      //FIXME: how to reset? this.setState = this.initialState;
 
     }
 
     changeTheme(event){
         const tempThemes = this.state.themes;
-        const themesTemp = {id: event.target.id, name: event.target.name, status: event.target.checked}
+        const theme = {id: event.target.id, name: event.target.name, status: event.target.checked}
 
         if(!event.target.checked){
-            tempThemes.splice(this.id, 1);
+            const index = tempThemes.findIndex((item)=>item.name === theme.name)
+            tempThemes.splice(index, 1);
         } else {
-            tempThemes.push(themesTemp);
+            tempThemes.push(theme);
         }
 
         this.setState({
@@ -102,13 +101,17 @@ export default class PhotoForm extends Component {
     }
 
     changeColor(event){
-        const tempColors = this.state.colors;
-        const colorsTemp = {id: event.target.id, name: event.target.name, status: event.target.checked}
+
+        let tempColors = this.state.colors;
+        const color = {id: event.target.id, name: event.target.name, status: event.target.checked}
 
         if(!event.target.checked){
-            tempColors.splice(this.id, 1);
+            const index = tempColors.findIndex((item)=>item.name === color.name)
+            tempColors.splice(index, 1);
+           // tempColors = tempColors.filter((item)=>item.id !== color.id)
+           //  tempColors = tempColors.filter(event.target.id !== event.target.checked)
         } else {
-            tempColors.push(colorsTemp);
+            tempColors.push(color);
         }
 
         this.setState({
@@ -124,7 +127,7 @@ export default class PhotoForm extends Component {
     changeSpecial(event){
         const {name, value } = event.target
         if(name === 'sort' && value === 'photo'){
-            this.setState( {[name]: value, specials: null})
+            this.setState( {[name]: value, specials: "PHOTO"})
         } else {
             this.setState({[name] : value})
         }
@@ -161,7 +164,6 @@ export default class PhotoForm extends Component {
                        placeholder="Geef titel of beschrijf het werk"
                        onChange={this.handleChange}
                 />
-                {/*<Description />*/}
                 <br />
                 <hr />
                 <h2>Entered information</h2>
@@ -194,6 +196,7 @@ export default class PhotoForm extends Component {
                 <input className='kiesknop' type='file'
                        name='selectedFile'
                        onChange={this.handleChange}
+                       value={this.state.selectedFile}
                 />
                 <br />
                 <button className='knop' type='submit'>Verzenden</button>
@@ -201,25 +204,6 @@ export default class PhotoForm extends Component {
 
         )
     };
-
-
-    //FIXME: if button clicked it does turn blue
-    // renderSpecials() {
-    //     const specialsList = ['Camera & Kwast', 'Boxbeeld', 'Geënsceneerd'];
-    //     return specialsList.map((special) => {
-    //         return (
-    //                 <label> {special}
-    //                 <input
-    //                     type='radio'
-    //                     name='specials'
-    //                     value={special}
-    //                     checked={this.state.specials === {special} }
-    //                     onChange={this.changeSpecial}
-    //                 />
-    //                 </label>
-    //         )
-    //     })
-    // }
 
     renderSpecials() {
         return (
@@ -258,14 +242,14 @@ export default class PhotoForm extends Component {
 
     renderThemes() {
         const themes = ['Landschap', 'Stad', 'Buiten', 'Reizen', 'Water', 'Mensen', 'Abstract', 'Industrieel', 'Scenes'];
-        return themes.map((theme, i) => {
+        return themes.map((theme) => {
             return (
-                    <label key={i} > {theme}
+                    <label key={theme} > {theme}
                     <input
                         type='checkbox'
                         name={theme}
                         onChange={this.changeTheme}
-                        // checked={this.state.themes[theme]}
+                        checked={this.state.themes[theme]}
                         value={this.state.themes[theme]}/>
                     </label>
             )
@@ -283,6 +267,7 @@ export default class PhotoForm extends Component {
                         type="checkbox"
                         name={color}
                         onChange={this.changeColor}
+                        checked={this.state.colors[color]}
                         value={this.state.colors[color]}/>
                 </label>
             )
