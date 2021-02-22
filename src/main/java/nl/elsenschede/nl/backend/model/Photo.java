@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 public class Photo extends Artpiece {
+
     public Photo() {
     }
 

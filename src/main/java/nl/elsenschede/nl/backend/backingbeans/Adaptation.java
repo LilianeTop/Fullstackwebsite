@@ -3,7 +3,8 @@ package nl.elsenschede.nl.backend.backingbeans;
 public enum Adaptation {
     KWASTCAMERA,
     BOXBEELD,
-    GEENSCENEERD;
+    GEENSCENEERD,
+    FOTO;
 
     private Adaptation() {
     }

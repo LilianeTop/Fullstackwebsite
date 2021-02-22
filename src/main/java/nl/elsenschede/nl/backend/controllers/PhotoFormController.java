@@ -29,26 +29,50 @@ public class PhotoFormController {
     private SpecialDao specialDao;
 
     @Autowired
-    public PhotoFormController(PhotoDao photoDao) {
+    public PhotoFormController(PhotoDao photoDao, SpecialDao specialDao) {
         this.photoDao = photoDao;
+        this.specialDao = specialDao;
     }
 
-    @GetMapping("/showPhotoForm")
+    @GetMapping({"/admin"})
+    public String photoFormHandle() {
+        return "/admin";
+    }
+
+
+    @GetMapping("/showPhoto")
     public List<Photo> getAllPhotos() {
         List<Photo> photos = new ArrayList<>();
         photoDao.findAll().forEach(photos::add);
         return photos;
     }
 
+//    @GetMapping("/showPhotoForm")
+//    public List<Photo> getAllPhotos() {
+//        List<Photo> photos = new ArrayList<>();
+//        photoDao.findAll().forEach(photos::add);
+//        return photos;
+//    }
+//@PostMapping(path = "/add")
+//@ResponseBody
+//public String createProduct(@RequestBody Product product){
+//    productRespository.save(product);
+//    return "OK";
+//}
+
+
+
     //TODO: where to connect with /addArtpiece?
     @RequestMapping("/addArtpiece")
-    public String submitForm( @RequestParam("sort") String type,
-                              @RequestParam("special") String special,
-                             @RequestParam("description") String description,
-                             @RequestParam("themes") String theme,
-                             @RequestParam("colors") String color,
-                             @RequestParam("selectedFile") File file,
-                             Model model) {
+    public String submitForm( @RequestParam() String type,
+                              @RequestParam(required = false) String special,
+                              @RequestParam("description") String description,
+                              @RequestParam("themes") String theme,
+                              @RequestParam("colors") String color,
+                              @RequestParam("selectedFile") File file,
+                              Model model)  {
+
+
         List<Theme> themes = new ArrayList<>();
         Theme pickedTheme = Theme.valueOf(theme);
         themes.add(pickedTheme);
@@ -57,15 +81,16 @@ public class PhotoFormController {
         Color pickedColor = Color.valueOf(color);
         colors.add(pickedColor);
 
-        Adaptation adaptation = Adaptation.valueOf("special");
+        Adaptation adaptation = Adaptation.valueOf(special);
 
         if(type.equals("photo")){
             Photo photo = new Photo(description, file.getPath(), themes, colors);
             photoDao.save(photo);
-            model.addAttribute("message", "Successful upload!");
+            model.addAttribute("message", "Successful upload of photo!");
         } else if (type.equals( "special")){
             Special piece  = new Special(description, file.getPath(), themes, colors, adaptation);
             specialDao.save(piece);
+            model.addAttribute("message", "Successful upload of Special!");
         }
 
 

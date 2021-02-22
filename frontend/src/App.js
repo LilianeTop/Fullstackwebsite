@@ -1,7 +1,7 @@
 import "./App.css";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import NavBar from "./components/fixed/NavBar";
-import SearchBar from "./components/fixed/SearchBar";
+// import SearchBar from "./components/fixed/SearchBar";
 import Footer from "./components/fixed/Footer";
 import Home from "./components/homepage/Home";
 import Portfolio from './components/portfolio/Portfolio';

@@ -1,12 +1,12 @@
 import "./PhotoForm.css";
 import React, {Component} from 'react';
 import axios from "axios";
-import Type from "./PhotoFormType";
-import Form from 'react-bootstrap/Form';
-import Themes from "./PhotoFormThemes";
-import Colors from "./PhotoFormColors";
-import ImageURL from "./PhotoFormImageURL";
-import Description from "./PhotoFormDescription";
+// import Type from "./PhotoFormType";
+// import Form from 'react-bootstrap/Form';
+// import Themes from "./PhotoFormThemes";
+// import Colors from "./PhotoFormColors";
+// import ImageURL from "./PhotoFormImageURL";
+// import Description from "./PhotoFormDescription";
 
 export default class PhotoForm extends Component {
     //do we need props in our constructor and where do they come from? it still works without the props
@@ -18,15 +18,16 @@ export default class PhotoForm extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            sort: "photo",
-            specials: "",
-            description: "",
-            themes: [],
-            colors: [],
-            selectedFile: "",
-            // artpieceInfos : []
-        };
+        this.state = this.initialState;
+        // {
+        //     sort: "photo",
+        //     specials: "",
+        //     description: "",
+        //     themes: [],
+        //     colors: [],
+        //     selectedFile: "",
+        //     // artpieceInfos : []
+        // };
         this.onFormSubmit = this.onFormSubmit.bind(this)
         this.renderSpecials = this.renderSpecials.bind(this)
         this.renderColors = this.renderColors.bind(this)
@@ -35,28 +36,52 @@ export default class PhotoForm extends Component {
         this.changeTheme = this.changeTheme.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.changeSpecial = this.changeSpecial.bind(this)
+        this.state = this.initialState
 
+    }
+
+    initialState = {
+        sort: "photo",
+        specials: "",
+        description: "",
+        themes: [],
+        colors: [],
+        selectedFile: "",
     }
 //TODO: how to upload to the db? which API  url to use?
 //    componentDidMount = () => {
-//        // axios.get("http://localhost:8080/api/addArtpiece")
-//        axios.post("api/addArtpiece")
-//             .then(response => {
-//                 this.setState({ artpieceInfos : response.data})
-//             });
+//        axios.get("http://localhost:8080/api/showAllPhotos")
+//            .then(response => console.log(response.data));
+//        // axios.post("api/addArtpiece")
+//        //      .then(response => {
+//        //          this.setState({ artpieceInfos : response.data})
+//        //      });
 //     }
-
+    // handleSubmit = (event) => {
+    //     alert('A name was submitted: ' + this.state.value);
+    //     event.preventDefault();
+    // }
 
     //FIXME: how to show alert message with chosen themes and colors?
-    onFormSubmit = values => {
-        // console.log('Form data', values)
+    onFormSubmit = (e) => {
+//FIXME: this creates an error with code 400 why?
+        e.preventDefault();
+    alert('Artpiece was submitted with description: ' + this.state.description);
+
        axios.post("http://localhost:8080/api/addArtpiece", {
            sort: this.state.sort,
-           specials: this.state.special,
+           specials: this.state.specials,
            description: this.state.description,
            themes: this.state.themes,
            colors: this.state.colors,
-           selectedFile: this.state.selectedFile,
+           selectedFile: this.state.selectedFile
+       }).then(response => {
+           if(response.data != null){
+               this.setState(this.initialState)
+               alert("Photo saved successful");
+           } else {
+               alert("something went wrong")
+           }
        })
 
     }
