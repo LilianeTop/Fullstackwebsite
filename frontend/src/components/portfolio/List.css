@@ -9,9 +9,6 @@
   animation-duration: 2s;
 }
 
-.picture {
-
-}
 
 @keyframes moveIn {
   from{opacity: 0; transform: translateX(1000px);}

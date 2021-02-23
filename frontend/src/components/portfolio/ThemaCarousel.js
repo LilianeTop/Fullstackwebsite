@@ -34,10 +34,8 @@ export default class ThemaCarousel extends Component {
 
     render() {
         return (
-            //FIXME: doesn't show the photos just the controls of a carousel
             //Warning: Each child in a list should have a unique "key" prop.
             //solved this by adding within the Carousel.Item tag the key={photo.idArtPiece}
-            // which is also added to Photo.js component
             <Carousel className='photos'>
                 {this.state.photos.map(photo =>
                         <Carousel.Item key={photo.idArtpiece}>

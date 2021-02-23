@@ -79,60 +79,61 @@ public class PhotoFormController {
 //    model.addAttribute("greeting", greeting);
 //    return "result";
 //  }
-//FIXME: give error code 500 at the form is not connected to anything?
+//FIXME: give error code 500 as the form is not connected to anything?
+//    @PostMapping("/addArtpiece")
+//    public String submitForm(@ModelAttribute UploadPhotoForm form, Model model) {
+//        String sort = form.getSort();
+//        String description = form.getDescription();
+//        String imagePath = form.getImagePath();
+//        List<Theme> themes = form.getThemes();
+//        List<Color> colors = form.getColors();
+//        Adaptation adaptation = form.getAdaptation();
+//
+//        if(sort.equals("photo")){
+//            Photo photo = new Photo(description, imagePath, themes, colors);
+//            photoDao.save(photo);
+//            model.addAttribute("message", "Successful upload of photo!");
+//        } else if (sort.equals( "special")){
+//            Special piece  = new Special(description, imagePath, themes, colors, adaptation);
+//            specialDao.save(piece);
+//            model.addAttribute("message", "Successful upload of Special!");
+//        }
+//        return "redirect:/admin";
+//    }
+    //@RequestMapping("/addArtpiece")
     @PostMapping("/addArtpiece")
-    public String submitForm(@ModelAttribute UploadPhotoForm form, Model model) {
-        String sort = form.getSort();
-        String description = form.getDescription();
-        String imagePath = form.getImagePath();
-        List<Theme> themes = form.getThemes();
-        List<Color> colors = form.getColors();
-        Adaptation adaptation = form.getAdaptation();
+    public String submitForm( @RequestParam() String type,
+                              @RequestParam(required = false) String special,
+                              @RequestParam("description") String description,
+                              @RequestParam("themes") String theme,
+                              @RequestParam("colors") String color,
+                              @RequestParam("selectedFile") String imagePath,
+                              Model model)  {
 
-        if(sort.equals("photo")){
+
+        List<Theme> themes = new ArrayList<>();
+        Theme pickedTheme = Theme.valueOf(theme);
+        themes.add(pickedTheme);
+
+        List<Color> colors = new ArrayList<>();
+        Color pickedColor = Color.valueOf(color);
+        colors.add(pickedColor);
+
+        Adaptation adaptation = Adaptation.valueOf(special);
+
+        if(type.equals("photo")){
             Photo photo = new Photo(description, imagePath, themes, colors);
             photoDao.save(photo);
             model.addAttribute("message", "Successful upload of photo!");
-        } else if (sort.equals( "special")){
+        } else if (type.equals( "special")){
             Special piece  = new Special(description, imagePath, themes, colors, adaptation);
             specialDao.save(piece);
             model.addAttribute("message", "Successful upload of Special!");
         }
+
         return "redirect:/admin";
+
     }
-//    @RequestMapping("/addArtpiece")
-//    public String submitForm( @RequestParam() String type,
-//                              @RequestParam(required = false) String special,
-//                              @RequestParam("description") String description,
-//                              @RequestParam("themes") String theme,
-//                              @RequestParam("colors") String color,
-//                              @RequestParam("selectedFile") File file,
-//                              Model model)  {
-//
-//
-//        List<Theme> themes = new ArrayList<>();
-//        Theme pickedTheme = Theme.valueOf(theme);
-//        themes.add(pickedTheme);
-//
-//        List<Color> colors = new ArrayList<>();
-//        Color pickedColor = Color.valueOf(color);
-//        colors.add(pickedColor);
-//
-//        Adaptation adaptation = Adaptation.valueOf(special);
-//
-//        if(type.equals("photo")){
-//            Photo photo = new Photo(description, file.getPath(), themes, colors);
-//            photoDao.save(photo);
-//            model.addAttribute("message", "Successful upload of photo!");
-//        } else if (type.equals( "special")){
-//            Special piece  = new Special(description, file.getPath(), themes, colors, adaptation);
-//            specialDao.save(piece);
-//            model.addAttribute("message", "Successful upload of Special!");
-//        }
-//
-//        return "redirect:/admin";
-//
-//    }
 
 
     //    @Autowired

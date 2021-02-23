@@ -4,7 +4,6 @@ import React from 'react';
 const Photo = (props) => {
 
     const { photo } = props
-    console.log(photo)
 
     return (
 
