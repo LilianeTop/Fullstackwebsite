@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**In a production scenario, you more likely would store the files in a temporary location,
  * a database, or perhaps a NoSQL store (such as Mongo’s GridFS).
@@ -100,26 +101,32 @@ public class PhotoFormController {
 //        }
 //        return "redirect:/admin";
 //    }
+//@PostMapping("/employees")
+//Employee newEmployee(@RequestBody Employee newEmployee) {
+//    return repository.save(newEmployee);
+//}
     //@RequestMapping("/addArtpiece")
-    @PostMapping("/addArtpiece")
-    public String submitForm( @RequestParam() String type,
-                              @RequestParam(required = false) String special,
-                              @RequestParam("description") String description,
-                              @RequestParam("themes") String theme,
-                              @RequestParam("colors") String color,
-                              @RequestParam("selectedFile") String imagePath,
-                              Model model)  {
+ //   @PostMapping("/addArtpiece")
+    @RequestMapping(value= "/addArtpiece", method = RequestMethod.POST)
+    public String submitForm(@RequestParam("sort") String type,
+                             @RequestParam("specials") String special,
+                             @RequestParam("description") String description,
+                             @RequestParam("themes") String theme,
+                             @RequestParam("colors") String color,
+                             @RequestParam("selectedFile") String imagePath,
+                             Model model)  {
 
 
         List<Theme> themes = new ArrayList<>();
-        Theme pickedTheme = Theme.valueOf(theme);
+
+        Theme pickedTheme = Theme.valueOf(theme.toUpperCase());
         themes.add(pickedTheme);
 
         List<Color> colors = new ArrayList<>();
-        Color pickedColor = Color.valueOf(color);
+        Color pickedColor = Color.valueOf(color.toUpperCase());
         colors.add(pickedColor);
 
-        Adaptation adaptation = Adaptation.valueOf(special);
+        Adaptation adaptation = Adaptation.valueOf(special.toUpperCase());
 
         if(type.equals("photo")){
             Photo photo = new Photo(description, imagePath, themes, colors);

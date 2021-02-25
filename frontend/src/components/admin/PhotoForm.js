@@ -53,7 +53,7 @@ export default class PhotoForm extends Component {
 //         .then(res => console.log(res.data))
 //     console.log(summarizerData);
     onFormSubmit = e => {
-        e.preventDefault(); //this creates error code 400 otherwise nothing happens
+        // e.preventDefault(); //this creates error code 400 otherwise nothing happens
         alert('Artpiece was submitted with description: ' + this.state.description
                 + ' type of artwork is: ' + this.state.sort
                 + ' special is: ' + this.state.specials);//this works
