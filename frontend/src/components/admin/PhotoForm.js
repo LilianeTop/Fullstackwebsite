@@ -19,15 +19,6 @@ export default class PhotoForm extends Component {
     constructor(props) {
         super(props)
         this.state = this.initialState;
-        // {
-        //     sort: "photo",
-        //     specials: "",
-        //     description: "",
-        //     themes: [],
-        //     colors: [],
-        //     selectedFile: "",
-        //     // artpieceInfos : []
-        // };
         this.onFormSubmit = this.onFormSubmit.bind(this)
         this.renderSpecials = this.renderSpecials.bind(this)
         this.renderColors = this.renderColors.bind(this)
@@ -36,7 +27,6 @@ export default class PhotoForm extends Component {
         this.changeTheme = this.changeTheme.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.changeSpecial = this.changeSpecial.bind(this)
-        this.state = this.initialState
 
     }
 
@@ -49,43 +39,47 @@ export default class PhotoForm extends Component {
         selectedFile: "",
     }
 //TODO: how to upload to the db? which API  url to use?
-//    componentDidMount = () => {
-//        axios.get("http://localhost:8080/api/showAllPhotos")
-//            .then(response => console.log(response.data));
-//        // axios.post("api/addArtpiece")
-//        //      .then(response => {
-//        //          this.setState({ artpieceInfos : response.data})
-//        //      });
-//     }
-    // handleSubmit = (event) => {
-    //     alert('A name was submitted: ' + this.state.value);
-    //     event.preventDefault();
-    // }
-
     //FIXME: how to show alert message with chosen themes and colors?
-    onFormSubmit(e) {
-        e.preventDefault()
-    alert('Artpiece was submitted with description: ' + this.state.description);
-//FIXME: output gives the catch error but what went wrong?
-       axios.post("http://localhost:8080/api/addArtpiece", {
-           sort: this.state.sort,
-           specials: this.state.specials,
-           description: this.state.description,
-           themes: this.state.themes,
-           colors: this.state.colors,
-           selectedFile: this.state.selectedFile
-       })
-           .then((response) => {
-               console.log(response.data);
-           }).catch((error) => {
-               console.log("Something went wrong" + error);
-       });
-      //FIXME: how to reset? this.setState = this.initialState;
+//var headers = {
+//       'Content-Type': 'application/json'
+//   }
+//     const summarizerData = {
+//         "paragraph" : this.state.paragraph,
+//         "creationDate" : "2019-03-10T00:58:23",
+//         "summarizedSentences" :null
+//     };
+//
+//     axios.post('http://localhost:8080/api/summarize',{summarizerData}, {headers})
+//         .then(res => console.log(res.data))
+//     console.log(summarizerData);
+    onFormSubmit = e => {
+        e.preventDefault(); //this creates error code 400 otherwise nothing happens
+        alert('Artpiece was submitted with description: ' + this.state.description
+                + ' type of artwork is: ' + this.state.sort
+                + ' special is: ' + this.state.specials);//this works
 
+const artpieceData = {
+    sort: this.state.sort,
+    specials: this.state.specials,
+    description: this.state.description,
+    themes: this.state.themes,
+    colors: this.state.colors,
+    selectedFile: this.state.selectedFile
+
+};
+//FIXME: output gives the catch error  and error code 400 but what went wrong?
+       axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
+           .then(response => {
+                   if(response.data != null)
+               this.setState(this.initialState)
+               alert("Kunstwerk opgeslagen")
+           }).catch(error => {
+               alert("Something went wrong" + error);
+       });
     }
 
     changeTheme(event){
-        const tempThemes = this.state.themes;
+        let tempThemes = this.state.themes;
         const theme = {id: event.target.id, name: event.target.name, status: event.target.checked}
 
         if(!event.target.checked){
@@ -99,11 +93,11 @@ export default class PhotoForm extends Component {
             themes : tempThemes
         })
     }
-
+//FIXME: duplicate code refactor those two methods into 1
     changeColor(event){
         let tempColors = this.state.colors;
         const color = {id: event.target.id, name: event.target.name, status: event.target.checked}
-        if(!color.status){
+        if(!event.target.checked){
             const index = tempColors.findIndex((item)=>item.name === color.name)
             tempColors.splice(index, 1);
         } else {
@@ -121,22 +115,24 @@ export default class PhotoForm extends Component {
 
     changeSpecial(event){
         const {name, value } = event.target
-        if(name === 'sort' && value === 'photo'){
-            this.setState( {[name]: value, specials: "PHOTO"})
+        if(name === 'sort' && value === 'photo') {
+            this.setState({[name]: value, specials: null})
         } else {
-            this.setState({[name] : value})
+            this.setState({
+                sort: 'special',
+            specials: value})
         }
     }
 
     render() {
         return (
-            <main>
-                <div className="koptekst">
-                <h1 >Het uploaden van een kunstwerk</h1>
+            <main >
+                <div  className="koptekst">
+                <h1>Het uploaden van een kunstwerk</h1>
                 </div>
                 <form  className="formulier" onSubmit={this.onFormSubmit}>
-                <h3>Kies het type kunstwerk: </h3>
-                <label>Foto</label>
+                <h3 >Kies het type kunstwerk: </h3>
+                <label key='foto'>Foto</label>
                     <input
                         type="radio"
                         name="sort"
@@ -144,7 +140,7 @@ export default class PhotoForm extends Component {
                         checked={this.state.sort === "photo"}
                         onChange={this.changeSpecial}
                         />
-                <label>Special</label>
+                <label key='special'>Special</label>
                     <input
                         type="radio"
                         name="sort"
@@ -157,6 +153,7 @@ export default class PhotoForm extends Component {
                 <br />
                 <h3>De ingegeven tekst is zichtbaar als ondertiteling bij de foto.</h3>
                 <textarea className='beschrijvingsveld'
+                          key='beschrijving'
                        value={this.state.description}
                        name='description'
                        placeholder="Geef titel of beschrijf het werk"
@@ -165,22 +162,23 @@ export default class PhotoForm extends Component {
                 <br />
                 <hr />
                 <br />
-                <h3>Kies de thema's:</h3>
+                <h3 >Kies de thema's:</h3>
                 {this.renderThemes()}
                 <hr />
                 <br />
-                <h3>Kies de kleuren:</h3>
+                <h3 >Kies de kleuren:</h3>
                 { this.renderColors() }
                 <hr />
                 <br />
-                <h3>Kies de foto die je wilt uploaden.</h3>
-                    <div className="custom-file" style={{width: 250}}>
-                        <input type="file"
-                               className="custom-file-input"
-                               id="customFileLangHTML"
-                               name='selectedFile'
-                               onChange={this.handleChange}
-                               value={this.state.selectedFile}
+                <h3 >Kies de foto die je wilt uploaden.</h3>
+                    <div  key='bestand' className="custom-file" style={{width: 250}}>
+                        <input
+                            type="file"
+                            className="custom-file-input"
+                            id="customFileLangHTML"
+                            name='selectedFile'
+                            onChange={this.handleChange}
+                            value={this.state.selectedFile}
                         />
                         <label className="custom-file-label " htmlFor="customFileLangHTML"
                                    data-browse="Bestand kiezen">Voeg je foto toe</label>
@@ -190,65 +188,51 @@ export default class PhotoForm extends Component {
                 <button className='knop' type='submit'>Verzenden</button>
             </form>
         <h2>Entered information</h2>
-        <h2>Chosen type: {this.state.sort} </h2>
+       <h2>Chosen type: {this.state.sort} </h2>
         <h2>Chosen special: {this.state.specials}</h2>
         <h2>Description is: {this.state.description}</h2>
         <h2>Chosen themes are: </h2>
         {this.state.themes.map( theme => {
-            return (
+           return (
                 <h2 key={theme.name}>{theme.name}</h2>
-            )
-        })}
-        <h2>Chosen colors are: </h2>
+        )
+       })}
+       <h2>Chosen colors are: </h2>
         {this.state.colors.map( color => {
-            return (
+          return (
                 <h2 key={color.name}>{color.name}</h2>
-            )
+         )
         })}
-        <h2>Chosen file: {this.state.selectedFile}</h2>
-                <br /><br /><br /><br />
+       <h2>Chosen file: {this.state.selectedFile}</h2>
+             <br /><br /><br /><br />
             </main>
         )
     };
 
     renderSpecials() {
-        return (
-            <div>
-                <label>Camera & Kwast</label>
+        const specials = ['Camera & Kwast', 'Boxbeeld', 'Geënsceneerd']
+        return specials.map((special, i) =>{
+            return  (
+                <div key={i} className="form-check-inline">
+                <label > {special} </label>
                 <input
-                    type="radio"
-                    name="specials"
-                    value="Camera & Kwast"
-                    checked={this.state.specials === "Camera & Kwast"}
+                    type='radio'
+                    name='specials'
                     onChange={this.changeSpecial}
+                    checked={this.state.specials[special]}
+                    value={special}
                 />
-            <label>Boxbeeld</label>
-                <input
-                    type="radio"
-                    name="specials"
-                    value="Boxbeeld"
-                    checked={this.state.specials === "Boxbeeld"}
-                    onChange={this.changeSpecial}
-                />
-                <label>Geënsceneerd</label>
-                    <input
-                        type="radio"
-                        name="specials"
-                        value="Geensceneerd"
-                            checked={this.state.specials === "Geensceneerd"}
-                            onChange={this.changeSpecial}
-                    />
             </div>
-    )
+            )
+        })
     }
-
 
     renderThemes() {
         const themes = ['Landschap', 'Stad', 'Buiten', 'Reizen', 'Water', 'Mensen', 'Abstract', 'Industrieel', 'Scenes'];
-        return themes.map((theme) => {
+        return themes.map((theme, i) => {
             return (
-                <div className="form-check-inline">
-                    <label key={theme} > {theme} </label>
+                <div key={i} className="form-check-inline">
+                    <label > {theme} </label>
                     <input
                         type='checkbox'
                         name={theme}
@@ -265,8 +249,8 @@ export default class PhotoForm extends Component {
         const colors = ['Blauw', 'Geel', 'Groen', 'Rood', 'Oranje', 'Paars', 'Kleurrijk'];
         return colors.map((color, i) => {
             return (
-                <div className="form-check-inline">
-                <label key={color} >
+                <div key={i} className="form-check-inline">
+                <label >
                     {color}</label>
                     <input
                         type="checkbox"
@@ -274,7 +258,6 @@ export default class PhotoForm extends Component {
                         onChange={this.changeColor}
                         checked={this.state.colors[color]}
                         value={this.state.colors[color]}/>
-
                 </div>
             )
         })
