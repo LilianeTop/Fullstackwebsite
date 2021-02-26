@@ -31,52 +31,103 @@ export default class PhotoForm extends Component {
     }
 
     initialState = {
-        sort: "photo",
-        specials: "",
-        description: "",
-        themes: [],
-        colors: [],
-        selectedFile: "",
+        'sort': "photo",
+        'specials': "FOTO",
+        'description': "",
+        "themes": [],
+        // 'themes': {
+        //     'Landschap': false,
+        //     'Stad': false,
+        //     'Buiten': false,
+        //     'Reizen': false,
+        //     'Water': false,
+        //     'Mensen': false,
+        //     'Abstract': false,
+        //     'Industrieel': false,
+        //     'Scenes': false
+        // },
+        'colors': [],
+        // 'colors': {
+        //     'Blauw': false,
+        //     'Geel': false,
+        //     'Groen': false,
+        //     'Rood': false,
+        //     'Oranje': false,
+        //     'Paars': false,
+        //     'Kleurrijk': false
+        // },
+        'selectedFile': "",
     }
-//TODO: how to upload to the db? which API  url to use?
+
+
     //FIXME: how to show alert message with chosen themes and colors?
-//var headers = {
-//       'Content-Type': 'application/json'
-//   }
-//     const summarizerData = {
-//         "paragraph" : this.state.paragraph,
-//         "creationDate" : "2019-03-10T00:58:23",
-//         "summarizedSentences" :null
-//     };
-//
-//     axios.post('http://localhost:8080/api/summarize',{summarizerData}, {headers})
-//         .then(res => console.log(res.data))
-//     console.log(summarizerData);
-    onFormSubmit = e => {
-        // e.preventDefault(); //this creates error code 400 otherwise nothing happens
-        alert('Artpiece was submitted with description: ' + this.state.description
-                + ' type of artwork is: ' + this.state.sort
-                + ' special is: ' + this.state.specials);//this works
+//FIXME: creates code status 500 and after changing the controller back to code 400
+    onFormSubmit(event){
+         event.preventDefault();
 
-const artpieceData = {
-    sort: this.state.sort,
-    specials: this.state.specials,
-    description: this.state.description,
-    themes: this.state.themes,
-    colors: this.state.colors,
-    selectedFile: this.state.selectedFile
+        let bodyFormData = new FormData();
+        bodyFormData.append("sort", "this.state.sort")
+        bodyFormData.append("specials", "this.state.specials")
+        bodyFormData.append("description", "this.state.description")
+        bodyFormData.append("themes", JSON.stringify(this.state.themes))
+        bodyFormData.append("colors", JSON.stringify(this.state.colors))
+        bodyFormData.append("selectedFile", "this.state.selectedFile" )
 
-};
-//FIXME: output gives the catch error  and error code 400 but what went wrong?
-       axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
-           .then(response => {
-                   if(response.data != null)
-               this.setState(this.initialState)
-               alert("Kunstwerk opgeslagen")
-           }).catch(error => {
-               alert("Something went wrong" + error);
-       });
+        console.log("Type kunstwerk: " + this.state.sort + " " +
+        "\nAdaptatie: " + this.state.specials +
+        "\nBeschrijving: " + this.state.description +
+        "\nGekozen bestand: " + this.state.selectedFile)
+        console.log("gekozen kleuren", this.state.colors)
+        console.log("gekozen thema's", this.state.themes)//this works
+
+
+        axios({
+            method: "post",
+            url: "http://localhost:8080/api/addArtpiece",
+            data: bodyFormData,
+            headers: { "Content-Type": "multipart/form-data" },
+        }).then(response => {
+            console.log(response.data)
+            if(response.data != null)
+                this.setState(this.initialState)
+            alert("Kunstwerk opgeslagen")
+        }).catch(error => {
+            console.log("Something went wrong " + error);
+            alert("Something went wrong " + error);
+        });
     }
+//FIXME: creates a code status 400
+//     onFormSubmit = e => {
+//
+//         e.preventDefault(); //this creates error code 400 otherwise nothing happens
+//         console.log("gekozen kleuren", this.state.colors)//this works
+//         console.log("gekozen thema's", this.state.themes)//this works
+//         alert('Artpiece was submitted with description: ' + this.state.description
+//                 + ' type of artwork is: ' + this.state.sort
+//                 + ' special is: ' + this.state.specials);//this works
+//
+//         const artpieceData = {
+//             sort: this.state.sort,
+//             specials: this.state.specials,
+//             description: this.state.description,
+//             themes: this.state.themes,
+//             colors: this.state.colors,
+//             selectedFile: this.state.selectedFile
+//         }
+//         alert("op te slaan kunstwerk: " + artpieceData.sort + " " + artpieceData.specials
+//             + " " + artpieceData.description
+//             + " " + artpieceData.themes.forEach(value => value))
+// //FIXME: output gives the catch error  and error code 400 but what went wrong?
+//        axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
+//            .then(response => {
+//                console.log(response.data)
+//                    if(response.data != null)
+//                this.setState(this.initialState)
+//                alert("Kunstwerk opgeslagen")
+//            }).catch(error => {
+//                alert("Something went wrong" + error);
+//        });
+//     }
 
     changeTheme(event){
         let tempThemes = this.state.themes;
@@ -94,6 +145,23 @@ const artpieceData = {
         })
     }
 //FIXME: duplicate code refactor those two methods into 1
+//     changeTheme(event){
+//         const val = event.target.checked;
+//         const name = event.target.name;
+//         let updatedThemes = Object.assign({}, this.state.themes, {[name]: val})
+//         this.setState({
+//             'themes': updatedThemes
+//         })
+//     }
+//     changeColor(event){
+//         const val = event.target.checked;
+//         const name = event.target.name;
+//         let updatedColors = Object.assign({}, this.state.colors, {[name]: val})
+//         this.setState({
+//             'colors': updatedColors
+//         })
+//     }
+
     changeColor(event){
         let tempColors = this.state.colors;
         const color = {id: event.target.id, name: event.target.name, status: event.target.checked}
@@ -116,7 +184,7 @@ const artpieceData = {
     changeSpecial(event){
         const {name, value } = event.target
         if(name === 'sort' && value === 'photo') {
-            this.setState({[name]: value, specials: null})
+            this.setState({[name]: value, specials: 'FOTO'})
         } else {
             this.setState({
                 sort: 'special',
@@ -191,18 +259,18 @@ const artpieceData = {
        <h2>Chosen type: {this.state.sort} </h2>
         <h2>Chosen special: {this.state.specials}</h2>
         <h2>Description is: {this.state.description}</h2>
-        <h2>Chosen themes are: </h2>
-        {this.state.themes.map( theme => {
-           return (
-                <h2 key={theme.name}>{theme.name}</h2>
-        )
-       })}
-       <h2>Chosen colors are: </h2>
-        {this.state.colors.map( color => {
-          return (
-                <h2 key={color.name}>{color.name}</h2>
-         )
-        })}
+       {/* <h2>Chosen themes are: </h2>*/}
+       {/* {this.state.themes.map( theme => {*/}
+       {/*    return (*/}
+       {/*         <h2 key={theme.name}>{theme.name}</h2>*/}
+       {/* )*/}
+       {/*})}*/}
+       {/*<h2>Chosen colors are: </h2>*/}
+       {/* {this.state.colors.map( color => {*/}
+       {/*   return (*/}
+       {/*         <h2 key={color.name}>{color.name}</h2>*/}
+       {/*  )*/}
+       {/* })}*/}
        <h2>Chosen file: {this.state.selectedFile}</h2>
              <br /><br /><br /><br />
             </main>
@@ -257,7 +325,9 @@ const artpieceData = {
                         name={color}
                         onChange={this.changeColor}
                         checked={this.state.colors[color]}
-                        value={this.state.colors[color]}/>
+                        value={this.state.colors[color]}
+
+                    />
                 </div>
             )
         })

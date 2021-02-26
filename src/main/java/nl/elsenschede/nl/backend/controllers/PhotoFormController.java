@@ -3,21 +3,16 @@ package nl.elsenschede.nl.backend.controllers;
 import nl.elsenschede.nl.backend.backingbeans.Adaptation;
 import nl.elsenschede.nl.backend.backingbeans.Color;
 import nl.elsenschede.nl.backend.backingbeans.Theme;
-import nl.elsenschede.nl.backend.backingbeans.UploadPhotoForm;
 import nl.elsenschede.nl.backend.dao.PhotoDao;
 import nl.elsenschede.nl.backend.dao.SpecialDao;
-import nl.elsenschede.nl.backend.model.Artpiece;
 import nl.elsenschede.nl.backend.model.Photo;
 import nl.elsenschede.nl.backend.model.Special;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**In a production scenario, you more likely would store the files in a temporary location,
  * a database, or perhaps a NoSQL store (such as Mongo’s GridFS).
@@ -105,26 +100,28 @@ public class PhotoFormController {
 //Employee newEmployee(@RequestBody Employee newEmployee) {
 //    return repository.save(newEmployee);
 //}
-    //@RequestMapping("/addArtpiece")
+    @RequestMapping("/addArtpiece")
  //   @PostMapping("/addArtpiece")
-    @RequestMapping(value= "/addArtpiece", method = RequestMethod.POST)
+//    @RequestMapping(value= "/addArtpiece", method = RequestMethod.POST)
     public String submitForm(@RequestParam("sort") String type,
                              @RequestParam("specials") String special,
                              @RequestParam("description") String description,
-                             @RequestParam("themes") String theme,
-                             @RequestParam("colors") String color,
+                             @RequestParam("themes") ArrayList<Theme> themesInput,
+                             @RequestParam("colors") ArrayList<Color> colorsInput,
                              @RequestParam("selectedFile") String imagePath,
                              Model model)  {
 
-
-        List<Theme> themes = new ArrayList<>();
-
-        Theme pickedTheme = Theme.valueOf(theme.toUpperCase());
-        themes.add(pickedTheme);
+        ArrayList<Theme> themes = new ArrayList<>();
+        for(Object theme: themesInput){
+            Theme pickedTheme = Theme.valueOf(theme.toString().toUpperCase());
+            themes.add(pickedTheme);
+        }
 
         List<Color> colors = new ArrayList<>();
-        Color pickedColor = Color.valueOf(color.toUpperCase());
-        colors.add(pickedColor);
+        for(Object color: colorsInput){
+            Color pickedColor = Color.valueOf(color.toString().toUpperCase());
+            colors.add(pickedColor);
+        }
 
         Adaptation adaptation = Adaptation.valueOf(special.toUpperCase());
 
