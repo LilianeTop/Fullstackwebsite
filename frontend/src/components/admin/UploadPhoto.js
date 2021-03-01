@@ -9,7 +9,7 @@ import themeItems from "./themeItems";
 // import ImageURL from "./PhotoFormImageURL";
 // import Description from "./PhotoFormDescription";
 
-export default class PhotoForm extends Component {
+export default class UploadPhoto extends Component {
     //do we need props in our constructor and where do they come from? it still works without the props
     //TODO: how to submit the form to the DB I have installed axios but do not know how it works. It seems that the setState will create an updated Object which needs to be send via
     // an API to the db as a POST request.
@@ -226,10 +226,10 @@ export default class PhotoForm extends Component {
                 <h3>De ingegeven tekst is zichtbaar als ondertiteling bij de foto.</h3>
                 <textarea className='beschrijvingsveld'
                           key='beschrijving'
-                       value={this.state.description}
-                       name='description'
-                       placeholder="Geef titel of beschrijf het werk"
-                       onChange={this.handleChange}
+                           value={this.state.description}
+                           name='description'
+                           placeholder="Geef titel of beschrijf het werk"
+                           onChange={this.handleChange}
                 />
                 <br />
                 <hr />
