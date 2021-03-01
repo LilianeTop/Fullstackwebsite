@@ -1,5 +1,5 @@
 import React from 'react'
-import RadioButtons from "./RadioButtons";
+import RadioButtons from "../src/components/admin/RadioButtons";
 
 function FormikControl(props) {
     const { control, ...rest} = props

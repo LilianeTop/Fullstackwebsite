@@ -40,7 +40,6 @@ export default class ThemaCarousel extends Component {
                 {this.state.photos.map(photo =>
                         <Carousel.Item key={photo.idArtpiece}>
                             <Photo photo={photo} />
-                            {photo.description}
                         </Carousel.Item>
                 )};
             </Carousel>

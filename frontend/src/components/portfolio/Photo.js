@@ -9,7 +9,6 @@ const Photo = (props) => {
 
         //FIXME: how to show description?
         <figure >
-            <h3>{photo.description}</h3>
             <img className='photo'  src={photo.imagePath} alt={""}/>
             <br />
             <figcaption>

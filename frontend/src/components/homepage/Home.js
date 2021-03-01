@@ -1,6 +1,6 @@
 import "./Home.css";
 import ArtPiece from "./ArtPiece";
-import List from "../portfolio/List";
+import List from "./List";
 
 const Home = () => {
   return (

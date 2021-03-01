@@ -1,6 +1,7 @@
 import "./PhotoForm.css";
 import React, {Component} from 'react';
 import axios from "axios";
+import themeItems from "./themeItems";
 // import Type from "./PhotoFormType";
 // import Form from 'react-bootstrap/Form';
 // import Themes from "./PhotoFormThemes";
@@ -11,10 +12,9 @@ import axios from "axios";
 export default class PhotoForm extends Component {
     //do we need props in our constructor and where do they come from? it still works without the props
     //TODO: how to submit the form to the DB I have installed axios but do not know how it works. It seems that the setState will create an updated Object which needs to be send via
-    // an API to the db? as a POST request? I would think that the artpieceInfo should contain all info that will be submitted to the db?
-    //TODO: style this form its a mess
+    // an API to the db as a POST request.
     //TODO: how does it work if instead to upload the images itself to the DB I use the pathName of the chosen File and use a Filesystem how does that work?
-    //TODO: validation you have to choose at least a theme or color and upload am image
+    //TODO: validation you have to choose at least a theme or a color and upload an image
 
     constructor(props) {
         super(props)
@@ -63,7 +63,7 @@ export default class PhotoForm extends Component {
     //FIXME: how to show alert message with chosen themes and colors?
 //FIXME: creates code status 500 and after changing the controller back to code 400
     onFormSubmit(event){
-         event.preventDefault();
+         // event.preventDefault();
 
         let bodyFormData = new FormData();
         bodyFormData.append("sort", "this.state.sort")
@@ -85,7 +85,7 @@ export default class PhotoForm extends Component {
             method: "post",
             url: "http://localhost:8080/api/addArtpiece",
             data: bodyFormData,
-            headers: { "Content-Type": "multipart/form-data" },
+            // headers: { "Content-Type": "multipart/form-data" },
         }).then(response => {
             console.log(response.data)
             if(response.data != null)
@@ -129,9 +129,11 @@ export default class PhotoForm extends Component {
 //        });
 //     }
 
+
+
     changeTheme(event){
         let tempThemes = this.state.themes;
-        const theme = {id: event.target.id, name: event.target.name, status: event.target.checked}
+        const theme = {id: event.target.id, name: event.target.value, status: event.target.checked}
 
         if(!event.target.checked){
             const index = tempThemes.findIndex((item)=>item.name === theme.name)
@@ -144,6 +146,7 @@ export default class PhotoForm extends Component {
             themes : tempThemes
         })
     }
+
 //FIXME: duplicate code refactor those two methods into 1
 //     changeTheme(event){
 //         const val = event.target.checked;
@@ -164,7 +167,7 @@ export default class PhotoForm extends Component {
 
     changeColor(event){
         let tempColors = this.state.colors;
-        const color = {id: event.target.id, name: event.target.name, status: event.target.checked}
+        const color = {id: event.target.id, name: event.target.value, status: event.target.checked}
         if(!event.target.checked){
             const index = tempColors.findIndex((item)=>item.name === color.name)
             tempColors.splice(index, 1);
@@ -175,6 +178,7 @@ export default class PhotoForm extends Component {
             colors : tempColors
         })
     }
+
 
     handleChange(event){
         const {name, value} = event.target
@@ -255,24 +259,7 @@ export default class PhotoForm extends Component {
                 <hr />
                 <button className='knop' type='submit'>Verzenden</button>
             </form>
-        <h2>Entered information</h2>
-       <h2>Chosen type: {this.state.sort} </h2>
-        <h2>Chosen special: {this.state.specials}</h2>
-        <h2>Description is: {this.state.description}</h2>
-       {/* <h2>Chosen themes are: </h2>*/}
-       {/* {this.state.themes.map( theme => {*/}
-       {/*    return (*/}
-       {/*         <h2 key={theme.name}>{theme.name}</h2>*/}
-       {/* )*/}
-       {/*})}*/}
-       {/*<h2>Chosen colors are: </h2>*/}
-       {/* {this.state.colors.map( color => {*/}
-       {/*   return (*/}
-       {/*         <h2 key={color.name}>{color.name}</h2>*/}
-       {/*  )*/}
-       {/* })}*/}
-       <h2>Chosen file: {this.state.selectedFile}</h2>
-             <br /><br /><br /><br />
+
             </main>
         )
     };
@@ -297,16 +284,17 @@ export default class PhotoForm extends Component {
 
     renderThemes() {
         const themes = ['Landschap', 'Stad', 'Buiten', 'Reizen', 'Water', 'Mensen', 'Abstract', 'Industrieel', 'Scenes'];
+
         return themes.map((theme, i) => {
             return (
                 <div key={i} className="form-check-inline">
                     <label > {theme} </label>
                     <input
                         type='checkbox'
-                        name={theme}
+                        name="theme"
                         onChange={this.changeTheme}
                         checked={this.state.themes[theme]}
-                        value={this.state.themes[theme]}/>
+                        value={theme}/>
                 </div>
             )
         })
@@ -322,10 +310,10 @@ export default class PhotoForm extends Component {
                     {color}</label>
                     <input
                         type="checkbox"
-                        name={color}
+                        name='color'
                         onChange={this.changeColor}
                         checked={this.state.colors[color]}
-                        value={this.state.colors[color]}
+                        value={color}
 
                     />
                 </div>

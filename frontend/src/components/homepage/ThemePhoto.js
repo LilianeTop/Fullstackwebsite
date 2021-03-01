@@ -1,8 +1,7 @@
-import "./Foto.css";
+import "./ThemePhoto.css";
 
 
-//FIXME: each foto needs a unique 'key'
-const Foto = (props) => {
+const ThemePhoto = (props) => {
   return  (
     <figure>
     <img key={props.id} src={props.picture} alt={props.alt}/>
@@ -11,4 +10,4 @@ const Foto = (props) => {
   );
 }
 
-export default Foto;
+export default ThemePhoto;

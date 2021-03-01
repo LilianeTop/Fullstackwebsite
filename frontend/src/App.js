@@ -7,7 +7,6 @@ import Home from "./components/homepage/Home";
 import Portfolio from './components/portfolio/Portfolio';
 import AboutEls from "./components/aboutEls/AboutEls";
 import Standpunt from "./components/aboutEls/Standpunt";
-import HomeCarousel from "./components/homepage/HomeCarousel";
 import Admin from './components/admin/Admin';
 
 
@@ -18,11 +17,10 @@ const App = () => {
           <div className = "app">
             <Route path='*' component={NavBar} />
             <Route path='*' component={Footer} />
-              <Route exact path='/' component={Home} />
-              <Route exact path='/admin' component={Admin} />
+            <Route exact path='/' component={Home} />
+            <Route exact path='/admin' component={Admin} />
             <Route exact path='/standpunt' component={Standpunt} />
             <Route exact path='/aboutEls' component={AboutEls} />
-            <Route exact path='/carousel' component={HomeCarousel} />
             <Route exact path='/landschap' component={Portfolio} />
           </div>
 

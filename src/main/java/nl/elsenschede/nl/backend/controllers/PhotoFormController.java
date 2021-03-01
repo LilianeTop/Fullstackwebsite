@@ -100,8 +100,9 @@ public class PhotoFormController {
 //Employee newEmployee(@RequestBody Employee newEmployee) {
 //    return repository.save(newEmployee);
 //}
-    @RequestMapping("/addArtpiece")
- //   @PostMapping("/addArtpiece")
+//    @RequestMapping("/addArtpiece")
+    @PostMapping("/addArtpiece")
+//    @GetMapping("/addArtpiece")
 //    @RequestMapping(value= "/addArtpiece", method = RequestMethod.POST)
     public String submitForm(@RequestParam("sort") String type,
                              @RequestParam("specials") String special,
