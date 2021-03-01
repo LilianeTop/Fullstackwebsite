@@ -1,4 +1,4 @@
-import "./PhotoForm.css";
+import "./Admin.css";
 import React, {Component} from 'react';
 import axios from "axios";
 import themeItems from "./themeItems";
@@ -200,7 +200,7 @@ export default class PhotoForm extends Component {
         return (
             <main >
                 <div  className="koptekst">
-                <h1>Het uploaden van een kunstwerk</h1>
+                <h1>Het uploaden van een foto</h1>
                 </div>
                 <form  className="formulier" onSubmit={this.onFormSubmit}>
                 <h3 >Kies het type kunstwerk: </h3>
@@ -257,7 +257,7 @@ export default class PhotoForm extends Component {
                     </div>
 
                 <hr />
-                <button className='knop' type='submit'>Verzenden</button>
+                <button className='knop' type='submit'>Uploaden</button>
             </form>
 
             </main>

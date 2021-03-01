@@ -4,8 +4,6 @@ package nl.elsenschede.nl.backend.model;
 
 import nl.elsenschede.nl.backend.backingbeans.Color;
 import nl.elsenschede.nl.backend.backingbeans.Theme;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -7,3 +7,76 @@ footer {
     /*visibility: hidden !important;*/
     display: none !important;
 }
+main {
+    margin: 30px 100px;
+    font-family: Roboto, sans-serif;
+    color: #d9e76b;
+}
+
+.koptekst {
+    background-size: 500px;
+    display: flex;
+    justify-content: center;
+    margin: 50px 250px 0 250px;
+    text-align: center;
+    padding: 15px 10px;
+    /*border-top: 2px solid rgba(0, 0, 0, 0.8);*/
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.5), 4px 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+label {
+    color: #d9e76b;
+    margin: 0 0 10px 20px;
+    padding-right: 10px;
+    font-size: 1.5rem;
+}
+
+
+
+.beschrijvingsveld {
+    display: flex;
+    justify-content: center;
+    heigth: 50px;
+    width: 100%;
+    padding: 5px;
+    font-size: 1.5rem;
+}
+
+.formulier {
+    padding: 30px 75px 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: -30px;
+}
+
+.knop {
+    display: block;
+    margin: 15px auto;
+    padding: 15px;
+    font-size: 2rem;
+    background-color: #354440;
+    color: #d9e76b;
+}
+
+.kiesknop {
+    padding: 5px 0 10px 0;
+    font-size: 1.5rem;
+}
+
+
+
+input[type='radio']:checked:after, input[type='checkbox']:checked:after{
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+    border: 3px solid #d9e76b;
+    top: -5px;
+    left: -1px;
+    position: relative;
+    background-color: #354440 ;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+}
+
+

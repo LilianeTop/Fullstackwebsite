@@ -6,8 +6,8 @@ import Footer from "./components/fixed/Footer";
 import Home from "./components/homepage/Home";
 import Portfolio from './components/portfolio/Portfolio';
 import AboutEls from "./components/aboutEls/AboutEls";
-import Standpunt from "./components/aboutEls/Standpunt";
 import Admin from './components/admin/Admin';
+import Blog from './components/blog/Blog';
 
 
 const App = () => {
@@ -19,7 +19,7 @@ const App = () => {
             <Route path='*' component={Footer} />
             <Route exact path='/' component={Home} />
             <Route exact path='/admin' component={Admin} />
-            <Route exact path='/standpunt' component={Standpunt} />
+            <Route exact path='/blog' component={Blog} />
             <Route exact path='/aboutEls' component={AboutEls} />
             <Route exact path='/landschap' component={Portfolio} />
           </div>

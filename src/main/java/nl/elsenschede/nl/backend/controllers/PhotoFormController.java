@@ -35,9 +35,9 @@ public class PhotoFormController {
         this.specialDao = specialDao;
     }
 
-    @GetMapping({"/admin"})
+    @GetMapping({"/photoForm"})
     public String photoFormHandle() {
-        return "/admin";
+        return "/photoForm";
     }
 
 
