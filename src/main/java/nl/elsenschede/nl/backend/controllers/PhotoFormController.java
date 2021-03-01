@@ -11,16 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**In a production scenario, you more likely would store the files in a temporary location,
+/**
+ * In a production scenario, you more likely would store the files in a temporary location,
  * a database, or perhaps a NoSQL store (such as Mongo’s GridFS).
- * It is best to NOT load up the file system of your application with content.*/
+ * It is best to NOT load up the file system of your application with content.
+ */
 
 @RestController
 @RequestMapping({"/api"})
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PhotoFormController {
 
     private PhotoDao photoDao;
@@ -96,42 +99,39 @@ public class PhotoFormController {
 //        }
 //        return "redirect:/admin";
 //    }
-//@PostMapping("/employees")
-//Employee newEmployee(@RequestBody Employee newEmployee) {
-//    return repository.save(newEmployee);
-//}
-//    @RequestMapping("/addArtpiece")
-    @PostMapping("/addArtpiece")
+
+    //    @RequestMapping("/addArtpiece")
+//    @PostMapping("/addArtpiece")
 //    @GetMapping("/addArtpiece")
-//    @RequestMapping(value= "/addArtpiece", method = RequestMethod.POST)
+    @RequestMapping(value = "/addArtpiece", method = RequestMethod.POST, produces = "application/json")
     public String submitForm(@RequestParam("sort") String type,
                              @RequestParam("specials") String special,
                              @RequestParam("description") String description,
-                             @RequestParam("themes") ArrayList<Theme> themesInput,
-                             @RequestParam("colors") ArrayList<Color> colorsInput,
+                             @RequestParam("themes") String[] themesInput,
+                             @RequestParam("colors") String[] colorsInput,
                              @RequestParam("selectedFile") String imagePath,
-                             Model model)  {
+                             Model model) {
 
         ArrayList<Theme> themes = new ArrayList<>();
-        for(Object theme: themesInput){
-            Theme pickedTheme = Theme.valueOf(theme.toString().toUpperCase());
+        for(String theme : themesInput){
+            Theme pickedTheme = Theme.valueOf(theme.toUpperCase());
             themes.add(pickedTheme);
         }
 
         List<Color> colors = new ArrayList<>();
-        for(Object color: colorsInput){
-            Color pickedColor = Color.valueOf(color.toString().toUpperCase());
+        for(String color : colorsInput){
+            Color pickedColor = Color.valueOf(color.toUpperCase());
             colors.add(pickedColor);
         }
 
         Adaptation adaptation = Adaptation.valueOf(special.toUpperCase());
 
-        if(type.equals("photo")){
+        if (type.equals("photo")) {
             Photo photo = new Photo(description, imagePath, themes, colors);
             photoDao.save(photo);
             model.addAttribute("message", "Successful upload of photo!");
-        } else if (type.equals( "special")){
-            Special piece  = new Special(description, imagePath, themes, colors, adaptation);
+        } else if (type.equals("special")) {
+            Special piece = new Special(description, imagePath, themes, colors, adaptation);
             specialDao.save(piece);
             model.addAttribute("message", "Successful upload of Special!");
         }

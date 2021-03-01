@@ -63,10 +63,10 @@ export default class PhotoForm extends Component {
     //FIXME: how to show alert message with chosen themes and colors?
 //FIXME: creates code status 500 and after changing the controller back to code 400
     onFormSubmit(event){
-         // event.preventDefault();
+        event.preventDefault();
 
         let bodyFormData = new FormData();
-        bodyFormData.append("sort", "this.state.sort")
+        bodyFormData.append("sort", this.state.sort)
         bodyFormData.append("specials", "this.state.specials")
         bodyFormData.append("description", "this.state.description")
         bodyFormData.append("themes", JSON.stringify(this.state.themes))
@@ -85,7 +85,7 @@ export default class PhotoForm extends Component {
             method: "post",
             url: "http://localhost:8080/api/addArtpiece",
             data: bodyFormData,
-            // headers: { "Content-Type": "multipart/form-data" },
+            headers: { "Content-Type": "multipart/form-data" },
         }).then(response => {
             console.log(response.data)
             if(response.data != null)
