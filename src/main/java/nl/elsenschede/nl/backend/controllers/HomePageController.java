@@ -19,7 +19,6 @@ public class HomePageController {
 
 //FIXME: how is it possible that the homepage will still run without this method?
     //this method doesn't do anything
-    //FIXME: and now the homepage won't show why?
     @GetMapping({"/"})
     public String homepageHandle() {
 

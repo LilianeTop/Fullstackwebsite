@@ -20,8 +20,6 @@ public abstract class Artpiece {
     private String description;
     @Column
     private String imagePath;
-    @ManyToOne
-    private Portfolio portfolio;
     @ElementCollection
     private List<Theme> themes = new ArrayList();
     @ElementCollection
@@ -37,19 +35,11 @@ public abstract class Artpiece {
         this.colors = colors;
     }
 
-    public Artpiece(String description, String imagePath, Portfolio portfolio, List<Theme> themes, List<Color> colors) {
-        this.description = description;
-        this.imagePath = imagePath;
-        this.portfolio = portfolio;
-        this.themes = themes;
-        this.colors = colors;
-    }
 
-    public Artpiece(int idArtpiece, String description, String imagePath, Portfolio portfolio, List<Theme> themes, List<Color> colors) {
+    public Artpiece(int idArtpiece, String description, String imagePath, List<Theme> themes, List<Color> colors) {
         this.idArtpiece = idArtpiece;
         this.description = description;
         this.imagePath = imagePath;
-        this.portfolio = portfolio;
         this.themes = themes;
         this.colors = colors;
     }
@@ -76,14 +66,6 @@ public abstract class Artpiece {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
-    }
-
-    public Portfolio getPortfolio() {
-        return this.portfolio;
-    }
-
-    public void setPortfolio(Portfolio portfolio) {
-        this.portfolio = portfolio;
     }
 
     public List<Theme> getThemes() {

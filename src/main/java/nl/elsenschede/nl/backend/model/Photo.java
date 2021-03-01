@@ -20,8 +20,8 @@ public class Photo extends Artpiece {
         super(description, imagePath, themes, colors);
     }
 
-    public Photo(int idArtpiece, String description, String imagePath, Portfolio portfolio, List<Theme> themes, List<Color> colors) {
-        super(idArtpiece, description, imagePath, portfolio, themes, colors);
+    public Photo(int idArtpiece, String description, String imagePath, List<Theme> themes, List<Color> colors) {
+        super(idArtpiece, description, imagePath, themes, colors);
     }
 }
 

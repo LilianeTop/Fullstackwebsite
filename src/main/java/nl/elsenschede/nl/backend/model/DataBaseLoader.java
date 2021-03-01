@@ -36,7 +36,7 @@ public class DataBaseLoader implements CommandLineRunner  {
 //        colors2.add(Color.BLAUW);
 //        colors2.add(Color.GROEN);
 //        photoDao.save(new Photo(description, imagePath, themes2, colors2));
-//
+
 
     }
 }
