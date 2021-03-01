@@ -15,29 +15,43 @@ export default class LoginScreen extends Component {
 
     onFormSubmit(event) {
         event.preventDefault();
+        alert("Inside onFormSubmit before axios " +
+            this.state.username + " " + this.state.password)//works
+//FIXME: the problem lies here but I have no idea what it is
         axios({
             method: "post",
             url: "http://localhost:8080/api/login",
             data: {
                 username: this.state.username,
                 password: this.state.password
-            },
+            }
             // headers: { "Content-Type": "multipart/form-data" },
         }).then(response => {
-            console.log(response.data)
-            if(response.data != null)
-                this.setState(this.initialState)
-            alert("Succesvol ingelogd")
+            alert("Succesvol ingelogd" + response.data)
         }).catch(error => {
-            console.log("Something went wrong " + error);
-            alert("Something went wrong " + error);
+            if (error.request) {
+
+                alert("it's the request")
+
+            } if (error.response) {
+
+                alert("it's the response")
+
+            } if (error.message) {
+
+                alert("it's the message")
+
+            }
+            // console.log("Something went wrong " + error);
+            // alert("Something went wrong " + error + this.username);//returns undefined
         });
+
     }
 
-    handleChange(event){
+    handleChange(event) {
         const {id, value} = event.target
         this.setState({
-                [id] : value
+            [id]: value
         });
     }
 
@@ -51,11 +65,11 @@ export default class LoginScreen extends Component {
                     <label>Gebruikersnaam: </label>
                     <input
                         id="username"
-                        type="username"
+                        type="text"
                         value={this.state.username}
                         onChange={this.handleChange}
                     />
-                    <br />
+                    <br/>
                     <label>Wachtwoord: </label>
                     <input
                         id="password"
@@ -63,7 +77,7 @@ export default class LoginScreen extends Component {
                         value={this.state.password}
                         onChange={this.handleChange}
                     />
-                    <hr />
+                    <hr/>
                     <button className='knop' type='submit'>Inloggen</button>
                 </form>
             </main>

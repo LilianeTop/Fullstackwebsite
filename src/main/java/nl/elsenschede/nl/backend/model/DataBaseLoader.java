@@ -3,6 +3,7 @@ package nl.elsenschede.nl.backend.model;
 import nl.elsenschede.nl.backend.backingbeans.Color;
 import nl.elsenschede.nl.backend.backingbeans.Theme;
 import nl.elsenschede.nl.backend.dao.PhotoDao;
+import nl.elsenschede.nl.backend.dao.UserDao;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +13,10 @@ import java.util.List;
 @Component
 public class DataBaseLoader implements CommandLineRunner  {
     private PhotoDao photoDao;
+    private UserDao userDao;
 
-    public DataBaseLoader(PhotoDao photoDao) {
+    public DataBaseLoader(PhotoDao photoDao, UserDao userDao) {
+        this.userDao = userDao;
         this.photoDao = photoDao;
     }
 
@@ -36,6 +39,8 @@ public class DataBaseLoader implements CommandLineRunner  {
 //        colors2.add(Color.BLAUW);
 //        colors2.add(Color.GROEN);
 //        photoDao.save(new Photo(description, imagePath, themes2, colors2));
+
+       userDao.save(new User("Els", "5lysL0M9"));
 
 
     }

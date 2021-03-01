@@ -22,10 +22,11 @@ public class LoginController {
     }
 
     @RequestMapping({"/login"})
-    public String checkLogin(@RequestParam("USERNAME") String usernameInput,
-                             @RequestParam("PASSWORD") String passwordInput) {
-        User user = userDao.findByUSERNAME(usernameInput);
-        String password = user.getPASSWORD();
+    public String checkLogin(@RequestParam("username") String usernameInput,
+                             @RequestParam("password") String passwordInput) {
+        User user = userDao.findByUsername(usernameInput);
+        System.out.println(usernameInput + " " + passwordInput);
+        String password = user.getPassword();
     if(!passwordInput.equals(password)){
         return "/loginFailed";
     }

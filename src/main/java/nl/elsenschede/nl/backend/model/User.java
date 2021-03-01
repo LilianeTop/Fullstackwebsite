@@ -12,10 +12,21 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idUser;
-    private final String USERNAME = "Els" ;
-    private final String PASSWORD = ")%5lysL0M9";
+    private  String username = "Els" ;
+    private  String password = "5lysL0M9";
 
-    protected User() {
+    public User() {
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(int idUser, String username, String password) {
+        this.idUser = idUser;
+        this.username = username;
+        this.password = password;
     }
 
     public int getIdUser() {
@@ -26,11 +37,19 @@ public class User {
         this.idUser = idUser;
     }
 
-    public String getUSERNAME() {
-        return USERNAME;
+    public String getUsername() {
+        return username;
     }
 
-    public String getPASSWORD() {
-        return PASSWORD;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
