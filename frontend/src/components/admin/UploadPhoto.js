@@ -62,72 +62,72 @@ export default class UploadPhoto extends Component {
 
     //FIXME: how to show alert message with chosen themes and colors?
 //FIXME: creates code status 500 and after changing the controller back to code 400
-    onFormSubmit(event){
-        event.preventDefault();
-
-        let bodyFormData = new FormData();
-        bodyFormData.append("sort", this.state.sort)
-        bodyFormData.append("specials", "this.state.specials")
-        bodyFormData.append("description", "this.state.description")
-        bodyFormData.append("themes", JSON.stringify(this.state.themes))
-        bodyFormData.append("colors", JSON.stringify(this.state.colors))
-        bodyFormData.append("selectedFile", "this.state.selectedFile" )
-
-        console.log("Type kunstwerk: " + this.state.sort + " " +
-        "\nAdaptatie: " + this.state.specials +
-        "\nBeschrijving: " + this.state.description +
-        "\nGekozen bestand: " + this.state.selectedFile)
-        console.log("gekozen kleuren", this.state.colors)
-        console.log("gekozen thema's", this.state.themes)//this works
-
-
-        axios({
-            method: "post",
-            url: "http://localhost:8080/api/addArtpiece",
-            data: bodyFormData,
-            headers: { "Content-Type": "multipart/form-data" },
-        }).then(response => {
-            console.log(response.data)
-            if(response.data != null)
-                this.setState(this.initialState)
-            alert("Kunstwerk opgeslagen")
-        }).catch(error => {
-            console.log("Something went wrong " + error);
-            alert("Something went wrong " + error);
-        });
-    }
-//FIXME: creates a code status 400
-//     onFormSubmit = e => {
+//     onFormSubmit(event){
+//         event.preventDefault();
 //
-//         e.preventDefault(); //this creates error code 400 otherwise nothing happens
-//         console.log("gekozen kleuren", this.state.colors)//this works
+//         let bodyFormData = new FormData();
+//         bodyFormData.append("sort", this.state.sort)
+//         bodyFormData.append("specials", "this.state.specials")
+//         bodyFormData.append("description", "this.state.description")
+//         bodyFormData.append("themes", JSON.stringify(this.state.themes))
+//         bodyFormData.append("colors", JSON.stringify(this.state.colors))
+//         bodyFormData.append("selectedFile", "this.state.selectedFile" )
+//
+//         console.log("Type kunstwerk: " + this.state.sort + " " +
+//         "\nAdaptatie: " + this.state.specials +
+//         "\nBeschrijving: " + this.state.description +
+//         "\nGekozen bestand: " + this.state.selectedFile)
+//         console.log("gekozen kleuren", this.state.colors)
 //         console.log("gekozen thema's", this.state.themes)//this works
-//         alert('Artpiece was submitted with description: ' + this.state.description
-//                 + ' type of artwork is: ' + this.state.sort
-//                 + ' special is: ' + this.state.specials);//this works
 //
-//         const artpieceData = {
-//             sort: this.state.sort,
-//             specials: this.state.specials,
-//             description: this.state.description,
-//             themes: this.state.themes,
-//             colors: this.state.colors,
-//             selectedFile: this.state.selectedFile
-//         }
-//         alert("op te slaan kunstwerk: " + artpieceData.sort + " " + artpieceData.specials
-//             + " " + artpieceData.description
-//             + " " + artpieceData.themes.forEach(value => value))
-// //FIXME: output gives the catch error  and error code 400 but what went wrong?
-//        axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
-//            .then(response => {
-//                console.log(response.data)
-//                    if(response.data != null)
-//                this.setState(this.initialState)
-//                alert("Kunstwerk opgeslagen")
-//            }).catch(error => {
-//                alert("Something went wrong" + error);
-//        });
+//
+//         axios({
+//             method: "post",
+//             url: "http://localhost:8080/api/addArtpiece",
+//             data: bodyFormData,
+//             headers: { "Content-Type": "multipart/form-data" },
+//         }).then(response => {
+//             console.log(response.data)
+//             if(response.data != null)
+//                 this.setState(this.initialState)
+//             alert("Kunstwerk opgeslagen")
+//         }).catch(error => {
+//             console.log("Something went wrong " + error);
+//             alert("Something went wrong " + error);
+//         });
 //     }
+//FIXME: creates a code status 400
+    onFormSubmit = e => {
+
+        e.preventDefault(); //this creates error code 400 otherwise nothing happens
+        console.log("gekozen kleuren", this.state.colors)//this works
+        console.log("gekozen thema's", this.state.themes)//this works
+        alert('Artpiece was submitted with description: ' + this.state.description
+                + ' type of artwork is: ' + this.state.sort
+                + ' special is: ' + this.state.specials);//this works
+
+        const artpieceData = {
+            sort: this.state.sort,
+            specials: this.state.specials,
+            description: this.state.description,
+            themes: this.state.themes,
+            colors: this.state.colors,
+            selectedFile: this.state.selectedFile
+        }
+        alert("op te slaan kunstwerk: " + artpieceData.sort + " " + artpieceData.specials
+            + " " + artpieceData.description
+            + " " + artpieceData.themes)
+//FIXME: output gives the catch error  and error code 400 but what went wrong?
+       axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
+           .then(response => {
+               console.log(response.data)
+                   if(response.data != null)
+               this.setState(this.initialState)
+               alert("Kunstwerk opgeslagen")
+           }).catch(error => {
+               alert("Something went wrong" + error);
+       });
+    }
 
 
 
@@ -168,6 +168,9 @@ export default class UploadPhoto extends Component {
     changeColor(event){
         let tempColors = this.state.colors;
         const color = {id: event.target.id, name: event.target.value, status: event.target.checked}
+        //FIXME: is line 172 the same as line 170?
+        // const color = {id : target.id, name: target.value, status: target.checked} = event; or
+        //const {id: id, name: value, status: checked} = event.target; //does this work? TODO: try out refactor code below
         if(!event.target.checked){
             const index = tempColors.findIndex((item)=>item.name === color.name)
             tempColors.splice(index, 1);
@@ -182,10 +185,12 @@ export default class UploadPhoto extends Component {
 
     handleChange(event){
         const {name, value} = event.target
-        this.setState({[name] : value})
+        this.setState({[name]: value})
+        //this.setState({[event.target.name] : event.target.value})
     }
 
     changeSpecial(event){
+        //FIXME: name is always sort so can we remove line 191 and change name to sort on line 192?
         const {name, value } = event.target
         if(name === 'sort' && value === 'photo') {
             this.setState({[name]: value, specials: 'FOTO'})

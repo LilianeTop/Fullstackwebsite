@@ -17,34 +17,33 @@ export default class LoginScreen extends Component {
         event.preventDefault();
         alert("Inside onFormSubmit before axios " +
             this.state.username + " " + this.state.password)//works
-//FIXME: the problem lies here but I have no idea what it is
-        axios({
-            method: "post",
-            url: "http://localhost:8080/api/login",
-            data: {
-                username: this.state.username,
-                password: this.state.password
+
+        const userCredentials = {
+            username: this.state.username,
+            password: this.state.password
+        }
+
+//FIXME: the problem lies here in axios but I have no idea what it is
+        axios.post("http://localhost:8080/api/login",
+            {
+                // username: "Els",
+                // "username": "this.state.username",
+                // "password": "this.state.password"
+                userCredentials
             }
-            // headers: { "Content-Type": "multipart/form-data" },
-        }).then(response => {
+            // ,
+            // {
+            //     headers: {
+            //         "Content-Type": "application/x-www-form-urlencoded",
+            //     }
+        // }
+        ).then(response => {
             alert("Succesvol ingelogd" + response.data)
         }).catch(error => {
-            if (error.request) {
-
-                alert("it's the request")
-
-            } if (error.response) {
-
-                alert("it's the response")
-
-            } if (error.message) {
-
-                alert("it's the message")
-
-            }
-            // console.log("Something went wrong " + error);
-            // alert("Something went wrong " + error + this.username);//returns undefined
+            console.log("Something went wrong " + error);
+            alert("Something went wrong " + error + "\n" + this.username);//returns undefined
         });
+        //FIXME: how to reset the values to ""?
 
     }
 

@@ -13,10 +13,10 @@ const Admin = () => {
             <br />
             <br />
             {/*FIXME: Menu should only be visible after login*/}
-            <Menu />
+            {/*<Menu />*/}
             <br />
             <br />
-            {/*<UploadPhoto />*/}
+            <UploadPhoto />
             {/*<ChangePhoto />*/}
             {/*<DeletePhoto />*/}
         </div>

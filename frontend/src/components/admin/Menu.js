@@ -2,13 +2,25 @@ import './Admin.css';
 import React, {Component} from "react";
 // import { LinkContainer  } from "react-router-bootstrap";
 // import { Route } from "react-router-dom";
+import UploadPhoto from "./UploadPhoto";
 
 
 export default class Menu extends Component {
     constructor(props) {
         super(props)
+        this.renderUploadPhotoForm = this.renderUploadPhotoForm.bind(this);
+
 
     }
+
+    renderUploadPhotoForm() {
+            return (
+                <UploadPhoto />
+            );
+
+
+    }
+
 
     render(){
         return(
@@ -19,10 +31,10 @@ export default class Menu extends Component {
                 <form className="formulier">
                     <h2 >Ik wil een foto: </h2>
                     <div className="form-check-inline">
-
-                        <a href="./UploadPhoto.js"><button className='knop'>Uploaden</button></a>
-                        <a href="./ChangePhoto.js"><button className='knop'>Wijzigen</button></a>
-                        <a href="./DeletePhoto.js"><button  className='knop'>Verwijderen</button></a>
+                        {/*FIXME: how to use the button as link to the right component/page?*/}
+                        <button className='knop' onClick={this.renderUploadPhotoForm}>Uploaden</button>
+                        <a href="./ChangePhoto"><button className='knop'>Wijzigen</button></a>
+                        <a href="./DeletePhoto"><button  className='knop'>Verwijderen</button></a>
 
                     </div>
                     <hr />
