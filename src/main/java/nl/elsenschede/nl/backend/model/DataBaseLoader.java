@@ -22,6 +22,8 @@ public class DataBaseLoader implements CommandLineRunner  {
 
     @Override
     public void run(String... args) throws Exception {
+        userDao.save(new User("Els", "5lysL0M9"));
+
         String description = "3 men on bench drunk";
         String imagePath = "https://cdn-images.welcometothejungle.com/2cr8rhEPdGSJBlriVbpKtDtzDjgYkW1LljASEmfyUME/rs:auto:1500::/q:85/czM6Ly93dHRqLXByb2R1Y3Rpb24vdXBsb2Fkcy9hcnRpY2xlL2ltYWdlLzk1NTcvMTU3NzEwL2hhbmdvdmVyLTEuanBn";
         List<Theme> themes = new ArrayList<>();
@@ -40,7 +42,6 @@ public class DataBaseLoader implements CommandLineRunner  {
         colors2.add(Color.GROEN);
         photoDao.save(new Photo(description, imagePath, themes2, colors2));
 
-       userDao.save(new User("Els", "5lysL0M9"));
 
 
     }

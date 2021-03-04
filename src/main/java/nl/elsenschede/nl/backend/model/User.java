@@ -9,6 +9,7 @@ import javax.persistence.Id;
 public class User {
 
     //FIXME: only Els can login and use the admin part so only one instance of User
+    //FIXME: bug: the UserID count is combined with ArtpieceID
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idUser;
