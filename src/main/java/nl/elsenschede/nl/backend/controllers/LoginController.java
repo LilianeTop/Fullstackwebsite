@@ -21,19 +21,15 @@ public class LoginController {
         return "/admin";
     }
 
-    @RequestMapping({"/login"})
-    public String checkLogin(@RequestParam("username") String usernameInput,
-                             @RequestParam("password") String passwordInput) {
-        User user = userDao.findByUsername(usernameInput);
-        System.out.println(usernameInput + " " + passwordInput);
-        String password = user.getPassword();
-    if(!passwordInput.equals(password)){
-        return "/loginFailed";
+
+    @PostMapping("/login")
+    public String checkLogin(@RequestBody User user){
+       User els = userDao.findByUsername(user.getUsername());
+       String password = els.getPassword();
+       if(!user.getPassword().equals(password)){
+           return "/loginFailed";
+       }
+       return "/menu";
     }
-        return "/menu";
-    }
-
-
-
 
 }

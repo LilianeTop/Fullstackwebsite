@@ -5,45 +5,36 @@ import axios from "axios";
 export default class LoginScreen extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            username: "",
-            password: ""
-        }
+        this.state = this.initialState;
         this.onFormSubmit = this.onFormSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
 
+    initialState = {
+        username: "",
+        password: ""
+    }
+
     onFormSubmit(event) {
         event.preventDefault();
-        alert("Inside onFormSubmit before axios " +
-            this.state.username + " " + this.state.password)//works
 
         const userCredentials = {
             username: this.state.username,
             password: this.state.password
         }
 
-//FIXME: the problem lies here in axios but I have no idea what it is
         axios.post("http://localhost:8080/api/login",
             {
-                // username: "Els",
-                // "username": "this.state.username",
-                // "password": "this.state.password"
                 userCredentials
             }
-            // ,
-            // {
-            //     headers: {
-            //         "Content-Type": "application/x-www-form-urlencoded",
-            //     }
-        // }
-        ).then(response => {
-            alert("Succesvol ingelogd" + response.data)
+        ).then(() => {
+            alert("Succesvol ingelogd")
+            this.setState(this.initialState)
         }).catch(error => {
-            console.log("Something went wrong " + error);
-            alert("Something went wrong " + error + "\n" + this.username);//returns undefined
+            alert("Something went wrong " + error);
+            this.setState(this.initialState)
         });
-        //FIXME: how to reset the values to ""?
+
 
     }
 

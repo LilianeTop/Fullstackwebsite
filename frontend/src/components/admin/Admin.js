@@ -12,7 +12,7 @@ const Admin = () => {
             <LoginScreen />
             <br />
             <br />
-            {/*FIXME: Menu should only be visible after login*/}
+            {/*FIXME: Menu should be visible after login and loginscreen should be hidden*/}
             {/*<Menu />*/}
             <br />
             <br />

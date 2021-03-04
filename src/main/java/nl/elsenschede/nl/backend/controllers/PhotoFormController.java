@@ -3,15 +3,14 @@ package nl.elsenschede.nl.backend.controllers;
 import nl.elsenschede.nl.backend.backingbeans.Adaptation;
 import nl.elsenschede.nl.backend.backingbeans.Color;
 import nl.elsenschede.nl.backend.backingbeans.Theme;
+import nl.elsenschede.nl.backend.backingbeans.UploadPhotoForm;
 import nl.elsenschede.nl.backend.dao.PhotoDao;
 import nl.elsenschede.nl.backend.dao.SpecialDao;
 import nl.elsenschede.nl.backend.model.Photo;
 import nl.elsenschede.nl.backend.model.Special;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +24,9 @@ import java.util.List;
 @RequestMapping({"/api"})
 @CrossOrigin(origins = "http://localhost:3000")
 public class PhotoFormController {
-
     private PhotoDao photoDao;
     private SpecialDao specialDao;
+
 
     @Autowired
     public PhotoFormController(PhotoDao photoDao, SpecialDao specialDao) {
@@ -49,112 +48,39 @@ public class PhotoFormController {
     }
 
 
-//@PostMapping("/addArtpiece")
-////  "message": "Required request body is missing: public java.lang.String
-////  nl.elsenschede.nl.backend.controllers.PhotoFormController.submitForm(nl.elsenschede.nl.backend.model.Special)",
-//    public String submitForm(@RequestBody Artpiece artpiece){
-//
-//        String description = artpiece.getDescription();
-//        String imagePath = artpiece.getImagePath();
-//        List<Theme> themes = artpiece.getThemes();
-//        List<Color> colors = artpiece.getColors();
-//        Adaptation adaptation;
-//
-//
-//    if(true){
-//            Photo photo = new Photo(description, imagePath, themes, colors);
-//            photoDao.save(photo);
-//        } else {
-//            Special piece  = new Special(description, imagePath, themes, colors, adaptation);
-//            specialDao.save(piece);
-//        }
-//    return "redirect:/admin";
-//
-//}
-
-//
-    //@PostMapping("/greeting")
-//  public String greetingSubmit(@ModelAttribute Greeting greeting, Model model) {
-//    model.addAttribute("greeting", greeting);
-//    return "result";
-//  }
-//FIXME: give error code 500 as the form is not connected to anything?
-//    @PostMapping("/addArtpiece")
-//    public String submitForm(@ModelAttribute UploadPhotoForm form, Model model) {
-//        String sort = form.getSort();
-//        String description = form.getDescription();
-//        String imagePath = form.getImagePath();
-//        List<Theme> themes = form.getThemes();
-//        List<Color> colors = form.getColors();
-//        Adaptation adaptation = form.getAdaptation();
-//
-//        if(sort.equals("photo")){
-//            Photo photo = new Photo(description, imagePath, themes, colors);
-//            photoDao.save(photo);
-//            model.addAttribute("message", "Successful upload of photo!");
-//        } else if (sort.equals( "special")){
-//            Special piece  = new Special(description, imagePath, themes, colors, adaptation);
-//            specialDao.save(piece);
-//            model.addAttribute("message", "Successful upload of Special!");
-//        }
-//        return "redirect:/admin";
-//    }
-
-    //    @RequestMapping("/addArtpiece")
-//    @PostMapping("/addArtpiece")
-//    @GetMapping("/addArtpiece")
-    @RequestMapping(value = "/addArtpiece", method = RequestMethod.POST, produces = "application/json")
-    public String submitForm(@RequestParam("sort") String type,
-                             @RequestParam("specials") String special,
-                             @RequestParam("description") String description,
-                             @RequestParam("themes") String[] themesInput,
-                             @RequestParam("colors") String[] colorsInput,
-                             @RequestParam("selectedFile") String imagePath,
-                             Model model) {
-
+@PostMapping("/addArtpiece")
+    public String uploadPhoto(@RequestBody UploadPhotoForm uploadPhotoForm){
+        String sort = uploadPhotoForm.getSort();
+        String special = uploadPhotoForm.getSpecial();
+        String description = uploadPhotoForm.getDescription();
+        String[] chosenThemes = uploadPhotoForm.getThemes();
         ArrayList<Theme> themes = new ArrayList<>();
-        for(String theme : themesInput){
-            Theme pickedTheme = Theme.valueOf(theme.toUpperCase());
-            themes.add(pickedTheme);
+        for(String theme : chosenThemes){
+            Theme chosen = Theme.valueOf(theme.toUpperCase());
+            themes.add(chosen);
         }
-
-        List<Color> colors = new ArrayList<>();
-        for(String color : colorsInput){
-            Color pickedColor = Color.valueOf(color.toUpperCase());
-            colors.add(pickedColor);
+        String[] chosenColors = uploadPhotoForm.getColors();
+        ArrayList<Color> colors = new ArrayList<>();
+        for(String color : chosenColors){
+            Color chosen = Color.valueOf(color.toUpperCase());
+            colors.add(chosen);
         }
-
+        String imagePath = uploadPhotoForm.getImagePath();
         Adaptation adaptation = Adaptation.valueOf(special.toUpperCase());
 
-        if (type.equals("photo")) {
+    if(sort.equals("photo")){
             Photo photo = new Photo(description, imagePath, themes, colors);
             photoDao.save(photo);
-            model.addAttribute("message", "Successful upload of photo!");
-        } else if (type.equals("special")) {
-            Special piece = new Special(description, imagePath, themes, colors, adaptation);
+        System.out.println("Photo uploaded");
+        } else {
+            Special piece  = new Special(description, imagePath, themes, colors, adaptation);
             specialDao.save(piece);
-            model.addAttribute("message", "Successful upload of Special!");
+        System.out.println("Special uploaded");
         }
+    return "redirect:/menu";
 
-        return "redirect:/admin";
-
-    }
+}
 
 
-    //    @Autowired
-//    public PhotoFormController(PhotoDao photoDao) {
-//        this.photoDao = photoDao;
-//    }
-//
-//    @GetMapping({"/photoForm"})
-//    public ModelAndView showUploadPhotoForm() {
-//        ModelAndView photoFormPage = new ModelAndView("photoForm");
-//        photoFormPage.addObject("photoForm", new UploadPhotoForm());
-//        return photoFormPage;
-//    }
-//
-//    @PostMapping({"photoForm"})
-//    public ModelAndView showUploadedPhoto(@ModelAttribute UploadPhotoForm form, Model model) {
-//        return null;
-//    }
+
 }

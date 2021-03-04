@@ -1,13 +1,12 @@
 package nl.elsenschede.nl.backend.backingbeans;
 
-import java.util.List;
 
 public class UploadPhotoForm {
     private String sort;
-    private Adaptation adaptation;
+    private String special;
     private String description;
-    private List<Theme> themes;
-    private List<Color> colors;
+    private String[] themes;
+    private String[] colors;
     private String imagePath;
 
     public UploadPhotoForm() {
@@ -21,12 +20,12 @@ public class UploadPhotoForm {
         this.sort = sort;
     }
 
-    public Adaptation getAdaptation() {
-        return adaptation;
+    public String getSpecial() {
+        return special;
     }
 
-    public void setAdaptation(Adaptation adaptation) {
-        this.adaptation = adaptation;
+    public void setSpecial(String special) {
+        this.special = special;
     }
 
     public String getDescription() {
@@ -37,19 +36,19 @@ public class UploadPhotoForm {
         this.description = description;
     }
 
-    public List<Theme> getThemes() {
+    public String[] getThemes() {
         return themes;
     }
 
-    public void setThemes(List<Theme> themes) {
+    public void setThemes(String[] themes) {
         this.themes = themes;
     }
 
-    public List<Color> getColors() {
+    public String[] getColors() {
         return colors;
     }
 
-    public void setColors(List<Color> colors) {
+    public void setColors(String[] colors) {
         this.colors = colors;
     }
 
