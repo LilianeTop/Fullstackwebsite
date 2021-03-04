@@ -13,8 +13,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idUser;
-    private  String username = "Els" ;
-    private  String password = "5lysL0M9";
+    private  String username;
+    private  String password;
 
     public User() {
     }

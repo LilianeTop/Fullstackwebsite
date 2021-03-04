@@ -1,6 +1,7 @@
 import './Admin.css';
 import React, {Component} from "react";
 import axios from "axios";
+import Menu from "./Menu";
 
 export default class LoginScreen extends Component {
     constructor(props) {
@@ -18,24 +19,21 @@ export default class LoginScreen extends Component {
     onFormSubmit(event) {
         event.preventDefault();
 
-        const userCredentials = {
-            username: this.state.username,
-            password: this.state.password
-        }
-
         axios.post("http://localhost:8080/api/login",
             {
-                userCredentials
+                username: this.state.username,
+                password: this.state.password
             }
-        ).then(() => {
-            alert("Succesvol ingelogd")
-            this.setState(this.initialState)
+        ).then((response) => {
+            if(response.data === 1){
+                alert(this.state.username + ", je bent succesvol ingelogd")
+                } else {
+                alert("Combinatie gebruikersnaam en wachtwoord is incorrect.")
+            }
         }).catch(error => {
             alert("Something went wrong " + error);
             this.setState(this.initialState)
         });
-
-
     }
 
     handleChange(event) {

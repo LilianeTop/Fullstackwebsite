@@ -1,13 +1,13 @@
 import "./App.css";
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import NavBar from "./components/fixed/NavBar";
+import NavBar from "../components/fixed/NavBar";
 // import SearchBar from "./components/fixed/SearchBar";
-import Footer from "./components/fixed/Footer";
-import Home from "./components/homepage/Home";
-import Portfolio from './components/portfolio/Portfolio';
-import AboutEls from "./components/aboutEls/AboutEls";
-import Admin from './components/admin/Admin';
-import Blog from './components/blog/Blog';
+import Footer from "../components/fixed/Footer";
+import Home from "../components/homepage/Home";
+import Portfolio from '../components/portfolio/Portfolio';
+import AboutEls from "../components/aboutEls/AboutEls";
+import Admin from '../components/admin/Admin';
+import Blog from '../components/blog/Blog';
 
 
 const App = () => {
@@ -19,6 +19,7 @@ const App = () => {
             <Route path='*' component={Footer} />
             <Route exact path='/' component={Home} />
             <Route exact path='/admin' component={Admin} />
+            {/*TODO: new route eg uploadPhoto connect with component admin/menu*/}
             <Route exact path='/blog' component={Blog} />
             <Route exact path='/aboutEls' component={AboutEls} />
             <Route exact path='/landschap' component={Portfolio} />
