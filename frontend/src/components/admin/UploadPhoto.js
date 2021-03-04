@@ -31,193 +31,111 @@ export default class UploadPhoto extends Component {
     }
 
     initialState = {
-        'sort': "photo",
+        'sort': "Photo",
         'specials': "FOTO",
         'description': "",
         "themes": [],
-        // 'themes': {
-        //     'Landschap': false,
-        //     'Stad': false,
-        //     'Buiten': false,
-        //     'Reizen': false,
-        //     'Water': false,
-        //     'Mensen': false,
-        //     'Abstract': false,
-        //     'Industrieel': false,
-        //     'Scenes': false
-        // },
         'colors': [],
-        // 'colors': {
-        //     'Blauw': false,
-        //     'Geel': false,
-        //     'Groen': false,
-        //     'Rood': false,
-        //     'Oranje': false,
-        //     'Paars': false,
-        //     'Kleurrijk': false
-        // },
         'selectedFile': "",
     }
 
 
-    //FIXME: how to show alert message with chosen themes and colors?
-//FIXME: creates code status 500 and after changing the controller back to code 400
-//     onFormSubmit(event){
-//         event.preventDefault();
-//
-//         let bodyFormData = new FormData();
-//         bodyFormData.append("sort", this.state.sort)
-//         bodyFormData.append("specials", "this.state.specials")
-//         bodyFormData.append("description", "this.state.description")
-//         bodyFormData.append("themes", JSON.stringify(this.state.themes))
-//         bodyFormData.append("colors", JSON.stringify(this.state.colors))
-//         bodyFormData.append("selectedFile", "this.state.selectedFile" )
-//
-//         console.log("Type kunstwerk: " + this.state.sort + " " +
-//         "\nAdaptatie: " + this.state.specials +
-//         "\nBeschrijving: " + this.state.description +
-//         "\nGekozen bestand: " + this.state.selectedFile)
-//         console.log("gekozen kleuren", this.state.colors)
-//         console.log("gekozen thema's", this.state.themes)//this works
-//
-//
-//         axios({
-//             method: "post",
-//             url: "http://localhost:8080/api/addArtpiece",
-//             data: bodyFormData,
-//             headers: { "Content-Type": "multipart/form-data" },
-//         }).then(response => {
-//             console.log(response.data)
-//             if(response.data != null)
-//                 this.setState(this.initialState)
-//             alert("Kunstwerk opgeslagen")
-//         }).catch(error => {
-//             console.log("Something went wrong " + error);
-//             alert("Something went wrong " + error);
-//         });
-//     }
 //FIXME: creates a code status 400
     onFormSubmit = e => {
-
-        e.preventDefault(); //this creates error code 400 otherwise nothing happens
-        console.log("gekozen kleuren", this.state.colors)//this works
-        console.log("gekozen thema's", this.state.themes)//this works
-        alert('Artpiece was submitted with description: ' + this.state.description
-                + ' type of artwork is: ' + this.state.sort
-                + ' special is: ' + this.state.specials);//this works
+        e.preventDefault();
 
         const artpieceData = {
-            sort: this.state.sort,
             specials: this.state.specials,
             description: this.state.description,
+            selectedFile: this.state.selectedFile,
             themes: this.state.themes,
-            colors: this.state.colors,
-            selectedFile: this.state.selectedFile
+            colors: this.state.colors
+
         }
-        alert("op te slaan kunstwerk: " + artpieceData.sort + " " + artpieceData.specials
-            + " " + artpieceData.description
-            + " " + artpieceData.themes)
-//FIXME: output gives the catch error  and error code 400 but what went wrong?
-       axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
-           .then(response => {
-               console.log(response.data)
-                   if(response.data != null)
-               this.setState(this.initialState)
-               alert("Kunstwerk opgeslagen")
-           }).catch(error => {
-               alert("Something went wrong" + error);
-       });
+
+        axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
+            .then(response => {
+                console.log(response.data)
+                if (response.data != null)
+                    this.setState(this.initialState)
+                alert("Kunstwerk opgeslagen")
+            }).catch(error => {
+            alert("Something went wrong" + error);
+            this.setState(this.initialState)
+        });
     }
 
 
-
-    changeTheme(event){
+    changeTheme(event) {
         let tempThemes = this.state.themes;
         const theme = {id: event.target.id, name: event.target.value, status: event.target.checked}
 
-        if(!event.target.checked){
-            const index = tempThemes.findIndex((item)=>item.name === theme.name)
+        if (!event.target.checked) {
+            const index = tempThemes.findIndex((item) => item.name === theme.name)
             tempThemes.splice(index, 1);
         } else {
             tempThemes.push(theme);
         }
 
         this.setState({
-            themes : tempThemes
+            themes: tempThemes
         })
     }
 
-//FIXME: duplicate code refactor those two methods into 1
-//     changeTheme(event){
-//         const val = event.target.checked;
-//         const name = event.target.name;
-//         let updatedThemes = Object.assign({}, this.state.themes, {[name]: val})
-//         this.setState({
-//             'themes': updatedThemes
-//         })
-//     }
-//     changeColor(event){
-//         const val = event.target.checked;
-//         const name = event.target.name;
-//         let updatedColors = Object.assign({}, this.state.colors, {[name]: val})
-//         this.setState({
-//             'colors': updatedColors
-//         })
-//     }
-
-    changeColor(event){
+    changeColor(event) {
         let tempColors = this.state.colors;
         const color = {id: event.target.id, name: event.target.value, status: event.target.checked}
         //FIXME: is line 172 the same as line 170?
         // const color = {id : target.id, name: target.value, status: target.checked} = event; or
         //const {id: id, name: value, status: checked} = event.target; //does this work? TODO: try out refactor code below
-        if(!event.target.checked){
-            const index = tempColors.findIndex((item)=>item.name === color.name)
+        if (!event.target.checked) {
+            const index = tempColors.findIndex((item) => item.name === color.name)
             tempColors.splice(index, 1);
         } else {
             tempColors.push(color);
         }
         this.setState({
-            colors : tempColors
+            colors: tempColors
         })
     }
 
 
-    handleChange(event){
+    handleChange(event) {
         const {name, value} = event.target
         this.setState({[name]: value})
         //this.setState({[event.target.name] : event.target.value})
     }
 
-    changeSpecial(event){
+    changeSpecial(event) {
         //FIXME: name is always sort so can we remove line 191 and change name to sort on line 192?
-        const {name, value } = event.target
-        if(name === 'sort' && value === 'photo') {
+        const {name, value} = event.target
+        if (name === 'sort' && value === 'photo') {
             this.setState({[name]: value, specials: 'FOTO'})
         } else {
             this.setState({
                 sort: 'special',
-            specials: value})
+                specials: value
+            })
         }
     }
 
     render() {
         return (
-            <main >
-                <div  className="koptekst">
-                <h1>Het uploaden van een foto</h1>
+            <main>
+                <div className="koptekst">
+                    <h1>Het uploaden van een foto</h1>
                 </div>
-                <form  className="formulier" onSubmit={this.onFormSubmit}>
-                <h3 >Kies het type kunstwerk: </h3>
-                <label key='foto'>Foto</label>
+                <form className="formulier" onSubmit={this.onFormSubmit}>
+                    <h3>Kies het type kunstwerk: </h3>
+                    <label key='foto'>Foto</label>
                     <input
                         type="radio"
                         name="sort"
                         value="photo"
                         checked={this.state.sort === "photo"}
                         onChange={this.changeSpecial}
-                        />
-                <label key='special'>Special</label>
+                    />
+                    <label key='special'>Special</label>
                     <input
                         type="radio"
                         name="sort"
@@ -225,30 +143,30 @@ export default class UploadPhoto extends Component {
                         checked={this.state.sort === "special"}
                         onChange={this.changeSpecial}
                     />
-                {this.state.sort === 'special' ? this.renderSpecials() : ""}
-                <hr />
-                <br />
-                <h3>De ingegeven tekst is zichtbaar als ondertiteling bij de foto.</h3>
-                <textarea className='beschrijvingsveld'
-                          key='beschrijving'
-                           value={this.state.description}
-                           name='description'
-                           placeholder="Geef titel of beschrijf het werk"
-                           onChange={this.handleChange}
-                />
-                <br />
-                <hr />
-                <br />
-                <h3 >Kies de thema's:</h3>
-                {this.renderThemes()}
-                <hr />
-                <br />
-                <h3 >Kies de kleuren:</h3>
-                { this.renderColors() }
-                <hr />
-                <br />
-                <h3 >Kies de foto die je wilt uploaden.</h3>
-                    <div  key='bestand' className="custom-file" style={{width: 250}}>
+                    {this.state.sort === 'special' ? this.renderSpecials() : ""}
+                    <hr/>
+                    <br/>
+                    <h3>De ingegeven tekst is zichtbaar als ondertiteling bij de foto.</h3>
+                    <textarea className='beschrijvingsveld'
+                              key='beschrijving'
+                              value={this.state.description}
+                              name='description'
+                              placeholder="Geef titel of beschrijf het werk"
+                              onChange={this.handleChange}
+                    />
+                    <br/>
+                    <hr/>
+                    <br/>
+                    <h3>Kies de thema's:</h3>
+                    {this.renderThemes()}
+                    <hr/>
+                    <br/>
+                    <h3>Kies de kleuren:</h3>
+                    {this.renderColors()}
+                    <hr/>
+                    <br/>
+                    <h3>Kies de foto die je wilt uploaden.</h3>
+                    <div key='bestand' className="custom-file" style={{width: 250}}>
                         <input
                             type="file"
                             className="custom-file-input"
@@ -258,12 +176,12 @@ export default class UploadPhoto extends Component {
                             value={this.state.selectedFile}
                         />
                         <label className="custom-file-label " htmlFor="customFileLangHTML"
-                                   data-browse="Bestand kiezen">Voeg je foto toe</label>
+                               data-browse="Bestand kiezen">Voeg je foto toe</label>
                     </div>
 
-                <hr />
-                <button className='knop' type='submit'>Uploaden</button>
-            </form>
+                    <hr/>
+                    <button className='knop' type='submit'>Uploaden</button>
+                </form>
 
             </main>
         )
@@ -271,18 +189,18 @@ export default class UploadPhoto extends Component {
 
     renderSpecials() {
         const specials = ['Camera & Kwast', 'Boxbeeld', 'Geënsceneerd']
-        return specials.map((special, i) =>{
-            return  (
+        return specials.map((special, i) => {
+            return (
                 <div key={i} className="form-check-inline">
-                <label > {special} </label>
-                <input
-                    type='radio'
-                    name='specials'
-                    onChange={this.changeSpecial}
-                    checked={this.state.specials[special]}
-                    value={special}
-                />
-            </div>
+                    <label> {special} </label>
+                    <input
+                        type='radio'
+                        name='specials'
+                        onChange={this.changeSpecial}
+                        checked={this.state.specials[special]}
+                        value={special}
+                    />
+                </div>
             )
         })
     }
@@ -293,7 +211,7 @@ export default class UploadPhoto extends Component {
         return themes.map((theme, i) => {
             return (
                 <div key={i} className="form-check-inline">
-                    <label > {theme} </label>
+                    <label> {theme} </label>
                     <input
                         type='checkbox'
                         name="theme"
@@ -311,8 +229,8 @@ export default class UploadPhoto extends Component {
         return colors.map((color, i) => {
             return (
                 <div key={i} className="form-check-inline">
-                <label >
-                    {color}</label>
+                    <label>
+                        {color}</label>
                     <input
                         type="checkbox"
                         name='color'

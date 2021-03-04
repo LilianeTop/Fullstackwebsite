@@ -1,7 +1,6 @@
 package nl.elsenschede.nl.backend.model;
 
-
-
+import nl.elsenschede.nl.backend.backingbeans.Adaptation;
 import nl.elsenschede.nl.backend.backingbeans.Color;
 import nl.elsenschede.nl.backend.backingbeans.Theme;
 import javax.persistence.*;
@@ -10,10 +9,12 @@ import java.util.List;
 
 @Entity
 @Table
-public abstract class Artpiece {
+public class Artpiece {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idArtpiece;
+    @Column
+    private Adaptation adaptation;
     @Column
     private String description;
     @Column
@@ -26,16 +27,13 @@ public abstract class Artpiece {
     public Artpiece() {
     }
 
-    public Artpiece(String description, String imagePath, List<Theme> themes, List<Color> colors) {
-        this.description = description;
-        this.imagePath = imagePath;
-        this.themes = themes;
-        this.colors = colors;
+    public Artpiece(Adaptation adaptation, String description, String imagePath, List<Theme> themes, List<Color> colors) {
+        this(0, adaptation, description, imagePath, themes, colors);
     }
 
-
-    public Artpiece(int idArtpiece, String description, String imagePath, List<Theme> themes, List<Color> colors) {
+    public Artpiece(int idArtpiece, Adaptation adaptation, String description, String imagePath, List<Theme> themes, List<Color> colors) {
         this.idArtpiece = idArtpiece;
+        this.adaptation = adaptation;
         this.description = description;
         this.imagePath = imagePath;
         this.themes = themes;
@@ -43,15 +41,23 @@ public abstract class Artpiece {
     }
 
     public int getIdArtpiece() {
-        return this.idArtpiece;
+        return idArtpiece;
     }
 
     public void setIdArtpiece(int idArtpiece) {
         this.idArtpiece = idArtpiece;
     }
 
+    public Adaptation getAdaptation() {
+        return adaptation;
+    }
+
+    public void setAdaptation(Adaptation adaptation) {
+        this.adaptation = adaptation;
+    }
+
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(String description) {
@@ -59,7 +65,7 @@ public abstract class Artpiece {
     }
 
     public String getImagePath() {
-        return this.imagePath;
+        return imagePath;
     }
 
     public void setImagePath(String imagePath) {
@@ -67,7 +73,7 @@ public abstract class Artpiece {
     }
 
     public List<Theme> getThemes() {
-        return this.themes;
+        return themes;
     }
 
     public void setThemes(List<Theme> themes) {
@@ -75,10 +81,22 @@ public abstract class Artpiece {
     }
 
     public List<Color> getColors() {
-        return this.colors;
+        return colors;
     }
 
     public void setColors(List<Color> colors) {
         this.colors = colors;
+    }
+
+    @Override
+    public String toString() {
+        return "Artpiece{" +
+                "idArtpiece=" + idArtpiece +
+                ", adaptation=" + adaptation +
+                ", description='" + description + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", themes=" + themes +
+                ", colors=" + colors +
+                '}';
     }
 }

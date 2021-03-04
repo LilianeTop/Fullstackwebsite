@@ -1,10 +1,11 @@
 package nl.elsenschede.nl.backend.backingbeans;
 
 public enum Adaptation {
+    FOTO,
     CAMERAKWAST,
     BOXBEELD,
-    GEENSCENEERD,
-    FOTO;
+    GEENSCENEERD;
+
 
     private Adaptation() {
     }
