@@ -31,7 +31,9 @@ export default class UploadPhoto extends Component {
     }
 
 
-//FIXME: creates a code status 400
+//FIXME: upload File/image instead of String imagepath
+    //FIXME: after submit all fields should be reset to empty
+    //FIXME: the radio button for foto should be preselected
     onFormSubmit = e => {
         e.preventDefault();
 
