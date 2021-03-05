@@ -4,6 +4,8 @@ import axios from "axios";
 
 export default class UploadPhoto extends Component {
     //do we need props in our constructor and where do they come from? it still works without the props
+    //TODO: how to submit the form to the DB I have installed axios but do not know how it works. It seems that the setState will create an updated Object which needs to be send via
+    // an API to the db as a POST request.
     //TODO: how does it work if instead to upload the images itself to the DB I use the pathName of the chosen File and use a Filesystem how does that work?
     //TODO: validation you have to choose at least a theme or a color and upload an image
 
@@ -31,7 +33,9 @@ export default class UploadPhoto extends Component {
     }
 
 
-//FIXME: creates a code status 400
+//FIXME: upload File/image instead of String imagepath
+    //FIXME: after submit all fields should be reset to empty
+    //FIXME: the radio button for foto should be preselected
     onFormSubmit = e => {
         e.preventDefault();
 
@@ -65,7 +69,7 @@ export default class UploadPhoto extends Component {
             const index = tempThemes.findIndex((item) => item.name === theme.name)
             tempThemes.splice(index, 1);
         } else {
-            tempThemes.push(theme);
+            tempThemes.push(theme.name.toUpperCase());
         }
 
         this.setState({
@@ -83,7 +87,7 @@ export default class UploadPhoto extends Component {
             const index = tempColors.findIndex((item) => item.name === color.name)
             tempColors.splice(index, 1);
         } else {
-            tempColors.push(color);
+            tempColors.push(color.name.toUpperCase());
         }
         this.setState({
             colors: tempColors
@@ -105,7 +109,7 @@ export default class UploadPhoto extends Component {
         } else {
             this.setState({
                 sort: 'special',
-                specials: value
+                specials: value.toUpperCase
             })
         }
     }
@@ -197,7 +201,7 @@ export default class UploadPhoto extends Component {
     }
 
     renderThemes() {
-        const themes = ['Landschap', 'Stad', 'Buiten', 'Reizen', 'Water', 'Mensen', 'Abstract', 'Industrieel', 'Scenes'];
+        const themes = ['Landschap', 'Stad', 'Buiten', 'Reizen', 'Water', 'Mensen', 'Abstract', 'Industrie', 'Scenes'];
 
         return themes.map((theme, i) => {
             return (
