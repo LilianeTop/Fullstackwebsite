@@ -6,11 +6,13 @@ import App from "./app/App";
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import { Provider } from "react-redux";
+import  configureStore from "app/store";
 
 ReactDOM.render(
-  <BrowserRouter>
+  <Provider store = { configureStore() }>
     <App />
-  </BrowserRouter>,
+  </Provider>,
   document.getElementById('root')
 );
 

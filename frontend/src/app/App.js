@@ -8,6 +8,9 @@ import Portfolio from '../components/portfolio/Portfolio';
 import AboutEls from "../components/aboutEls/AboutEls";
 import Admin from '../components/admin/Admin';
 import Blog from '../components/blog/Blog';
+import { connect } from "react-redux";
+import { showLogin } from "../actions/showLogin";
+import { hideLogin } from "../actions/hideLogin";
 
 
 const App = () => {
@@ -28,5 +31,15 @@ const App = () => {
         </Router>
     );
 
+
 }
-export default App;
+const mapStateToProps = state => ({
+    ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+    showLogin: () => dispatch(showLogin),
+        hideLogin: () => dispatch(hideLogin)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

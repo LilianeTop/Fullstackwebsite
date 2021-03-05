@@ -45,12 +45,12 @@ public class PhotoFormController {
 //FIXME: how to convert a Array of object themes and colors to a List of Enums
     //FIXME: error status 400 Request body is missing. I guess it shouldn't be Artpiece as parameter but what?
     @PostMapping("/addArtpiece")
-    public String uploadPhoto(@RequestBody Artpiece artpiece) {
-        Adaptation special = artpiece.getAdaptation();
-        String description = artpiece.getDescription();
-        String imagePath = artpiece.getImagePath();
-        List<Theme> themes = artpiece.getThemes();
-        List<Color> colors = artpiece.getColors();
+    public String uploadPhoto(@RequestBody PhotoFormParameters photoFormParameters) {
+        Adaptation special = photoFormParameters.getAdaptation();
+        String description = photoFormParameters.getDescription();
+        String imagePath = photoFormParameters.getImagePath();
+        List<Theme> themes = photoFormParameters.getThemes();
+        List<Color> colors = photoFormParameters.getColors();
 
         Artpiece piece = new Artpiece(special, description, imagePath, themes, colors);
         artpieceDao.save(piece);

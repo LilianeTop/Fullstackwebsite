@@ -4,6 +4,7 @@ import ChangePhoto from "./ChangePhoto";
 import DeletePhoto from "./DeletePhoto";
 import LoginScreen from "./LoginScreen";
 import Menu from "./Menu";
+import {Route} from "react-router-dom";
 
 
 const Admin = () => {
@@ -12,11 +13,10 @@ const Admin = () => {
             <LoginScreen />
             <br />
             <br />
-            {/*FIXME: Menu should be visible after login and loginscreen should be hidden*/}
-            {/*<Menu />*/}
+            <Menu />
             <br />
             <br />
-            <UploadPhoto />
+            {/*<UploadPhoto />*/}
             {/*<ChangePhoto />*/}
             {/*<DeletePhoto />*/}
         </div>

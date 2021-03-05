@@ -1,9 +1,8 @@
-import React from 'react';
-import { configureStore } from '@reduxjs/toolkit';
-import menuReducer from "../features/menu/menuSlice";
+import { createStore } from "redux";
+import showReducer from "../reducers/showReducer";
 
-export default configureStore({
-    reducer: {
-        menu : menuReducer
-    }
-})
+function configureStore(state = { showing: true }) {
+    return createStore(showReducer, state);
+}
+
+export default configureStore;
