@@ -1,13 +1,6 @@
 import "./Admin.css";
 import React, {Component} from 'react';
 import axios from "axios";
-import themeItems from "./themeItems";
-// import Type from "./PhotoFormType";
-// import Form from 'react-bootstrap/Form';
-// import Themes from "./PhotoFormThemes";
-// import Colors from "./PhotoFormColors";
-// import ImageURL from "./PhotoFormImageURL";
-// import Description from "./PhotoFormDescription";
 
 export default class UploadPhoto extends Component {
     //do we need props in our constructor and where do they come from? it still works without the props
