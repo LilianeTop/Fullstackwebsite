@@ -1,5 +1,6 @@
 import "./Admin.css";
 import LoginScreen from "./LoginScreen";
+import Menu from "./Menu";
 
 const Admin = () => {
     return (
@@ -7,7 +8,7 @@ const Admin = () => {
             <LoginScreen />
             <br />
             <br />
-            {/*<Menu />*/}
+            <Menu />
             <br />
             <br />
             {/*<UploadPhoto />*/}

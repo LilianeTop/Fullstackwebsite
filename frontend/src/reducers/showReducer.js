@@ -1,7 +1,7 @@
 const initialState = {
 };
 
-export default (state = initialState, action) => {
+const showReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SHOW':
             return {...state, [action.payload]: true};
@@ -11,3 +11,5 @@ export default (state = initialState, action) => {
             return state;
     }
 };
+
+export default showReducer;

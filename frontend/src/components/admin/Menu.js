@@ -4,7 +4,6 @@ import UploadPhoto from "./UploadPhoto";
 import ChangePhoto from "./ChangePhoto";
 import DeletePhoto from "./DeletePhoto";
 import {connect} from "react-redux";
-import {showAction} from "../../actions/showAction";
 
 
 class Menu extends Component {
@@ -35,7 +34,7 @@ class Menu extends Component {
 
     render() {
 
-        return showAction ? (
+        return  (
             <main>
                 <div className="koptekst">
                     <h1>Els, wat wil je doen?</h1>
@@ -44,9 +43,9 @@ class Menu extends Component {
                     <h2>Ik wil een foto: </h2>
                     <div className="form-check-inline">
                         {/*FIXME: how to use the button as link to the right component/page?*/}
-                        <button className='knop' onClick={this.renderUploadPhotoForm}>Uploaden</button>
-                        <button className='knop' onClick={this.renderChangePhotoForm}>Wijzigen</button>
-                        <button className='knop' onClick={this.renderDeletePhotoForm}>Verwijderen</button>
+                        <button className='knop' type='submit' onSubmit={() => this.renderUploadPhotoForm}>Uploaden</button>
+                        <button className='knop' type='submit' onSubmit={() => this.renderChangePhotoForm}>Wijzigen</button>
+                        <button className='knop' type='submit' onSubmit={() => this.renderDeletePhotoForm}>Verwijderen</button>
 
                     </div>
                     <hr/>
@@ -58,7 +57,7 @@ class Menu extends Component {
                     </div>
                 </form>
             </main>
-        ) : null;
+        );
     }
 
 }
