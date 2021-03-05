@@ -19,7 +19,6 @@ const App = () => {
             <Route path='*' component={Footer} />
             <Route exact path='/' component={Home} />
             <Route exact path='/admin' component={Admin} />
-            {/*TODO: new route eg uploadPhoto connect with component admin/menu*/}
             <Route exact path='/blog' component={Blog} />
             <Route exact path='/aboutEls' component={AboutEls} />
             <Route exact path='/landschap' component={Portfolio} />

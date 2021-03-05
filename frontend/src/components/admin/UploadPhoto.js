@@ -4,8 +4,6 @@ import axios from "axios";
 
 export default class UploadPhoto extends Component {
     //do we need props in our constructor and where do they come from? it still works without the props
-    //TODO: how to submit the form to the DB I have installed axios but do not know how it works. It seems that the setState will create an updated Object which needs to be send via
-    // an API to the db as a POST request.
     //TODO: how does it work if instead to upload the images itself to the DB I use the pathName of the chosen File and use a Filesystem how does that work?
     //TODO: validation you have to choose at least a theme or a color and upload an image
 
