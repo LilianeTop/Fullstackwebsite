@@ -1,11 +1,5 @@
 import "./Admin.css";
-import UploadPhoto from "./UploadPhoto";
-import ChangePhoto from "./ChangePhoto";
-import DeletePhoto from "./DeletePhoto";
 import LoginScreen from "./LoginScreen";
-import Menu from "./Menu";
-import {Route} from "react-router-dom";
-
 
 const Admin = () => {
     return (
@@ -13,7 +7,7 @@ const Admin = () => {
             <LoginScreen />
             <br />
             <br />
-            <Menu />
+            {/*<Menu />*/}
             <br />
             <br />
             {/*<UploadPhoto />*/}

@@ -1,9 +1,7 @@
 import './Admin.css';
 import React, {Component} from "react";
 import axios from "axios";
-import showLogin from "../../actions/showLogin";
-import hideLogin from "../../actions/hideLogin";
-import showMenu from "../../actions/showMenu";
+import Menu from "./Menu";
 
 
 
@@ -13,12 +11,12 @@ export default class LoginScreen extends Component {
         this.state = this.initialState;
         this.onFormSubmit = this.onFormSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.onLoginSuccess = this.onLoginSuccess.bind(this)
     }
 
     initialState = {
         username: "",
         password: "",
-        loginSuccess : false
     }
 
     onFormSubmit(event) {
@@ -32,7 +30,7 @@ export default class LoginScreen extends Component {
         ).then((response) => {
             if(response.data === 1){
                 alert(this.state.username + ", je bent succesvol ingelogd")
-                this.state.loginSuccess = true;
+                this.onLoginSuccess()
                 } else {
                 alert("Combinatie gebruikersnaam en wachtwoord is incorrect.")
             }
@@ -42,10 +40,12 @@ export default class LoginScreen extends Component {
         });
     }
 
-    //FIXME: how to toggle between showing loginScreen and hiding it?
-    showLogin(){
-        this.state.loginSuccess ? this.props.hideLogin && this.props.showMenu : this.showLogin;
+    //FIXME: After successful login how to hide LoginScreen and showing Menu?
+    onLoginSuccess() {
+        return <Menu />
+        // && <LoginScreen hideAction={true}/>;
     }
+
 
     handleChange(event) {
         const {id, value} = event.target

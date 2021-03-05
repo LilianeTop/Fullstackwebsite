@@ -1,9 +1,12 @@
-export default (state, action) => {
+const initialState = {
+};
+
+export default (state = initialState, action) => {
     switch (action.type) {
-        case "show":
-            return {
-                showing: action.payload
-            };
+        case 'SHOW':
+            return {...state, [action.payload]: true};
+        case 'HIDE':
+            return {...state, [action.payload]: false};
         default:
             return state;
     }
