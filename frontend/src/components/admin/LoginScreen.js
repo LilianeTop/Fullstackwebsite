@@ -1,9 +1,7 @@
 import './Admin.css';
 import React, {Component} from "react";
 import axios from "axios";
-import showLogin from "../../actions/showLogin";
-import hideLogin from "../../actions/hideLogin";
-import showMenu from "../../actions/showMenu";
+import Menu from "./Menu";
 
 
 
@@ -13,6 +11,7 @@ export default class LoginScreen extends Component {
         this.state = this.initialState;
         this.onFormSubmit = this.onFormSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.showLogin = this.showLogin.bind(this)
     }
 
     initialState = {
@@ -33,6 +32,7 @@ export default class LoginScreen extends Component {
             if(response.data === 1){
                 alert(this.state.username + ", je bent succesvol ingelogd")
                 this.state.loginSuccess = true;
+                this.showLogin();
                 } else {
                 alert("Combinatie gebruikersnaam en wachtwoord is incorrect.")
             }
@@ -42,9 +42,9 @@ export default class LoginScreen extends Component {
         });
     }
 
-    //FIXME: how to toggle between showing loginScreen and hiding it?
+    //FIXME: how to toggle between showing loginScreen and hiding it using REDUX?
     showLogin(){
-        this.state.loginSuccess ? this.props.hideLogin && this.props.showMenu : this.showLogin;
+            return this.state.loginSuccess ? <Menu /> : <LoginScreen />
     }
 
     handleChange(event) {
@@ -55,6 +55,7 @@ export default class LoginScreen extends Component {
     }
 
     render() {
+        this.showLogin()
         return (
             <main>
                 <div className="koptekst">

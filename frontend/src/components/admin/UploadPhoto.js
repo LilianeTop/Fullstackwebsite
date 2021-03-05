@@ -74,7 +74,7 @@ export default class UploadPhoto extends Component {
             const index = tempThemes.findIndex((item) => item.name === theme.name)
             tempThemes.splice(index, 1);
         } else {
-            tempThemes.push(theme);
+            tempThemes.push(theme.name.toUpperCase());
         }
 
         this.setState({
@@ -92,7 +92,7 @@ export default class UploadPhoto extends Component {
             const index = tempColors.findIndex((item) => item.name === color.name)
             tempColors.splice(index, 1);
         } else {
-            tempColors.push(color);
+            tempColors.push(color.name.toUpperCase());
         }
         this.setState({
             colors: tempColors
@@ -114,7 +114,7 @@ export default class UploadPhoto extends Component {
         } else {
             this.setState({
                 sort: 'special',
-                specials: value
+                specials: value.toUpperCase()
             })
         }
     }
@@ -206,7 +206,7 @@ export default class UploadPhoto extends Component {
     }
 
     renderThemes() {
-        const themes = ['Landschap', 'Stad', 'Buiten', 'Reizen', 'Water', 'Mensen', 'Abstract', 'Industrieel', 'Scenes'];
+        const themes = ['Landschap', 'Stad', 'Buiten', 'Reizen', 'Water', 'Mensen', 'Abstract', 'Industrie', 'Scenes'];
 
         return themes.map((theme, i) => {
             return (

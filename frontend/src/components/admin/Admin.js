@@ -13,10 +13,10 @@ const Admin = () => {
             <LoginScreen />
             <br />
             <br />
-            <Menu />
+            {/*<Menu />*/}
             <br />
             <br />
-            {/*<UploadPhoto />*/}
+            <UploadPhoto />
             {/*<ChangePhoto />*/}
             {/*<DeletePhoto />*/}
         </div>
