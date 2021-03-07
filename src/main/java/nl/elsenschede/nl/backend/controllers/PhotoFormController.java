@@ -8,7 +8,7 @@ import nl.elsenschede.nl.backend.model.Artpiece;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class PhotoFormController {
     public String uploadPhoto(@RequestBody PhotoFormParameters photoFormParameters) {
         Adaptation special = photoFormParameters.getAdaptation();
         String description = photoFormParameters.getDescription();
-        File image = photoFormParameters.getImage();
+        String image = photoFormParameters.getImage();
         List<Theme> themes = photoFormParameters.getThemes();
         List<Color> colors = photoFormParameters.getColors();
 

@@ -50,41 +50,31 @@ export default class UploadPhoto extends Component {
 
         axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
             .then(response => {
+                this.setState(this.initialState)
                 console.log(response.data)
                 if (response.data != null)
-                    this.setState(this.initialState)
-                alert("Kunstwerk opgeslagen")
+                    alert("Kunstwerk opgeslagen")
             }).catch(error => {
             alert("Something went wrong" + error);
             this.setState(this.initialState)
         });
     }
 
-    previewFile() {
+    previewFile(event) {
         const preview = document.querySelector('img[id=preview]');
-        const file = document.querySelector('input[type=file]').files[0];
+        const self = this;
+        const file = event.target.files[0];
         const reader = new FileReader();
 
-        reader.addEventListener("load", function () {
-                // convert image file to base64 string FIXME: what does this mean? Do I have to add code to do so?
-                preview.src = reader.result;//this shows a thumbnail of actual photo
-            }, false);
+        reader.onload = function (upload) {
+            preview.src = reader.result;
+            self.setState({
+                selectedFile: upload.target.result.replace("data:", "").replace(/^.+,/, "")
+            });
+        };
+        reader.readAsDataURL(file);
+    };
 
-        if(file) {
-            reader.readAsDataURL(file);
-            console.log(file)//returns lastModifiedDate: Mon Feb 08 2021 11:09:19 GMT+0100 (Central European Standard Time) {}
-            // name: "flowchartEE.png"
-            // size: 158193
-            // type: "image/png"
-            // webkitRelativePath: ""
-            // __proto__: File
-            //FIXME: doesn't show up in DB how to fix this?
-
-        }
-        this.setState({
-            selectedFile : file
-        })
-    }
 
     changeTheme(event) {
         let tempThemes = this.state.themes;
@@ -188,7 +178,7 @@ export default class UploadPhoto extends Component {
                     <br/>
                     <h3>Kies de foto die je wilt uploaden.</h3>
                     <div key='bestand'
-                         // className="custom-file"
+                        // className="custom-file"
                          style={{width: 250}}>
                         <input
                             type="file"
@@ -198,14 +188,14 @@ export default class UploadPhoto extends Component {
                             accept=".jpeg, .png, .jpg"
                             // value={this.state.selectedFile}
                             // onChange={this.fileChangedHandler}
-                          onChange={this.previewFile}
+                            onChange={this.previewFile}
                             // onChange={this.handleChange}
 
                         />
                         <label className="custom-file-label " htmlFor="customFileLangHTML"
                                data-browse="Bestand kiezen">Voeg je foto toe</label>
                         {/*FIXME: the preview image replace the logo*/}
-                        <img id="preview" name="preview" src=""  height="100" alt="image preview ..." />
+                        <img id="preview" name="preview" src="" height="100" alt="image preview ..."/>
                     </div>
 
                     <hr/>

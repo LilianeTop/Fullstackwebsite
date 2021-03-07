@@ -3,7 +3,6 @@ package nl.elsenschede.nl.backend.controllers;
 import nl.elsenschede.nl.backend.backingbeans.Adaptation;
 import nl.elsenschede.nl.backend.backingbeans.Color;
 import nl.elsenschede.nl.backend.backingbeans.Theme;
-import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
 public class PhotoFormParameters {
     private Adaptation adaptation;
     private String description;
-    private File image;
+    private String image;
     private List<Theme> themes = new ArrayList();
     private List<Color> colors = new ArrayList();
 
@@ -31,11 +30,11 @@ public class PhotoFormParameters {
         this.description = description;
     }
 
-    public File getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(File image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

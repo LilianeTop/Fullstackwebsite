@@ -4,7 +4,6 @@ import nl.elsenschede.nl.backend.backingbeans.Adaptation;
 import nl.elsenschede.nl.backend.backingbeans.Color;
 import nl.elsenschede.nl.backend.backingbeans.Theme;
 import javax.persistence.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,18 +18,18 @@ public class Artpiece {
     @Column
     private String description;
     @Column
-    private File image;
+    private String image;
     @ElementCollection
     private List<Theme> themes = new ArrayList();
     @ElementCollection
     private List<Color> colors = new ArrayList();
 
 
-    public Artpiece(Adaptation adaptation, String description, File image, List<Theme> themes, List<Color> colors) {
+    public Artpiece(Adaptation adaptation, String description, String image, List<Theme> themes, List<Color> colors) {
         this(0, adaptation, description, image, themes, colors);
     }
 
-    public Artpiece(int idArtpiece, Adaptation adaptation, String description, File image, List<Theme> themes, List<Color> colors) {
+    public Artpiece(int idArtpiece, Adaptation adaptation, String description, String image, List<Theme> themes, List<Color> colors) {
         this.idArtpiece = idArtpiece;
         this.adaptation = adaptation;
         this.description = description;
@@ -67,11 +66,11 @@ public class Artpiece {
         this.description = description;
     }
 
-    public File getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(File image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
