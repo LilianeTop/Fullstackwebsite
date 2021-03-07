@@ -4,6 +4,7 @@ import nl.elsenschede.nl.backend.backingbeans.Adaptation;
 import nl.elsenschede.nl.backend.backingbeans.Color;
 import nl.elsenschede.nl.backend.backingbeans.Theme;
 import javax.persistence.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,26 +19,28 @@ public class Artpiece {
     @Column
     private String description;
     @Column
-    private String imagePath;
+    private File image;
     @ElementCollection
     private List<Theme> themes = new ArrayList();
     @ElementCollection
     private List<Color> colors = new ArrayList();
 
-    public Artpiece() {
+
+    public Artpiece(Adaptation adaptation, String description, File image, List<Theme> themes, List<Color> colors) {
+        this(0, adaptation, description, image, themes, colors);
     }
 
-    public Artpiece(Adaptation adaptation, String description, String imagePath, List<Theme> themes, List<Color> colors) {
-        this(0, adaptation, description, imagePath, themes, colors);
-    }
-
-    public Artpiece(int idArtpiece, Adaptation adaptation, String description, String imagePath, List<Theme> themes, List<Color> colors) {
+    public Artpiece(int idArtpiece, Adaptation adaptation, String description, File image, List<Theme> themes, List<Color> colors) {
         this.idArtpiece = idArtpiece;
         this.adaptation = adaptation;
         this.description = description;
-        this.imagePath = imagePath;
+        this.image = image;
         this.themes = themes;
         this.colors = colors;
+    }
+
+    public Artpiece() {
+
     }
 
     public int getIdArtpiece() {
@@ -64,12 +67,12 @@ public class Artpiece {
         this.description = description;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public File getImage() {
+        return image;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImage(File image) {
+        this.image = image;
     }
 
     public List<Theme> getThemes() {
@@ -88,13 +91,14 @@ public class Artpiece {
         this.colors = colors;
     }
 
+
     @Override
     public String toString() {
         return "Artpiece{" +
                 "idArtpiece=" + idArtpiece +
                 ", adaptation=" + adaptation +
                 ", description='" + description + '\'' +
-                ", imagePath='" + imagePath + '\'' +
+                ", image=" + image +
                 ", themes=" + themes +
                 ", colors=" + colors +
                 '}';

@@ -7,6 +7,7 @@ export default class UploadPhoto extends Component {
     //TODO: how does it work if instead to upload the images itself to the DB I use the pathName of the chosen File and use a Filesystem how does that work?
     //TODO: validation you have to choose at least a theme or a color and upload an image
 
+
     constructor(props) {
         super(props)
         this.state = this.initialState;
@@ -18,22 +19,23 @@ export default class UploadPhoto extends Component {
         this.changeTheme = this.changeTheme.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.changeSpecial = this.changeSpecial.bind(this)
-
+        this.previewFile = this.previewFile.bind(this)
     }
 
     initialState = {
-        'sort': "Photo",
-        'specials': "FOTO",
-        'description': "",
-        "themes": [],
-        'colors': [],
-        'selectedFile': "",
+        sort: "Photo",
+        specials: "FOTO",
+        description: "",
+        themes: [],
+        colors: [],
+        selectedFile: "",
     }
 
 
-//FIXME: upload File/image instead of String imagepath
+    //FIXME: upload File/image instead of String imagepath still not working
     //FIXME: after submit all fields should be reset to empty
     //FIXME: the radio button for foto should be preselected
+    //FIXME: the code for specials is no longer working
     onFormSubmit = e => {
         e.preventDefault();
 
@@ -58,6 +60,31 @@ export default class UploadPhoto extends Component {
         });
     }
 
+    previewFile() {
+        const preview = document.querySelector('img[id=preview]');
+        const file = document.querySelector('input[type=file]').files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+                // convert image file to base64 string FIXME: what does this mean? Do I have to add code to do so?
+                preview.src = reader.result;//this shows a thumbnail of actual photo
+            }, false);
+
+        if(file) {
+            reader.readAsDataURL(file);
+            console.log(file)//returns lastModifiedDate: Mon Feb 08 2021 11:09:19 GMT+0100 (Central European Standard Time) {}
+            // name: "flowchartEE.png"
+            // size: 158193
+            // type: "image/png"
+            // webkitRelativePath: ""
+            // __proto__: File
+            //FIXME: doesn't show up in DB how to fix this?
+
+        }
+        this.setState({
+            selectedFile : file
+        })
+    }
 
     changeTheme(event) {
         let tempThemes = this.state.themes;
@@ -101,6 +128,7 @@ export default class UploadPhoto extends Component {
 
     changeSpecial(event) {
         //FIXME: name is always sort so can we remove line 191 and change name to sort on line 192?
+        //FIXME: code is broken it doesn't show the Enum Adaptation in DB
         const {name, value} = event.target
         if (name === 'sort' && value === 'photo') {
             this.setState({[name]: value, specials: 'FOTO'})
@@ -159,17 +187,25 @@ export default class UploadPhoto extends Component {
                     <hr/>
                     <br/>
                     <h3>Kies de foto die je wilt uploaden.</h3>
-                    <div key='bestand' className="custom-file" style={{width: 250}}>
+                    <div key='bestand'
+                         // className="custom-file"
+                         style={{width: 250}}>
                         <input
                             type="file"
-                            className="custom-file-input"
-                            id="customFileLangHTML"
-                            name='selectedFile'
-                            onChange={this.handleChange}
-                            value={this.state.selectedFile}
+                            // className="custom-file-input"
+                            // id="customFileLangHTML"
+                            name='preview'
+                            accept=".jpeg, .png, .jpg"
+                            // value={this.state.selectedFile}
+                            // onChange={this.fileChangedHandler}
+                          onChange={this.previewFile}
+                            // onChange={this.handleChange}
+
                         />
                         <label className="custom-file-label " htmlFor="customFileLangHTML"
                                data-browse="Bestand kiezen">Voeg je foto toe</label>
+                        {/*FIXME: the preview image replace the logo*/}
+                        <img id="preview" name="preview" src=""  height="100" alt="image preview ..." />
                     </div>
 
                     <hr/>
