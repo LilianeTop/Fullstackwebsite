@@ -69,7 +69,7 @@ export default class UploadPhoto extends Component {
         reader.onload = function (upload) {
             preview.src = reader.result;
             self.setState({
-                selectedFile: upload.target.result.replace("data:", "").replace(/^.+,/, "")
+                selectedFile: upload.target.result
             });
         };
         reader.readAsDataURL(file);
@@ -118,148 +118,169 @@ export default class UploadPhoto extends Component {
 
     changeSpecial(event) {
         //FIXME: name is always sort so can we remove line 191 and change name to sort on line 192?
-        //FIXME: code is broken it doesn't show the Enum Adaptation in DB
         const {name, value} = event.target
         if (name === 'sort' && value === 'photo') {
-            this.setState({[name]: value, specials: 'FOTO'})
+            this.setState({[name]: value, specials: 'FOTO'});
         } else {
             this.setState({
-                sort: 'special',
-                specials: value.toUpperCase()
+                sort: 'special'
             })
+            switch (value) {
+                case 'Camera & Kwast':
+                    this.setState({
+                        specials: 'CAMERAKWAST'
+                    });
+                    break;
+                case 'Boxbeeld':
+                    this.setState({
+                        specials: 'BOXBEELD'
+                    });
+                    break;
+                case 'Geënsceneerd':
+                    this.setState({
+                        specials: 'GEENSCENEERD'
+                    });
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
-    render() {
-        return (
-            <main>
-                <div className="koptekst">
-                    <h1>Het uploaden van een foto</h1>
-                </div>
-                <form className="formulier" onSubmit={this.onFormSubmit}>
-                    <h3>Kies het type kunstwerk: </h3>
-                    <label key='foto'>Foto</label>
-                    <input
-                        type="radio"
-                        name="sort"
-                        value="photo"
-                        checked={this.state.sort === "photo"}
-                        onChange={this.changeSpecial}
-                    />
-                    <label key='special'>Special</label>
-                    <input
-                        type="radio"
-                        name="sort"
-                        value="special"
-                        checked={this.state.sort === "special"}
-                        onChange={this.changeSpecial}
-                    />
-                    {this.state.sort === 'special' ? this.renderSpecials() : ""}
-                    <hr/>
-                    <br/>
-                    <h3>De ingegeven tekst is zichtbaar als ondertiteling bij de foto.</h3>
-                    <textarea className='beschrijvingsveld'
-                              key='beschrijving'
-                              value={this.state.description}
-                              name='description'
-                              placeholder="Geef titel of beschrijf het werk"
-                              onChange={this.handleChange}
-                    />
-                    <br/>
-                    <hr/>
-                    <br/>
-                    <h3>Kies de thema's:</h3>
-                    {this.renderThemes()}
-                    <hr/>
-                    <br/>
-                    <h3>Kies de kleuren:</h3>
-                    {this.renderColors()}
-                    <hr/>
-                    <br/>
-                    <h3>Kies de foto die je wilt uploaden.</h3>
-                    <div key='bestand'
-                        // className="custom-file"
-                         style={{width: 250}}>
+
+        render()
+        {
+            return (
+                <main>
+                    <div className="koptekst">
+                        <h1>Het uploaden van een foto</h1>
+                    </div>
+                    <form className="formulier" onSubmit={this.onFormSubmit}>
+                        <h3>Kies het type kunstwerk: </h3>
+                        <label key='foto'>Foto</label>
                         <input
-                            type="file"
-                            // className="custom-file-input"
-                            // id="customFileLangHTML"
-                            name='preview'
-                            accept=".jpeg, .png, .jpg"
-                            // value={this.state.selectedFile}
-                            // onChange={this.fileChangedHandler}
-                            onChange={this.previewFile}
-                            // onChange={this.handleChange}
+                            type="radio"
+                            name="sort"
+                            value="photo"
+                            checked={this.state.sort === "photo"}
+                            onChange={this.changeSpecial}
+                        />
+                        <label key='special'>Special</label>
+                        <input
+                            type="radio"
+                            name="sort"
+                            value="special"
+                            checked={this.state.sort === "special"}
+                            onChange={this.changeSpecial}
+                        />
+                        {this.state.sort === 'special' ? this.renderSpecials() : ""}
+                        <hr/>
+                        <br/>
+                        <h3>De ingegeven tekst is zichtbaar als ondertiteling bij de foto.</h3>
+                        <textarea className='beschrijvingsveld'
+                                  key='beschrijving'
+                                  value={this.state.description}
+                                  name='description'
+                                  placeholder="Geef titel of beschrijf het werk"
+                                  onChange={this.handleChange}
+                        />
+                        <br/>
+                        <hr/>
+                        <br/>
+                        <h3>Kies de thema's:</h3>
+                        {this.renderThemes()}
+                        <hr/>
+                        <br/>
+                        <h3>Kies de kleuren:</h3>
+                        {this.renderColors()}
+                        <hr/>
+                        <br/>
+                        <h3>Kies de foto die je wilt uploaden.</h3>
+                        <div key='bestand'
+                            // className="custom-file"
+                             style={{width: 250}}>
+                            <input
+                                type="file"
+                                // className="custom-file-input"
+                                // id="customFileLangHTML"
+                                name='preview'
+                                // accept=".jpeg, .png, .jpg"
+                                //value={this.state.selectedFile}
+                                onChange={this.previewFile}
+                                // encType="multipart/form-data"
+                            />
+                            <label className="custom-file-label " htmlFor="customFileLangHTML"
+                                   data-browse="Bestand kiezen">Voeg je foto toe</label>
+                            {/*FIXME: the preview image replace the logo*/}
+                            <img id="preview" name="preview" src="" height="100" alt="image preview ..."/>
+                        </div>
+
+                        <hr/>
+                        <button className='knop' type='submit'>Uploaden</button>
+                    </form>
+
+                </main>
+            )
+        }
+        ;
+
+        renderSpecials()
+        {
+            const specials = ['Camera & Kwast', 'Boxbeeld', 'Geënsceneerd']
+            return specials.map((special, i) => {
+                return (
+                    <div key={i} className="form-check-inline">
+                        <label> {special} </label>
+                        <input
+                            type='radio'
+                            name='specials'
+                            onChange={this.changeSpecial}
+                            checked={this.state.specials[special]}
+                            value={special}
+                        />
+                    </div>
+                )
+            })
+        }
+
+        renderThemes()
+        {
+            const themes = ['Landschap', 'Stad', 'Buiten', 'Reizen', 'Water', 'Mensen', 'Abstract', 'Industrie', 'Scenes'];
+
+            return themes.map((theme, i) => {
+                return (
+                    <div key={i} className="form-check-inline">
+                        <label> {theme} </label>
+                        <input
+                            type='checkbox'
+                            name="theme"
+                            onChange={this.changeTheme}
+                            checked={this.state.themes[theme]}
+                            value={theme}/>
+                    </div>
+                )
+            })
+        }
+
+
+        renderColors()
+        {
+            const colors = ['Blauw', 'Geel', 'Groen', 'Rood', 'Oranje', 'Paars', 'Kleurrijk'];
+            return colors.map((color, i) => {
+                return (
+                    <div key={i} className="form-check-inline">
+                        <label>
+                            {color}</label>
+                        <input
+                            type="checkbox"
+                            name='color'
+                            onChange={this.changeColor}
+                            checked={this.state.colors[color]}
+                            value={color}
 
                         />
-                        <label className="custom-file-label " htmlFor="customFileLangHTML"
-                               data-browse="Bestand kiezen">Voeg je foto toe</label>
-                        {/*FIXME: the preview image replace the logo*/}
-                        <img id="preview" name="preview" src="" height="100" alt="image preview ..."/>
                     </div>
-
-                    <hr/>
-                    <button className='knop' type='submit'>Uploaden</button>
-                </form>
-
-            </main>
-        )
-    };
-
-    renderSpecials() {
-        const specials = ['Camera & Kwast', 'Boxbeeld', 'Geënsceneerd']
-        return specials.map((special, i) => {
-            return (
-                <div key={i} className="form-check-inline">
-                    <label> {special} </label>
-                    <input
-                        type='radio'
-                        name='specials'
-                        onChange={this.changeSpecial}
-                        checked={this.state.specials[special]}
-                        value={special}
-                    />
-                </div>
-            )
-        })
+                )
+            })
+        }
     }
-
-    renderThemes() {
-        const themes = ['Landschap', 'Stad', 'Buiten', 'Reizen', 'Water', 'Mensen', 'Abstract', 'Industrie', 'Scenes'];
-
-        return themes.map((theme, i) => {
-            return (
-                <div key={i} className="form-check-inline">
-                    <label> {theme} </label>
-                    <input
-                        type='checkbox'
-                        name="theme"
-                        onChange={this.changeTheme}
-                        checked={this.state.themes[theme]}
-                        value={theme}/>
-                </div>
-            )
-        })
-    }
-
-
-    renderColors() {
-        const colors = ['Blauw', 'Geel', 'Groen', 'Rood', 'Oranje', 'Paars', 'Kleurrijk'];
-        return colors.map((color, i) => {
-            return (
-                <div key={i} className="form-check-inline">
-                    <label>
-                        {color}</label>
-                    <input
-                        type="checkbox"
-                        name='color'
-                        onChange={this.changeColor}
-                        checked={this.state.colors[color]}
-                        value={color}
-
-                    />
-                </div>
-            )
-        })
-    }
-}
