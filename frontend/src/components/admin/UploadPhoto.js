@@ -24,7 +24,7 @@ export default class UploadPhoto extends Component {
 
     initialState = {
         sort: "Photo",
-        specials: "FOTO",
+        specials: "",
         description: "",
         themes: [],
         colors: [],
@@ -35,7 +35,6 @@ export default class UploadPhoto extends Component {
     //FIXME: upload File/image instead of String imagepath still not working
     //FIXME: after submit all fields should be reset to empty
     //FIXME: the radio button for foto should be preselected
-    //FIXME: the code for specials is no longer working
     onFormSubmit = e => {
         e.preventDefault();
 
@@ -120,7 +119,7 @@ export default class UploadPhoto extends Component {
         //FIXME: name is always sort so can we remove line 191 and change name to sort on line 192?
         const {name, value} = event.target
         if (name === 'sort' && value === 'photo') {
-            this.setState({[name]: value, specials: 'FOTO'});
+            this.setState({ sort: 'photo', specials: 'FOTO'});
         } else {
             this.setState({
                 sort: 'special'

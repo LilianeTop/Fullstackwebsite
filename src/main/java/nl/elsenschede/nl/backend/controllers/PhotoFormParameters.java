@@ -8,19 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PhotoFormParameters {
-    private Adaptation adaptation;
-    private String description;
-    private String image;
-    private List<Theme> themes = new ArrayList();
-    private List<Color> colors = new ArrayList();
+    public Adaptation specials;
+    public String description;
+    public String image;
+    public List<Theme> themes = new ArrayList();
+    public List<Color> colors = new ArrayList();
 
     public Adaptation getAdaptation() {
-        return adaptation;
+        return specials;
     }
 
-    public void setAdaptation(Adaptation adaptation) {
-        this.adaptation = adaptation;
-    }
+//    public void setAdaptation(Adaptation adaptation) {
+//        this.specials = adaptation;
+//    }
 
     public String getDescription() {
         return description;

@@ -13,6 +13,7 @@ public class Artpiece {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idArtpiece;
+    //@Enumerated(EnumType.STRING)
     @Column
     private Adaptation adaptation;
     @Column

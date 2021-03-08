@@ -42,19 +42,20 @@ public class PhotoFormController {
         return photos;
     }
 
-//FIXME: how to convert a Array of object themes and colors to a List of Enums
-    //FIXME: error status 400 Request body is missing. I guess it shouldn't be Artpiece as parameter but what?
+    //FIXME: special not in DB as the Adaptation is set to null
+    //FIXME: String image not in DB also null why??
     @PostMapping("/addArtpiece")
     public String uploadPhoto(@RequestBody PhotoFormParameters photoFormParameters) {
-        Adaptation special = photoFormParameters.getAdaptation();
+        Adaptation specials = photoFormParameters.getAdaptation();
         String description = photoFormParameters.getDescription();
         String image = photoFormParameters.getImage();
         List<Theme> themes = photoFormParameters.getThemes();
         List<Color> colors = photoFormParameters.getColors();
 
-        Artpiece piece = new Artpiece(special, description, image, themes, colors);
-        artpieceDao.save(piece);
+        System.out.println(image);//returns null why?
 
+        Artpiece piece = new Artpiece(specials, description, image, themes, colors);
+        artpieceDao.save(piece);
 
         return "redirect:/menu";
 
