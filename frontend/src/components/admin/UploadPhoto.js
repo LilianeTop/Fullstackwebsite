@@ -210,8 +210,7 @@ export default class UploadPhoto extends Component {
                             />
                             <label className="custom-file-label " htmlFor="customFileLangHTML"
                                    data-browse="Bestand kiezen">Voeg je foto toe</label>
-                            {/*FIXME: the preview image replace the logo*/}
-                            <img id="preview" name="preview" src="" height="100" alt="image preview ..."/>
+                            <img id="preview" name="preview" src="" height="100" alt=""/>
                         </div>
 
                         <hr/>

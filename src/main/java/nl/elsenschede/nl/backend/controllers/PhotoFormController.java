@@ -47,14 +47,12 @@ public class PhotoFormController {
     @PostMapping("/addArtpiece")
     public String uploadPhoto(@RequestBody PhotoFormParameters photoFormParameters) {
         Adaptation specials = photoFormParameters.getAdaptation();
+        String selectedFile = photoFormParameters.getSelectedFile();
         String description = photoFormParameters.getDescription();
-        String image = photoFormParameters.getImage();
         List<Theme> themes = photoFormParameters.getThemes();
         List<Color> colors = photoFormParameters.getColors();
 
-        System.out.println(image);//returns null why?
-
-        Artpiece piece = new Artpiece(specials, description, image, themes, colors);
+        Artpiece piece = new Artpiece(specials, description, selectedFile, themes, colors);
         artpieceDao.save(piece);
 
         return "redirect:/menu";

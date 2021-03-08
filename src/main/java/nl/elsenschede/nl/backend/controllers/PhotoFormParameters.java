@@ -10,7 +10,7 @@ import java.util.List;
 public class PhotoFormParameters {
     public Adaptation specials;
     public String description;
-    public String image;
+    public String selectedFile;
     public List<Theme> themes = new ArrayList();
     public List<Color> colors = new ArrayList();
 
@@ -18,9 +18,9 @@ public class PhotoFormParameters {
         return specials;
     }
 
-//    public void setAdaptation(Adaptation adaptation) {
-//        this.specials = adaptation;
-//    }
+    public void setAdaptation(Adaptation adaptation) {
+        this.specials = adaptation;
+    }
 
     public String getDescription() {
         return description;
@@ -30,12 +30,12 @@ public class PhotoFormParameters {
         this.description = description;
     }
 
-    public String getImage() {
-        return image;
+    public String getSelectedFile() {
+        return selectedFile;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setSelectedFile(String selectedFile) {
+        this.selectedFile = selectedFile;
     }
 
     public List<Theme> getThemes() {

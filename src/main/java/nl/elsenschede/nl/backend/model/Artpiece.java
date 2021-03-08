@@ -13,28 +13,27 @@ public class Artpiece {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idArtpiece;
-    //@Enumerated(EnumType.STRING)
     @Column
     private Adaptation adaptation;
     @Column
     private String description;
     @Column
-    private String image;
+    private String selectedFile;
     @ElementCollection
     private List<Theme> themes = new ArrayList();
     @ElementCollection
     private List<Color> colors = new ArrayList();
 
 
-    public Artpiece(Adaptation adaptation, String description, String image, List<Theme> themes, List<Color> colors) {
-        this(0, adaptation, description, image, themes, colors);
+    public Artpiece(Adaptation adaptation, String description, String selectedFile, List<Theme> themes, List<Color> colors) {
+        this(0, adaptation, description, selectedFile, themes, colors);
     }
 
-    public Artpiece(int idArtpiece, Adaptation adaptation, String description, String image, List<Theme> themes, List<Color> colors) {
+    public Artpiece(int idArtpiece, Adaptation adaptation, String description, String selectedFile, List<Theme> themes, List<Color> colors) {
         this.idArtpiece = idArtpiece;
         this.adaptation = adaptation;
         this.description = description;
-        this.image = image;
+        this.selectedFile = selectedFile;
         this.themes = themes;
         this.colors = colors;
     }
@@ -67,12 +66,12 @@ public class Artpiece {
         this.description = description;
     }
 
-    public String getImage() {
-        return image;
+    public String getSelectedFile() {
+        return selectedFile;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setSelectedFile(String selectedFile) {
+        this.selectedFile = selectedFile;
     }
 
     public List<Theme> getThemes() {
@@ -98,7 +97,7 @@ public class Artpiece {
                 "idArtpiece=" + idArtpiece +
                 ", adaptation=" + adaptation +
                 ", description='" + description + '\'' +
-                ", image=" + image +
+                ", image=" + selectedFile +
                 ", themes=" + themes +
                 ", colors=" + colors +
                 '}';
