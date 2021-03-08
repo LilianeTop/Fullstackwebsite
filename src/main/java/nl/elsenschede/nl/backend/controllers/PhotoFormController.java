@@ -29,12 +29,12 @@ public class PhotoFormController {
         this.artpieceDao = artpieceDao;
     }
 
-    @GetMapping({"/photoForm"})
-    public String photoFormHandle() {
-        return "/photoForm";
-    }
+//    @GetMapping({"/photoForm"})
+//    public String photoFormHandle() {
+//        return "/photoForm";
+//    }
 
-
+//FIXME: doesn't show any images just the description
     @GetMapping("/showPhoto")
     public List<Artpiece> getAllPhotos() {
         List<Artpiece> photos = new ArrayList<>();
@@ -42,8 +42,6 @@ public class PhotoFormController {
         return photos;
     }
 
-    //FIXME: special not in DB as the Adaptation is set to null
-    //FIXME: String image not in DB also null why??
     @PostMapping("/addArtpiece")
     public String uploadPhoto(@RequestBody PhotoFormParameters photoFormParameters) {
         Adaptation specials = photoFormParameters.getAdaptation();

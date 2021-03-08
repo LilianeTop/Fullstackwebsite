@@ -17,7 +17,7 @@ public class Artpiece {
     private Adaptation adaptation;
     @Column
     private String description;
-    @Column
+    @Column(columnDefinition = "LONGTEXT")
     private String selectedFile;
     @ElementCollection
     private List<Theme> themes = new ArrayList();
