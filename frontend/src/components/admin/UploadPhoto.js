@@ -1,7 +1,7 @@
 import "./Admin.css";
 import React, {Component} from 'react';
 import axios from "axios";
-import {toBeChecked} from "@testing-library/jest-dom/dist/to-be-checked";
+import Menu from "./Menu";
 
 export default class UploadPhoto extends Component {
     //do we need props in our constructor and where do they come from? it still works without the props
@@ -20,6 +20,7 @@ export default class UploadPhoto extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.changeSpecial = this.changeSpecial.bind(this)
         this.previewFile = this.previewFile.bind(this)
+        this.showMenu = this.showMenu.bind(this)
     }
 
     initialState = {
@@ -29,6 +30,7 @@ export default class UploadPhoto extends Component {
         themes: [],
         colors: [],
         selectedFile: "",
+        showMenu: false
     }
 
 
@@ -62,6 +64,12 @@ export default class UploadPhoto extends Component {
             alert("Something went wrong" + error);
             this.setState(this.initialState)
         });
+    }
+
+    showMenu() {
+        this.setState({
+            showMenu: true
+        })
     }
 
     previewFile(event) {
@@ -147,78 +155,81 @@ export default class UploadPhoto extends Component {
     }
 
     render() {
-        return (
-            <main>
-                <div className="koptekst">
-                    <h1>Het toevoegen van een foto aan de database.</h1>
-                </div>
-                <form className="formulier" onSubmit={this.onFormSubmit}>
-                    <h3>Kies de foto die je wilt toevoegen.</h3>
-                    <div key='bestand'
-                         className="custom-file bestand"
-                         style={{width: 250}}>
-                        <input
-                            type="file"
-                            className="custom-file-input"
-                            id="customFileLangHTML"
-                            name='preview'
-                            accept=".jpeg, .png, .jpg"
-                            onChange={this.previewFile}
-                            required
-                        />
-                        <label className="custom-file-label" htmlFor="customFileLangHTML"
-                               data-browse="Bestand kiezen">Voeg je foto toe</label>
-
-                        <img id="preview" name="preview" src="" height="150" alt=""/>
-                        <br/>
+        if (this.state.showMenu) {
+            return <Menu/>
+        } else
+            return (
+                <main>
+                    <div className="koptekst">
+                        <h1>Het toevoegen van een foto aan de database.</h1>
                     </div>
+                    <form className="formulier" onSubmit={this.onFormSubmit}>
+                        <h3>Kies de foto die je wilt toevoegen.</h3>
+                        <div key='bestand'
+                             className="custom-file bestand"
+                             style={{width: 250}}>
+                            <input
+                                type="file"
+                                className="custom-file-input"
+                                id="customFileLangHTML"
+                                name='preview'
+                                accept=".jpeg, .png, .jpg"
+                                onChange={this.previewFile}
+                                required
+                            />
+                            <label className="custom-file-label" htmlFor="customFileLangHTML"
+                                   data-browse="Bestand kiezen">Voeg je foto toe</label>
 
-                    <hr/>
-                    <h3>Kies het type kunstwerk: </h3>
-                    <label key='foto'>Foto</label>
-                    <input
-                        type="radio"
-                        name="sort"
-                        value="photo"
-                        checked={this.state.sort === "photo"}
-                        onChange={this.changeSpecial}
-                    />
-                    <label key='special'>Special</label>
-                    <input
-                        type="radio"
-                        name="sort"
-                        value="special"
-                        checked={this.state.sort === "special"}
-                        onChange={this.changeSpecial}
-                    />
-                    {this.state.sort === 'special' ? this.renderSpecials() : ""}
-                    <hr/>
-                    <br/>
-                    <h3>De ingegeven tekst is zichtbaar als ondertiteling bij de foto.</h3>
-                    <textarea className='beschrijvingsveld'
-                              key='beschrijving'
-                              value={this.state.description}
-                              name='description'
-                              placeholder="Geef titel of beschrijf het werk"
-                              onChange={this.handleChange}
-                    />
-                    <br/>
-                    <hr/>
-                    <br/>
-                    <h3>Kies de thema's:</h3>
-                    {this.renderThemes()}
-                    <hr/>
-                    <br/>
-                    <h3>Kies de kleuren:</h3>
-                    {this.renderColors()}
-                    <hr/>
-                    <button className='knop' type='submit'>Toevoegen</button>
-                </form>
+                            <img id="preview" name="preview" src="" height="150" alt=""/>
+                            <br/>
+                        </div>
 
-            </main>
-        )
-    }
-    ;
+                        <hr/>
+                        <h3>Kies het type kunstwerk: </h3>
+                        <label key='foto'>Foto</label>
+                        <input
+                            type="radio"
+                            name="sort"
+                            value="photo"
+                            checked={this.state.sort === "photo"}
+                            onChange={this.changeSpecial}
+                        />
+                        <label key='special'>Special</label>
+                        <input
+                            type="radio"
+                            name="sort"
+                            value="special"
+                            checked={this.state.sort === "special"}
+                            onChange={this.changeSpecial}
+                        />
+                        {this.state.sort === 'special' ? this.renderSpecials() : ""}
+                        <hr/>
+                        <br/>
+                        <h3>De ingegeven tekst is zichtbaar als ondertiteling bij de foto.</h3>
+                        <textarea className='beschrijvingsveld'
+                                  key='beschrijving'
+                                  value={this.state.description}
+                                  name='description'
+                                  placeholder="Geef titel of beschrijf het werk"
+                                  onChange={this.handleChange}
+                        />
+                        <br/>
+                        <hr/>
+                        <br/>
+                        <h3>Kies de thema's:</h3>
+                        {this.renderThemes()}
+                        <hr/>
+                        <br/>
+                        <h3>Kies de kleuren:</h3>
+                        {this.renderColors()}
+                        <hr/>
+                        <button className='knop' type='submit'>Toevoegen</button>
+                    </form>
+                    <button className='terugknop' type='button' onClick={this.showMenu}>Terug naar Menu</button>
+
+                </main>
+            )
+    };
 
     renderSpecials() {
         const specials = ['Camera & Kwast', 'Boxbeeld', 'Geënsceneerd']

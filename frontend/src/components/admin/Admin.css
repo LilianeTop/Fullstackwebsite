@@ -1,12 +1,14 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
+
 /*FIXME: how to remove footer from this page?*/
 footer {
     /*visibility: hidden !important;*/
     display: none !important;
 }
+
 main {
     margin: 30px 100px;
     font-family: Roboto, sans-serif;
@@ -42,7 +44,7 @@ label {
 }
 
 .formulier {
-    padding: 30px 75px 10px;
+    padding: 50px 75px 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-top: -30px;
 }
@@ -56,14 +58,24 @@ label {
     color: #d9e76b;
 }
 
+.terugknop {
+    display: flex;
+    float: right;
+    margin: 15px auto;
+    padding: 15px;
+    font-size: 2rem;
+    background-color: #354440;
+    color: #d9e76b;
+}
+
+
 .kiesknop {
     padding: 5px 0 10px 0;
     font-size: 1.5rem;
 }
 
 
-
-input[type='radio']:checked:after, input[type='checkbox']:checked:after{
+input[type='radio']:checked:after, input[type='checkbox']:checked:after {
     width: 20px;
     height: 20px;
     border-radius: 15px;
@@ -71,7 +83,7 @@ input[type='radio']:checked:after, input[type='checkbox']:checked:after{
     top: -5px;
     left: -1px;
     position: relative;
-    background-color: #354440 ;
+    background-color: #354440;
     content: '';
     display: inline-block;
     visibility: visible;
@@ -84,7 +96,7 @@ input[type='radio']:checked:after, input[type='checkbox']:checked:after{
 #preview {
     display: block;
     /*align-content: center;*/
-    margin:  auto;
+    margin: auto;
     padding: 10px;
 }
 

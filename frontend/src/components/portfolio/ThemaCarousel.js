@@ -1,5 +1,5 @@
 import {Carousel} from 'react-bootstrap';
-import React, {Component} from "react";
+import React, {Component, useState, useEffect} from "react";
 import Photo from "./Photo";
 import "./ThemaCarousel.css";
 import axios from "axios";
@@ -9,12 +9,12 @@ export default class ThemaCarousel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            photos: [
+            photoList: [
                 {
                     idArtpiece: 0,
+                    specials: "",
                     description: "",
-                    imagePath: "",
-                    portfolio: "",
+                    selectedFile: "",
                     themes: [],
                     colors: []
 
@@ -27,7 +27,8 @@ export default class ThemaCarousel extends Component {
         axios.get("http://localhost:8080/api/showPhoto")
             .then(response => {
                 const photos = response.data;
-                this.setState({photos})
+                this.setState({
+                    photoList: photos})
             })
     }
 
@@ -37,7 +38,7 @@ export default class ThemaCarousel extends Component {
             //Warning: Each child in a list should have a unique "key" prop.
             //solved this by adding within the Carousel.Item tag the key={photo.idArtPiece}
             <Carousel className='photos'>
-                {this.state.photos.map(photo =>
+                {this.state.photoList.map(photo =>
                         <Carousel.Item key={photo.idArtpiece}>
                             <Photo photo={photo} />
                         </Carousel.Item>
