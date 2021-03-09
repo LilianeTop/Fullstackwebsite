@@ -150,10 +150,10 @@ export default class UploadPhoto extends Component {
         return (
             <main>
                 <div className="koptekst">
-                    <h1>Het uploaden van een foto</h1>
+                    <h1>Het toevoegen van een foto aan de database.</h1>
                 </div>
                 <form className="formulier" onSubmit={this.onFormSubmit}>
-                    <h3>Kies de foto die je wilt uploaden.</h3>
+                    <h3>Kies de foto die je wilt toevoegen.</h3>
                     <div key='bestand'
                          className="custom-file bestand"
                          style={{width: 250}}>
@@ -212,7 +212,7 @@ export default class UploadPhoto extends Component {
                     <h3>Kies de kleuren:</h3>
                     {this.renderColors()}
                     <hr/>
-                    <button className='knop' type='submit'>Uploaden</button>
+                    <button className='knop' type='submit'>Toevoegen</button>
                 </form>
 
             </main>
