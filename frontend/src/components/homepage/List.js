@@ -4,7 +4,7 @@ import ThemePhoto from "./ThemePhoto";
 const List = (props) => {
   return (
     <div>
-        <h2> {props.title} </h2>
+        {/*<h2> {props.title} </h2>*/}
           <div className = "list">
             <ThemePhoto picture="/img/VerborgenCitroenen.jpg" alt="Landschap"/>
             <ThemePhoto picture="/img/mensen3Mannen.jpg" alt="Mensen"/>

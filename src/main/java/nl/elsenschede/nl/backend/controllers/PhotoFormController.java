@@ -39,6 +39,9 @@ public class PhotoFormController {
     public List<Artpiece> getAllPhotos() {
         List<Artpiece> photos = new ArrayList<>();
         artpieceDao.findAllByAdaptation(Adaptation.FOTO).forEach(photos::add);
+        for(Artpiece photo : photos){
+            System.out.println(photo.getDescription());//returns empty[]
+        }
         return photos;
     }
 

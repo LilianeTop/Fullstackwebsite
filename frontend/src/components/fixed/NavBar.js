@@ -89,10 +89,10 @@ const NavBar = () => {
                     </li>
 
                     <li className="nav-item active">
-                        <a className="nav-link" href="/overEls"><span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="/aboutEls"><span className="sr-only">(current)</span></a>
                     </li>
                     <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle" href="/overEls" id="navbarDropdown" role="button"
+                        <a className="nav-link dropdown-toggle" href="/aboutEls" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Over Els
                         </a>

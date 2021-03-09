@@ -3,43 +3,75 @@ import React, {Component} from "react";
 import UploadPhoto from "./UploadPhoto";
 import ChangePhoto from "./ChangePhoto";
 import DeletePhoto from "./DeletePhoto";
-import {Link, Redirect, Route} from "react-router-dom";
 
 
-//FIXME: this should ONLY be accessible when logged in
 class Menu extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            redirect: false
+            showUploadPhotoForm: false,
+            showChangePhotoForm: false,
+            showDeletePhotoForm: false
         }
-        this.showPhotoForm = this.showPhotoForm.bind(this)
+        this.showUploadPhoto = this.showUploadPhoto.bind(this)
+        this.showChangePhoto = this.showChangePhoto.bind(this)
+        this.showDeletePhoto = this.showDeletePhoto.bind(this)
     }
-    showPhotoForm(){
-    return <UploadPhoto />
+
+    showUploadPhoto() {
+        this.setState({
+            showUploadPhotoForm: true
+        })
     }
+
+    showChangePhoto() {
+        this.setState({
+            showChangePhotoForm: true
+        })
+    }
+
+    showDeletePhoto() {
+        this.setState({
+            showDeletePhotoForm: true
+        })
+    }
+
     render() {
-            return (
-                <main>
-                    <div className="koptekst">
-                        <h1>Els, wat wil je doen?</h1>
-                    </div>
-                    <div className="formulier">
-                        <h2>Ik wil een foto: </h2>
-                        <div className="form-check-inline">
-                            <button className='knop'
-                                    type='submit'
-                                    onClick={this.showPhotoForm}>
-                                Toevoegen
+        if (this.state.showUploadPhotoForm) {
+            return <UploadPhoto/>
+        } else if (this.state.showChangePhotoForm) {
+            return <ChangePhoto/>
+        } else if (this.state.showDeletePhotoForm) {
+            return <DeletePhoto/>
+        } else
+        return (
+            <main>
+                <div className="koptekst">
+                    <h1>Els, wat wil je doen?</h1>
+                </div>
+                <div className="formulier">
+                    <h2>Ik wil een foto: </h2>
+                    <div className="form-check-inline">
+                        <button className='knop'
+                                type='button'
+                                onClick={this.showUploadPhoto}
+                        >
+                            Toevoegen
                         </button>
                         {/*TODO: create form to change photo*/}
-                        <Link to='/ChangePhoto'>
-                            <button className='knop'>Wijzigen</button>
-                        </Link>
+                        <button className='knop'
+                                type='button'
+                                onClick={this.showChangePhoto}
+                        >
+                            Wijzigen
+                        </button>
                         {/*TODO: create form to delete a photo*/}
-                        <Link to='/DeletePhoto'>
-                            <button className='knop'>Verwijderen</button>
-                        </Link>
+                        <button className='knop'
+                                type='button'
+                                onClick={this.showDeletePhoto}
+                        >
+                            Verwijderen
+                        </button>
 
                     </div>
                     <hr/>
@@ -50,21 +82,10 @@ class Menu extends Component {
                         <button type='submit' className='knop'>Verwijderen</button>
                     </div>
                 </div>
-    </main>
-    );
+            </main>
+        );
     }
 
-    }
+}
 
-    // const mapStateToProps = (state) => ({
-    //     show: state.show
-    // });
-    //
-    // const mapDispatchToProps = (dispatch) => ({
-    //         onClick: () => dispatch({
-    //             type: 'SHOW', payload: true
-    //         })
-    //     });
-    //
-    // export default connect(mapStateToProps, mapDispatchToProps)(Menu);
-    export default Menu;
+export default Menu;

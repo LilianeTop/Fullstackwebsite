@@ -1,5 +1,6 @@
+import React from 'react';
 import "./App.css";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import NavBar from "../components/fixed/NavBar";
 // import SearchBar from "./components/fixed/SearchBar";
 import Footer from "../components/fixed/Footer";
@@ -16,21 +17,17 @@ import DeletePhoto from "../components/admin/DeletePhoto";
 const App = () => {
 
     return (
-        <Router>
-          <div className = "app">
-            <Route path='*' component={NavBar} />
-            <Route path='*' component={Footer} />
-            <Route exact path='/' component={Home} />
-            <Route exact path='/admin' component={Admin} />
-            <Route exact path='/UploadPhoto' component={UploadPhoto} />
-            <Route exact path='/ChangePhoto' component={ChangePhoto} />
-            <Route exact pahh='/DeletePhoto'  component={DeletePhoto} />
-            <Route exact path='/blog' component={Blog} />
-            <Route exact path='/aboutEls' component={AboutEls} />
-            <Route exact path='/landschap' component={Portfolio} />
-          </div>
-
-        </Router>
+            <Router>
+                <div className="app">
+                    <Route path='*' component={NavBar}/>
+                    <Route path='*' component={Footer}/>
+                    <Route exact path='/' component={Home}/>
+                    <Route exact path='/admin' component={Admin}/>
+                    <Route exact path='/blog' component={Blog}/>
+                    <Route exact path='/standpunt' component={AboutEls}/>
+                    <Route exact path='/landschap' component={Portfolio}/>
+                </div>
+            </Router>
     );
 
 
