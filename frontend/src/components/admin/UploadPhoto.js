@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import axios from "axios";
 import Menu from "./Menu";
 
+
+
 export default class UploadPhoto extends Component {
     //do we need props in our constructor and where do they come from? it still works without the props
     //TODO: validation you have to choose at least a theme or a color and upload an image
@@ -31,7 +33,8 @@ export default class UploadPhoto extends Component {
         colors: [],
         selectedFile: "",
         showMenu: false,
-        checkCount: 0
+        checkCount: 0,
+        preview: null
     }
 
 
@@ -52,10 +55,10 @@ export default class UploadPhoto extends Component {
             colors: this.state.colors
         }
 
-
         axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
             .then(response => {
-                this.setState(this.initialState);
+                this.setState(this.initialState)
+                emptyForm();
                 if (response.data === 'exists'){
                     alert("Deze foto is al toegevoegd aan de database")
                 } else if(response.data !== null){
@@ -63,9 +66,13 @@ export default class UploadPhoto extends Component {
                 }
             }).catch(error => {
             alert("Something went wrong" + error);
-            this.setState(this.initialState)
         });
-        this.setState(this.initialState);
+
+        function emptyForm() {
+            document.getElementById("uploadPhotoForm").reset();
+        }
+
+
     }
 
     showMenu() {
@@ -74,19 +81,11 @@ export default class UploadPhoto extends Component {
         })
     }
 
-    previewFile(event) {
-        const preview = document.querySelector('img[id=preview]');
-        const self = this;
-        const file = event.target.files[0];
-        const reader = new FileReader();
 
-        reader.onload = function (upload) {
-            preview.src = reader.result;
-            self.setState({
-                selectedFile: upload.target.result
-            });
-        };
-        reader.readAsDataURL(file);
+    previewFile(event) {
+        this.setState({
+            preview : URL.createObjectURL(event.target.files[0])
+        })
     };
 
 
@@ -166,7 +165,7 @@ export default class UploadPhoto extends Component {
                     <div className="koptekst">
                         <h1>Het toevoegen van een foto aan de database.</h1>
                     </div>
-                    <form className="formulier" onSubmit={this.onFormSubmit}>
+                    <form id="uploadPhotoForm" className="formulier" onSubmit={this.onFormSubmit}>
                         <h3>Kies de foto die je wilt toevoegen.</h3>
                         <div key='bestand'
                              className="custom-file bestand"
@@ -183,7 +182,7 @@ export default class UploadPhoto extends Component {
                             <label className="custom-file-label" htmlFor="customFileLangHTML"
                                    data-browse="Bestand kiezen">Voeg je foto toe</label>
 
-                            <img id="preview" name="preview" src="" height="150" alt=""/>
+                            <img id="preview" name="preview" src={this.state.preview} height="150" alt=""/>
                             <br/>
                         </div>
 
