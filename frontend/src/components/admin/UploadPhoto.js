@@ -59,7 +59,7 @@ export default class UploadPhoto extends Component {
                 this.setState(this.initialState)
                 console.log(response.data)
                 if (response.data != null)
-                    alert("Kunstwerk opgeslagen")
+                    alert("Foto toegevoegd aan de database!")
             }).catch(error => {
             alert("Something went wrong" + error);
             this.setState(this.initialState)
@@ -262,7 +262,9 @@ export default class UploadPhoto extends Component {
                         name="theme"
                         onChange={this.changeTheme}
                         checked={this.state.themes[theme]}
-                        value={theme}/>
+                        value={theme}
+                        required
+                    />
                 </div>
             )
         })
@@ -270,7 +272,7 @@ export default class UploadPhoto extends Component {
 
 
     renderColors() {
-        const colors = ['Blauw', 'Geel', 'Groen', 'Rood', 'Oranje', 'Paars', 'Kleurrijk'];
+        const colors = ['Blauw', 'Geel', 'Groen', 'Rood', 'Oranje', 'Bruin', 'Kleurrijk'];
         return colors.map((color, i) => {
             return (
                 <div key={i} className="form-check-inline">

@@ -6,7 +6,7 @@ public enum Color {
     GROEN,
     ROOD,
     ORANJE,
-    PAARS,
+    BRUIN,
     KLEURRIJK;
 
     private Color() {
