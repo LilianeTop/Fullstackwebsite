@@ -19,27 +19,29 @@ public class Artpiece {
     private String description;
     @Column(columnDefinition = "LONGTEXT")
     private String selectedFile;
+    @Column
+    String imageHash;
     @ElementCollection
     private List<Theme> themes = new ArrayList();
     @ElementCollection
     private List<Color> colors = new ArrayList();
 
 
-    public Artpiece(Adaptation adaptation, String description, String selectedFile, List<Theme> themes, List<Color> colors) {
-        this(0, adaptation, description, selectedFile, themes, colors);
+    public Artpiece() {
     }
 
-    public Artpiece(int idArtpiece, Adaptation adaptation, String description, String selectedFile, List<Theme> themes, List<Color> colors) {
+    public Artpiece(Adaptation adaptation, String description, String selectedFile, String imageHash, List<Theme> themes, List<Color> colors) {
+       this(0, adaptation, description, selectedFile, imageHash, themes, colors);
+    }
+
+    public Artpiece(int idArtpiece, Adaptation adaptation, String description, String selectedFile, String imageHash, List<Theme> themes, List<Color> colors) {
         this.idArtpiece = idArtpiece;
         this.adaptation = adaptation;
         this.description = description;
         this.selectedFile = selectedFile;
+        this.imageHash = imageHash;
         this.themes = themes;
         this.colors = colors;
-    }
-
-    public Artpiece() {
-
     }
 
     public int getIdArtpiece() {
@@ -90,6 +92,13 @@ public class Artpiece {
         this.colors = colors;
     }
 
+    public String getImageHash() {
+        return imageHash;
+    }
+
+    public void setImageHash(String imageHash) {
+        this.imageHash = imageHash;
+    }
 
     @Override
     public String toString() {

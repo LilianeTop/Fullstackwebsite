@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,18 +50,34 @@ public class PhotoFormController {
     }
 
     @PostMapping("/addArtpiece")
-    public String uploadPhoto(@RequestBody PhotoFormParameters photoFormParameters) {
+    public String uploadPhoto(@RequestBody PhotoFormParameters photoFormParameters) throws NoSuchAlgorithmException {
         Adaptation specials = photoFormParameters.getAdaptation();
         String selectedFile = photoFormParameters.getSelectedFile();
         String description = photoFormParameters.getDescription();
         List<Theme> themes = photoFormParameters.getThemes();
         List<Color> colors = photoFormParameters.getColors();
 
-        Artpiece piece = new Artpiece(specials, description, selectedFile, themes, colors);
+        String imageHash = CalculateHash(selectedFile);
+        if(ImageExists(imageHash)){
+            return "exists";
+        }
+
+        Artpiece piece = new Artpiece(specials, description, selectedFile, imageHash, themes, colors);
         artpieceDao.save(piece);
 
-        return "redirect:/menu";
+        return "/addArtpiece";
 
+    }
+
+    private boolean ImageExists(String imageHash) {
+       return artpieceDao.existsArtpieceByImageHash(imageHash);
+    }
+
+    private String CalculateHash(String selectedFile) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] fileBytes = md.digest(selectedFile.getBytes(StandardCharsets.UTF_8));
+        String hash = Arrays.toString(fileBytes);
+        return hash;
     }
 
 

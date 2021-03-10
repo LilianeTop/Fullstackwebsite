@@ -13,6 +13,7 @@ import java.util.List;
 
 @RepositoryRestResource
 public interface ArtpieceDao extends CrudRepository<Artpiece, Integer> {
+    Boolean existsArtpieceByImageHash(String imageHash);
     List<Artpiece>  findAllByThemes(Theme theme);
     List<Artpiece> findAllByColors(Color color);
     List<Artpiece> findAllByAdaptation(Adaptation adaptation);

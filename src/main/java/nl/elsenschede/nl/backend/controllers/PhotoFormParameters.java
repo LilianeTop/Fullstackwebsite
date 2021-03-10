@@ -53,4 +53,5 @@ public class PhotoFormParameters {
     public void setColors(List<Color> colors) {
         this.colors = colors;
     }
+
 }

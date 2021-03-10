@@ -30,7 +30,8 @@ export default class UploadPhoto extends Component {
         themes: [],
         colors: [],
         selectedFile: "",
-        showMenu: false
+        showMenu: false,
+        checkCount: 0
     }
 
 
@@ -38,14 +39,11 @@ export default class UploadPhoto extends Component {
 
     onFormSubmit = e => {
         e.preventDefault();
-        //FIXME: how to validate checkboxes?
-        // const validate = document.querySelector("input[type=checkbox]");
-        if ('input[type=checkbox]'.toBeChecked) {
-            alert("You must check at least one checkbox of either Theme or Color.");
-            return false;
+        //FIXME: how to validate Theme?
+        if( this.state.checkCount === 0){
+            alert("Je moet tenminste één Thema kiezen");
+            return;
         }
-
-
         const artpieceData = {
             specials: this.state.specials,
             description: this.state.description,
@@ -54,16 +52,20 @@ export default class UploadPhoto extends Component {
             colors: this.state.colors
         }
 
+
         axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
             .then(response => {
-                this.setState(this.initialState)
-                console.log(response.data)
-                if (response.data != null)
+                this.setState(this.initialState);
+                if (response.data === 'exists'){
+                    alert("Deze foto is al toegevoegd aan de database")
+                } else if(response.data !== null){
                     alert("Foto toegevoegd aan de database!")
+                }
             }).catch(error => {
             alert("Something went wrong" + error);
             this.setState(this.initialState)
         });
+        this.setState(this.initialState);
     }
 
     showMenu() {
@@ -100,7 +102,8 @@ export default class UploadPhoto extends Component {
         }
 
         this.setState({
-            themes: tempThemes
+            themes: tempThemes,
+            checkCount: this.state.themes.length
         })
     }
 
@@ -263,7 +266,6 @@ export default class UploadPhoto extends Component {
                         onChange={this.changeTheme}
                         checked={this.state.themes[theme]}
                         value={theme}
-                        required
                     />
                 </div>
             )
