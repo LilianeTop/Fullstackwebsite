@@ -20,7 +20,7 @@ public class Artpiece {
     @Column(columnDefinition = "LONGTEXT")
     private String selectedFile;
     @Column
-    String imageHash;
+    private String imageHash;
     @ElementCollection
     private List<Theme> themes = new ArrayList();
     @ElementCollection

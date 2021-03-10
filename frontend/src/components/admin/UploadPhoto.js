@@ -44,7 +44,7 @@ export default class UploadPhoto extends Component {
         e.preventDefault();
         //FIXME: how to validate Theme?
         if( this.state.checkCount === 0){
-            alert("Je moet tenminste één Thema kiezen");
+            alert("Je moet tenminste één thema kiezen");
             return;
         }
         const artpieceData = {
@@ -57,12 +57,15 @@ export default class UploadPhoto extends Component {
 
         axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
             .then(response => {
-                this.setState(this.initialState)
-                emptyForm();
+
                 if (response.data === 'exists'){
                     alert("Deze foto is al toegevoegd aan de database")
+                    emptyForm();
+                    this.setState(this.initialState);
                 } else if(response.data !== null){
                     alert("Foto toegevoegd aan de database!")
+                    emptyForm();
+                    this.setState(this.initialState);
                 }
             }).catch(error => {
             alert("Something went wrong" + error);
@@ -86,6 +89,18 @@ export default class UploadPhoto extends Component {
         this.setState({
             preview : URL.createObjectURL(event.target.files[0])
         })
+        const preview = document.querySelector('img[id=preview]');
+        const self = this;
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (upload) {
+            preview.src = reader.result;
+            self.setState({
+                selectedFile: upload.target.result
+            });
+        };
+        reader.readAsDataURL(file);
     };
 
 

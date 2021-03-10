@@ -38,12 +38,12 @@ public class PhotoFormController {
 //        return "/photoForm";
 //    }
 
-//FIXME: doesn't show any images just the description
+    //FIXME: doesn't show any images just the description
     @GetMapping("/showPhoto")
     public List<Artpiece> getAllPhotos() {
         List<Artpiece> photos = new ArrayList<>();
         artpieceDao.findAllByAdaptation(Adaptation.FOTO).forEach(photos::add);
-        for(Artpiece photo : photos){
+        for (Artpiece photo : photos) {
             System.out.println(photo.getDescription());//returns empty[]
         }
         return photos;
@@ -58,7 +58,7 @@ public class PhotoFormController {
         List<Color> colors = photoFormParameters.getColors();
 
         String imageHash = CalculateHash(selectedFile);
-        if(ImageExists(imageHash)){
+        if (ImageExists(imageHash)) {
             return "exists";
         }
 
@@ -66,11 +66,10 @@ public class PhotoFormController {
         artpieceDao.save(piece);
 
         return "/addArtpiece";
-
     }
 
     private boolean ImageExists(String imageHash) {
-       return artpieceDao.existsArtpieceByImageHash(imageHash);
+        return artpieceDao.existsArtpieceByImageHash(imageHash);
     }
 
     private String CalculateHash(String selectedFile) throws NoSuchAlgorithmException {
