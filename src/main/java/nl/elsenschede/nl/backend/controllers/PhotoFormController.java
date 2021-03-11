@@ -34,13 +34,6 @@ public class PhotoFormController {
         this.artpieceDao = artpieceDao;
     }
 
-//    @GetMapping({"/photoForm"})
-//    public String photoFormHandle() {
-//        return "/photoForm";
-//    }
-
-
-
     @PostMapping("/addArtpiece")
     public String uploadPhoto(@RequestBody PhotoFormParameters photoFormParameters) throws NoSuchAlgorithmException {
         Adaptation specials = photoFormParameters.getAdaptation();
@@ -60,16 +53,16 @@ public class PhotoFormController {
         return "/addArtpiece";
     }
 
+    //TODO: refactor to service
     private boolean ImageExists(String imageHash) {
         return artpieceDao.existsArtpieceByImageHash(imageHash);
     }
-
+    //TODO: refactor to service
     private String CalculateHash(String selectedFile) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
         byte[] fileBytes = md.digest(selectedFile.getBytes(StandardCharsets.UTF_8));
         String hash = Arrays.toString(fileBytes);
         return hash;
     }
-
 
 }

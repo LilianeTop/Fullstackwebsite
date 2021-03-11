@@ -1,5 +1,5 @@
 import {Carousel} from 'react-bootstrap';
-import React, {Component, useState, useEffect} from "react";
+import React, {Component} from "react";
 import Photo from "./Photo";
 import "./ThemaCarousel.css";
 import axios from "axios";
@@ -9,17 +9,7 @@ export default class ThemaCarousel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            photoList: [
-                {
-                    idArtpiece: 0,
-                    specials: "",
-                    description: "",
-                    selectedFile: "",
-                    themes: [],
-                    colors: []
-
-                }
-            ]
+            photoList: []
         }
     }
 
@@ -28,7 +18,8 @@ export default class ThemaCarousel extends Component {
             .then(response => {
                 const photos = response.data;
                 this.setState({
-                    photoList: photos})
+                    photoList: photos
+                })
             })
     }
 
@@ -37,14 +28,20 @@ export default class ThemaCarousel extends Component {
         return (
             //Warning: Each child in a list should have a unique "key" prop.
             //solved this by adding within the Carousel.Item tag the key={photo.idArtPiece}
-            <Carousel className='photos'>
-                {this.state.photoList.map(photo =>
+            <div>
+                <Carousel className='photos'>
+                    {this.state.photoList.map((photo) => (
                         <Carousel.Item key={photo.idArtpiece}>
-                            <Photo photo={photo} />
+                            <figure className="artpiece">
+                                <img  src={photo.selectedFile} alt={photo.description}/>
+                            </figure>
+                            <figcaption>
+                                <h2>Beschrijving van foto is: {photo.alt}</h2>
+                            </figcaption>
                         </Carousel.Item>
-                )};
-            </Carousel>
-
+                    ))};
+                </Carousel>
+            </div>
         );
 
     }

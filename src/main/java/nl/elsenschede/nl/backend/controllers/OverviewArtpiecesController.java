@@ -26,8 +26,8 @@ public class OverviewArtpiecesController {
     //FIXME: doesn't show any images just the description
     @GetMapping("/showPhoto")
     public List<Artpiece> getAllPhotos() {
-        List<Artpiece> photos = new ArrayList<>();
-        artpieceDao.findAllByAdaptation(Adaptation.FOTO).forEach(photos::add);
+        List<Artpiece> photos = artpieceDao.findAllByAdaptation(Adaptation.FOTO);
+        System.out.println(photos.size());//works properly
         return photos;
     }
 
