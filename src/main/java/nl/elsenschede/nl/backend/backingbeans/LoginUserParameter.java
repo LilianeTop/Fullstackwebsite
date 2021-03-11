@@ -1,4 +1,4 @@
-package nl.elsenschede.nl.backend.controllers;
+package nl.elsenschede.nl.backend.backingbeans;
 
 public class LoginUserParameter {
     private String username;

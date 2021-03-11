@@ -2,6 +2,7 @@ package nl.elsenschede.nl.backend.controllers;
 
 import nl.elsenschede.nl.backend.backingbeans.Adaptation;
 import nl.elsenschede.nl.backend.backingbeans.Color;
+import nl.elsenschede.nl.backend.backingbeans.PhotoFormParameters;
 import nl.elsenschede.nl.backend.backingbeans.Theme;
 import nl.elsenschede.nl.backend.dao.ArtpieceDao;
 import nl.elsenschede.nl.backend.model.Artpiece;
@@ -38,16 +39,7 @@ public class PhotoFormController {
 //        return "/photoForm";
 //    }
 
-    //FIXME: doesn't show any images just the description
-    @GetMapping("/showPhoto")
-    public List<Artpiece> getAllPhotos() {
-        List<Artpiece> photos = new ArrayList<>();
-        artpieceDao.findAllByAdaptation(Adaptation.FOTO).forEach(photos::add);
-        for (Artpiece photo : photos) {
-            System.out.println(photo.getDescription());//returns empty[]
-        }
-        return photos;
-    }
+
 
     @PostMapping("/addArtpiece")
     public String uploadPhoto(@RequestBody PhotoFormParameters photoFormParameters) throws NoSuchAlgorithmException {

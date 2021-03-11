@@ -1,4 +1,4 @@
-package nl.elsenschede.nl.backend.controllers;
+package nl.elsenschede.nl.backend.backingbeans;
 
 import nl.elsenschede.nl.backend.backingbeans.Adaptation;
 import nl.elsenschede.nl.backend.backingbeans.Color;

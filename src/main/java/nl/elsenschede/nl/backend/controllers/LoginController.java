@@ -1,6 +1,6 @@
 package nl.elsenschede.nl.backend.controllers;
 
-import com.sun.xml.bind.v2.runtime.output.SAXOutput;
+import nl.elsenschede.nl.backend.backingbeans.LoginUserParameter;
 import nl.elsenschede.nl.backend.dao.UserDao;
 import nl.elsenschede.nl.backend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
