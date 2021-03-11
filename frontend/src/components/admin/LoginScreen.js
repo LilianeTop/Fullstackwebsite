@@ -26,7 +26,7 @@ export default class LoginScreen extends Component {
                 password: this.state.password
             }
         ).then((response) => {
-            if(response.data === 1){
+            if(typeof response.data == "number"){
                 alert(this.state.username + ", je bent succesvol ingelogd")
                 this.setState({loggedIn : true})
                 } else {

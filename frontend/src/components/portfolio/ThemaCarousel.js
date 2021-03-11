@@ -28,20 +28,18 @@ export default class ThemaCarousel extends Component {
         return (
             //Warning: Each child in a list should have a unique "key" prop.
             //solved this by adding within the Carousel.Item tag the key={photo.idArtPiece}
-            <div>
-                <Carousel className='photos'>
-                    {this.state.photoList.map((photo) => (
-                        <Carousel.Item key={photo.idArtpiece}>
-                            <figure className="artpiece">
-                                <img  src={photo.selectedFile} alt={photo.description}/>
-                            </figure>
-                            <figcaption>
-                                <h2>Beschrijving van foto is: {photo.alt}</h2>
-                            </figcaption>
-                        </Carousel.Item>
-                    ))};
-                </Carousel>
-            </div>
+            <Carousel style={{height: 800}}>
+                {this.state.photoList.map((photo) => (
+                    <Carousel.Item key={photo.idArtpiece}>
+                        {/*<img src={photo.selectedFile} alt={photo.description}/>*/}
+                        <Photo photo={photo}/>
+                        {/*<h2>Beschrijving van foto is: {photo.description}</h2>*/}
+
+                    </Carousel.Item>
+
+                ))};
+            </Carousel>
+
         );
 
     }

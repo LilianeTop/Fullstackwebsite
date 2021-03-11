@@ -1,20 +1,15 @@
 import React from 'react';
 
-function Photo(props) {
+function Photo (props) {
+    console.log("props")
+
+    console.log(props)
+    console.log("props.photo")
+    console.log(props.photo)
 
     return (
-
-        //FIXME: how to show description? and how to display underneath photo?
-        //FIXME how to show photo
-        //return  (
-        //     <figure>
-        //     <img key={props.id} src={props.picture} alt={props.alt}/>
-        //     <figcaption>{props.alt}</figcaption>
-        //     </figure>
-        //   );
-
         <figure>
-            <img key={props.id} src={props.selectedFile} alt={props.description}/>
+            <img key={props.id} src={props.photo.selectedFile} alt={props.description}/>
             <figcaption>
                 {/*Text is shown so how to get the description from db?*/}
                 Beschrijving van foto is: {props.alt}
