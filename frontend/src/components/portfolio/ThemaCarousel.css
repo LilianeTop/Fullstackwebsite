@@ -1,11 +1,21 @@
 .carousel {
     margin: 40px;
 
+
 }
 
 .carousel-inner {
     height: 100%;
 
+}
+
+.carousel-indicators,
+.carousel-indicators li {
+    visibility: visible ;
+}
+
+.category {
+    z-index: 1;
 }
 
 
