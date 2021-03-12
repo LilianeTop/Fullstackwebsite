@@ -19,6 +19,7 @@ public class DataBaseLoader implements CommandLineRunner  {
 
     @Override
     public void run(String... args) throws Exception {
+        //TODO if user exists don't create another and return existing
         userDao.save(new User("Els", "5"));
     }
 }

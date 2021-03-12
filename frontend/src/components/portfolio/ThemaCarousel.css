@@ -4,15 +4,8 @@
 }
 
 .carousel-inner {
-    /*position: absolute !important;*/
     height: 100%;
-    width: auto;
-    margin: 50px auto;
 
-}
-
-.carousel-item:active {
-    margin: auto;
 }
 
 

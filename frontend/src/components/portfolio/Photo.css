@@ -1,5 +1,7 @@
 .photo {
-    /*height: 800px;*/
-    /*padding: 5%;*/
-    /*margin: 5% auto;*/
+    display: flex;
+    align-content: center;
+    height: 100%;
+    width: auto;
+    margin: auto;
 }

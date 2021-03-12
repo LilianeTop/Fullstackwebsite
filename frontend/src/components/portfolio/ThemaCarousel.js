@@ -4,7 +4,6 @@ import Photo from "./Photo";
 import "./ThemaCarousel.css";
 import axios from "axios";
 
-
 export default class ThemaCarousel extends Component {
     constructor(props) {
         super(props);
@@ -28,18 +27,15 @@ export default class ThemaCarousel extends Component {
         return (
             //Warning: Each child in a list should have a unique "key" prop.
             //solved this by adding within the Carousel.Item tag the key={photo.idArtPiece}
-            <Carousel style={{height: 800}}>
-                {this.state.photoList.map((photo) => (
-                    <Carousel.Item key={photo.idArtpiece}>
-                        {/*<img src={photo.selectedFile} alt={photo.description}/>*/}
-                        <Photo photo={photo}/>
-                        {/*<h2>Beschrijving van foto is: {photo.description}</h2>*/}
-
-                    </Carousel.Item>
-
-                ))};
-            </Carousel>
-
+            <div>
+                <Carousel>
+                    {this.state.photoList.map((photo) => (
+                        <Carousel.Item key={photo.idArtpiece}>
+                            <Photo photo={photo}/>
+                        </Carousel.Item>
+                    ))};
+                </Carousel>
+            </div>
         );
 
     }

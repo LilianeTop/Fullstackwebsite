@@ -26,6 +26,7 @@ public class PhotoFormControllerTest {
 
     @BeforeEach
     void setUp() {
+
        pieceWithAllP = new Artpiece();
 
         pieceWithAllP.setAdaptation(Adaptation.FOTO);
@@ -53,7 +54,7 @@ public class PhotoFormControllerTest {
 
     @AfterEach
     void tearDown(){
-//        artpieceDao.deleteAll();
+        artpieceDao.deleteAll();
     }
 
     @Test
