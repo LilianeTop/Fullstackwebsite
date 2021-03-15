@@ -3,12 +3,8 @@ import React, {Component} from 'react';
 import axios from "axios";
 import Menu from "./Menu";
 
-
-
 export default class UploadPhoto extends Component {
     //do we need props in our constructor and where do they come from? it still works without the props
-    //TODO: validation you have to choose at least a theme or a color and upload an image
-
 
     constructor(props) {
         super(props)
@@ -34,16 +30,15 @@ export default class UploadPhoto extends Component {
         selectedFile: "",
         showMenu: false,
         checkCount: 0,
-        preview: null
+        preview: null,
+        checked: this.props.checked
+
     }
-
-
-    //FIXME: after submit all fields should be reset to empty
 
     onFormSubmit = e => {
         e.preventDefault();
         //FIXME: how to validate Theme?
-        if( this.state.checkCount === 0){
+        if (this.state.themes.length === 0) {
             alert("Je moet tenminste één thema kiezen");
             return;
         }
@@ -57,19 +52,17 @@ export default class UploadPhoto extends Component {
 
         axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
             .then(response => {
-
-                if (response.data === 'exists'){
+                if (response.data === 'exists') {
                     alert("Deze foto is al toegevoegd aan de database")
-                    emptyForm();
-                    this.setState(this.initialState);
-                } else if(response.data !== null){
+                } else if (response.data !== null) {
                     alert("Foto toegevoegd aan de database!")
-                    emptyForm();
-                    this.setState(this.initialState);
                 }
+                emptyForm();
+                this.setState(this.initialState);
             }).catch(error => {
-            alert("Something went wrong" + error);
-        });
+                alert("Something went wrong" + error);
+            }
+        );
 
         function emptyForm() {
             document.getElementById("uploadPhotoForm").reset();
@@ -84,10 +77,9 @@ export default class UploadPhoto extends Component {
         })
     }
 
-
     previewFile(event) {
         this.setState({
-            preview : URL.createObjectURL(event.target.files[0])
+            preview: URL.createObjectURL(event.target.files[0])
         })
         const preview = document.querySelector('img[id=preview]');
         const self = this;
@@ -103,10 +95,11 @@ export default class UploadPhoto extends Component {
         reader.readAsDataURL(file);
     };
 
-
+//FIXME: bug after a photo is uploaded you can't upload the next one with the same theme
+    //the last theme is not unchecked
     changeTheme(event) {
         let tempThemes = this.state.themes;
-        const theme = {id: event.target.id, name: event.target.value, status: event.target.checked}
+        const theme = {id: event.target.id, name: event.target.value, checked: event.target.checked}
 
         if (!event.target.checked) {
             const index = tempThemes.findIndex((item) => item.name === theme.name)
@@ -114,7 +107,6 @@ export default class UploadPhoto extends Component {
         } else {
             tempThemes.push(theme.name.toUpperCase());
         }
-
         this.setState({
             themes: tempThemes,
             checkCount: this.state.themes.length

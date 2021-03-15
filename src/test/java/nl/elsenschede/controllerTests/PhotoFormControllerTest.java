@@ -41,17 +41,19 @@ public class PhotoFormControllerTest {
         List<Color> colors = new ArrayList<>();
         colors.add(Color.KLEURRIJK);
         artpiece.setAdaptation(Adaptation.FOTO);
-        artpiece.setDescription("This can be the title");
+        artpiece.setDescription("This is the test");
         //FIXME: how to add a selectedFile as a base64String is required
         // error java: constant string too long
-        artpiece.setSelectedFile("This is a fake base64String1");
+        artpiece.setSelectedFile("This is a fake base64String");
         artpiece.setThemes(themes);
         artpiece.setColors(colors);
     }
 
     @AfterEach
-    void tearDown() {
-        artpieceDao.deleteAll();
+    //FIXME: how to remove only the test artpiece as artpieceDao.delete(artpiece) is not working. why?
+    //with deleteAll() it remove the entire table in the db
+    public void tearDown() {
+        artpieceDao.delete(artpiece);
     }
 
 
