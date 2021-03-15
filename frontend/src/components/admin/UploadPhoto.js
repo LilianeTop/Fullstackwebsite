@@ -31,7 +31,6 @@ export default class UploadPhoto extends Component {
         showMenu: false,
         checkCount: 0,
         preview: null,
-        checked: this.props.checked
 
     }
 
@@ -50,15 +49,29 @@ export default class UploadPhoto extends Component {
             colors: this.state.colors
         }
 
+        const confirmBox = window.confirm("Wil je deze foto opslaan met de volgende gegevens?\nGekozen type kunstwerk: " +
+            + this.state.special +
+                "Beschrijving: " + this.state.description +
+        "\nGekozen thema's: " + this.state.themes.toString() +
+        "\nGekozen kleuren: " + this.state.colors.toString())
+        if(confirmBox !== true){
+            return;
+        }
+
         axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
             .then(response => {
                 if (response.data === 'exists') {
+                    this.setState(this.initialState);
+                    // emptyForm();
                     alert("Deze foto is al toegevoegd aan de database")
+
                 } else if (response.data !== null) {
+                    this.state = this.initialState
+                    this.setState(this.initialState);
+                    // emptyForm();
                     alert("Foto toegevoegd aan de database!")
                 }
-                emptyForm();
-                this.setState(this.initialState);
+
             }).catch(error => {
                 alert("Something went wrong" + error);
             }
@@ -95,36 +108,40 @@ export default class UploadPhoto extends Component {
         reader.readAsDataURL(file);
     };
 
-//FIXME: bug after a photo is uploaded you can't upload the next one with the same theme
-    //the last theme is not unchecked
+    //FIXME: ChangeTheme and ChangeColor are not checking and unchecking by clicking on checkbox
     changeTheme(event) {
-        let tempThemes = this.state.themes;
-        const theme = {id: event.target.id, name: event.target.value, checked: event.target.checked}
+        const isChecked = event.target.checked;
+        const themeName = event.target.value.toUpperCase();
 
-        if (!event.target.checked) {
-            const index = tempThemes.findIndex((item) => item.name === theme.name)
-            tempThemes.splice(index, 1);
+        if(isChecked){
+            this.state.themes.push(themeName)
         } else {
-            tempThemes.push(theme.name.toUpperCase());
+            const index = this.state.themes.findIndex((item) => item === themeName)
+            this.state.themes.splice(index, 1)
         }
+
         this.setState({
-            themes: tempThemes,
+            themes : this.state.themes,
             checkCount: this.state.themes.length
         })
+
+
     }
 
 //FIXME: duplicated code
     changeColor(event) {
-        let tempColors = this.state.colors;
-        const color = {id: event.target.id, name: event.target.value, status: event.target.checked}
-        if (!event.target.checked) {
-            const index = tempColors.findIndex((item) => item.name === color.name)
-            tempColors.splice(index, 1);
+        const isChecked = event.target.checked;
+        const color = event.target.value.toUpperCase();
+
+        if(isChecked){
+            this.state.colors.push(color)
         } else {
-            tempColors.push(color.name.toUpperCase());
+            const index = this.state.colors.findIndex((item) => item === color)
+            this.state.colors.splice(index, 1)
         }
+
         this.setState({
-            colors: tempColors
+            colors: this.state.colors
         })
     }
 
@@ -270,7 +287,7 @@ export default class UploadPhoto extends Component {
                         type='checkbox'
                         name="theme"
                         onChange={this.changeTheme}
-                        checked={this.state.themes[theme]}
+                        // checked={this.state.themes[theme]}
                         value={theme}
                     />
                 </div>
@@ -290,7 +307,7 @@ export default class UploadPhoto extends Component {
                         type="checkbox"
                         name='color'
                         onChange={this.changeColor}
-                        checked={this.state.colors[color]}
+                        // checked={this.state.colors[color]}
                         value={color}
 
                     />
