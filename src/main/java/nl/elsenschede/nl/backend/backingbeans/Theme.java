@@ -6,10 +6,11 @@ public enum Theme {
     BUITEN,
     REIZEN,
     WATER,
-    INDUSTRIE,
     MENSEN,
-    SCENES,
-    ABSTRACT;
+    ABSTRACT,
+    INDUSTRIE,
+    SCENES;
+
 
     private Theme() {
     }
