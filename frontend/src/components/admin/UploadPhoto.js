@@ -19,6 +19,7 @@ export default class UploadPhoto extends Component {
         this.changeSpecial = this.changeSpecial.bind(this)
         this.previewFile = this.previewFile.bind(this)
         this.showMenu = this.showMenu.bind(this)
+        this.emptyForm = this.emptyForm.bind(this)
     }
 
     initialState = {
@@ -36,7 +37,6 @@ export default class UploadPhoto extends Component {
 
     onFormSubmit = e => {
         e.preventDefault();
-        //FIXME: how to validate Theme?
         if (this.state.themes.length === 0) {
             alert("Je moet tenminste één thema kiezen");
             return;
@@ -49,27 +49,26 @@ export default class UploadPhoto extends Component {
             colors: this.state.colors
         }
 
-        const confirmBox = window.confirm("Wil je deze foto opslaan met de volgende gegevens?\nGekozen type kunstwerk: " +
-            + this.state.special +
-                "Beschrijving: " + this.state.description +
-        "\nGekozen thema's: " + this.state.themes.toString() +
-        "\nGekozen kleuren: " + this.state.colors.toString())
-        if(confirmBox !== true){
+        const confirmBox = window.confirm("Wil je deze foto opslaan met de volgende gegevens?" +
+            "\nGekozen type kunstwerk: " + this.state.specials.toString() +
+            "\nBeschrijving: " + this.state.description +
+            "\nGekozen thema's: " + this.state.themes.toString() +
+            "\nGekozen kleuren: " + this.state.colors.toString())
+        if (confirmBox !== true) {
             return;
         }
 
         axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
             .then(response => {
+                // console.log(this.state.themes.toString());
                 if (response.data === 'exists') {
-                    this.setState(this.initialState);
-                    // emptyForm();
+                    this.emptyForm();
                     alert("Deze foto is al toegevoegd aan de database")
 
                 } else if (response.data !== null) {
-                    this.state = this.initialState
-                    this.setState(this.initialState);
-                    // emptyForm();
+                    this.emptyForm();
                     alert("Foto toegevoegd aan de database!")
+                    // console.log(this.state.themes.toString());
                 }
 
             }).catch(error => {
@@ -77,10 +76,21 @@ export default class UploadPhoto extends Component {
             }
         );
 
-        function emptyForm() {
-            document.getElementById("uploadPhotoForm").reset();
-        }
+    }
+    emptyForm() {
+        this.setState({
+            sort: "photo",
+            specials: "FOTO",
+            description: "",
+            themes: [],
+            colors: [],
+            selectedFile: "",
+            showMenu: false,
+            checkCount: 0,
+            preview: null,
 
+        })
+        document.getElementById("uploadPhotoForm").reset();
 
     }
 
@@ -108,20 +118,20 @@ export default class UploadPhoto extends Component {
         reader.readAsDataURL(file);
     };
 
-    //FIXME: ChangeTheme and ChangeColor are not checking and unchecking by clicking on checkbox
     changeTheme(event) {
         const isChecked = event.target.checked;
         const themeName = event.target.value.toUpperCase();
 
-        if(isChecked){
+        if (isChecked) {
             this.state.themes.push(themeName)
         } else {
             const index = this.state.themes.findIndex((item) => item === themeName)
             this.state.themes.splice(index, 1)
         }
+        // console.log(this.state.themes.toString());//shows the correct themes even after checking and unchecking boxes
 
         this.setState({
-            themes : this.state.themes,
+            themes: this.state.themes,
             checkCount: this.state.themes.length
         })
 
@@ -133,7 +143,7 @@ export default class UploadPhoto extends Component {
         const isChecked = event.target.checked;
         const color = event.target.value.toUpperCase();
 
-        if(isChecked){
+        if (isChecked) {
             this.state.colors.push(color)
         } else {
             const index = this.state.colors.findIndex((item) => item === color)
