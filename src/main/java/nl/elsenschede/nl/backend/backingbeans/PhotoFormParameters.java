@@ -1,11 +1,8 @@
 package nl.elsenschede.nl.backend.backingbeans;
 
-import nl.elsenschede.nl.backend.backingbeans.Adaptation;
-import nl.elsenschede.nl.backend.backingbeans.Color;
-import nl.elsenschede.nl.backend.backingbeans.Theme;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class PhotoFormParameters {
     public Adaptation specials;

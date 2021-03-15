@@ -1,2 +1,4 @@
-package nl.elsenschede.daoTest;public class UserDaoTest {
+package nl.elsenschede.daoTest;
+
+public class UserDaoTest {
 }
