@@ -3,12 +3,8 @@ import React, {Component} from 'react';
 import axios from "axios";
 import Menu from "./Menu";
 
-
-
 export default class UploadPhoto extends Component {
     //do we need props in our constructor and where do they come from? it still works without the props
-    //TODO: validation you have to choose at least a theme or a color and upload an image
-
 
     constructor(props) {
         super(props)
