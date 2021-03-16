@@ -62,16 +62,12 @@ export default class UploadPhoto extends Component {
             .then(response => {
                 console.log("form axios.post " + this.state.themes.toString());
                 if (response.data === 'exists') {
-                    alert("Deze foto is al toegevoegd aan de database")
-                    console.log("If foto is already in db " + this.state.themes.toString());
                     this.emptyForm();
+                    alert("Deze foto is al toegevoegd aan de database")
                 } else if (response.data !== null) {
                     this.emptyForm();
                     alert("Foto toegevoegd aan de database!")
-                    console.log("After adding photo " + this.state.themes.toString());
                 }
-                this.emptyForm();
-                console.log("end of post() " + this.state.themes.toString());
             }).catch(error => {
                 alert("Something went wrong" + error);
             }
@@ -119,9 +115,7 @@ export default class UploadPhoto extends Component {
         reader.readAsDataURL(file);
     };
 
-    //FIXME: after check if already in DB => if checkboxes are checked and unchecked the result is unpredictable why?
-
-    changeTheme = (event) => {
+    changeTheme(event) {
         const isChecked = event.target.checked;
         const themeName = event.target.value.toUpperCase();
 
@@ -131,7 +125,6 @@ export default class UploadPhoto extends Component {
         } else {
             this.state.themes.push(themeName)
         }
-        console.log("from changeTheme()" + this.state.themes.toString());//unpredictable
 
         this.setState({
             themes: this.state.themes,
@@ -297,8 +290,7 @@ export default class UploadPhoto extends Component {
                     <input
                         type='checkbox'
                         name="theme"
-                        onClick={(event) => this.changeTheme(event)}
-                        // checked={this.state.active}
+                        onClick={this.changeTheme}
                         value={theme}
                     />
                 </div>
@@ -318,7 +310,6 @@ export default class UploadPhoto extends Component {
                         type="checkbox"
                         name='color'
                         onClick={this.changeColor}
-                        // checked={this.state.colors[color]}
                         value={color}
 
                     />
