@@ -317,7 +317,7 @@ export default class UploadPhoto extends Component {
                     <input
                         type="checkbox"
                         name='color'
-                        onChange={this.changeColor}
+                        onClick={this.changeColor}
                         // checked={this.state.colors[color]}
                         value={color}
 
