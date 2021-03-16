@@ -38,6 +38,7 @@ public class LoginControllerTest {
         assertEquals(user2.getPassword(), "Top");
         assertNotNull(user.getIdUser());
         assertFalse(user2.getIdUser() == 5);
+        assertFalse(userDao.existsUserByUsername("Lili"));
         assertTrue(userDao.existsUserByUsername("Els"));
         assertEquals(userDao.findByUsername("Els").getPassword(), "5");
 
