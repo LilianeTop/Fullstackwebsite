@@ -60,17 +60,18 @@ export default class UploadPhoto extends Component {
 
         axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
             .then(response => {
-                // console.log(this.state.themes.toString());
+                console.log("form axios.post " + this.state.themes.toString());
                 if (response.data === 'exists') {
-                    this.emptyForm();
                     alert("Deze foto is al toegevoegd aan de database")
-
+                    console.log("If foto is already in db " + this.state.themes.toString());
+                    this.emptyForm();
                 } else if (response.data !== null) {
                     this.emptyForm();
                     alert("Foto toegevoegd aan de database!")
-                    // console.log(this.state.themes.toString());
+                    console.log("After adding photo " + this.state.themes.toString());
                 }
-
+                this.emptyForm();
+                console.log("end of post() " + this.state.themes.toString());
             }).catch(error => {
                 alert("Something went wrong" + error);
             }
@@ -118,24 +119,24 @@ export default class UploadPhoto extends Component {
         reader.readAsDataURL(file);
     };
 
-    changeTheme(event) {
+    //FIXME: after check if already in DB => if checkboxes are checked and unchecked the result is unpredictable why?
+
+    changeTheme = (event) => {
         const isChecked = event.target.checked;
         const themeName = event.target.value.toUpperCase();
 
-        if (isChecked) {
-            this.state.themes.push(themeName)
-        } else {
+        if (!isChecked) {
             const index = this.state.themes.findIndex((item) => item === themeName)
             this.state.themes.splice(index, 1)
+        } else {
+            this.state.themes.push(themeName)
         }
-        // console.log(this.state.themes.toString());//shows the correct themes even after checking and unchecking boxes
+        console.log("from changeTheme()" + this.state.themes.toString());//unpredictable
 
         this.setState({
             themes: this.state.themes,
             checkCount: this.state.themes.length
         })
-
-
     }
 
 //FIXME: duplicated code
@@ -286,7 +287,7 @@ export default class UploadPhoto extends Component {
         })
     }
 
-    renderThemes() {
+    renderThemes = () => {
         const themes = ['Landschap', 'Stad', 'Buiten', 'Reizen', 'Water', 'Mensen', 'Abstract', 'Industrie', 'Scenes'];
 
         return themes.map((theme, i) => {
@@ -296,8 +297,8 @@ export default class UploadPhoto extends Component {
                     <input
                         type='checkbox'
                         name="theme"
-                        onChange={this.changeTheme}
-                        // checked={this.state.themes[theme]}
+                        onClick={(event) => this.changeTheme(event)}
+                        // checked={this.state.active}
                         value={theme}
                     />
                 </div>
