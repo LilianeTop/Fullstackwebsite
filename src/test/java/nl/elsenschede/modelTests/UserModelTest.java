@@ -33,6 +33,7 @@ public class UserModelTest {
         List<User> users = (List<User>) userDao.findAll();
         dbLoader.run("Lili", "12345");
         assertTrue(userDao.existsUserByUsername("Els"));
+        assertFalse(userDao.existsUserByUsername("Lili"));
         assertFalse(userDao.existsUserByUsername(anotherUser.getUsername()));
         assertTrue(users.size() == 1);
 
