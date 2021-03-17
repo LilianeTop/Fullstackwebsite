@@ -60,7 +60,6 @@ export default class UploadPhoto extends Component {
 
         axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
             .then(response => {
-                console.log("form axios.post " + this.state.themes.toString());
                 if (response.data === 'exists') {
                     this.emptyForm();
                     alert("Deze foto is al toegevoegd aan de database")
@@ -286,8 +285,9 @@ export default class UploadPhoto extends Component {
         return themes.map((theme, i) => {
             return (
                 <div key={i} className="form-check-inline">
-                    <label> {theme} </label>
+                    <label htmlFor="chosenThemes"> {theme} </label>
                     <input
+                        id="chosenThemes"
                         type='checkbox'
                         name="theme"
                         onClick={this.changeTheme}
