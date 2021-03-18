@@ -2,6 +2,7 @@ import React from 'react';
 import {findByLabelText, fireEvent, render, screen} from '@testing-library/react';
 import UploadPhoto from "./components/admin/UploadPhoto";
 import userEvent from "@testing-library/user-event";
+import axios from "axios";
 // import '@testing-library/react/cleanup-after-each';
 
 describe('<UploadPhoto />', () => {
@@ -67,6 +68,33 @@ describe('<UploadPhoto />', () => {
         expect(onFormSubmit).toHaveBeenCalledTimes(1)
         expect(confirmBox).toBeVisible()
     })
+
+
+
 });
+
+it("verifying that a HTTP.post request is executed ", () => {
+    const onFormSubmit = jest.fn()
+    render(<UploadPhoto onSubmit={onFormSubmit()}/>)
+    const submitButton = screen.getByRole('button', {name: 'Toevoegen'})
+    fireEvent.click(submitButton)
+
+    jest.mock('axios');
+    //FIXME: how to test the folowing HTTP request?
+    // axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
+    //     .then(response => {
+    //         if (response.data === 'exists') {
+    //             this.emptyForm();
+    //             alert("Deze foto is al toegevoegd aan de database")
+    //         } else if (response.data !== null) {
+    //             this.emptyForm();
+    //             alert("Foto toegevoegd aan de database!")
+    //         }
+    //     }).catch(error => {
+    //     alert("Something went wrong" + error);
+    // }
+    // );
+})
+
 
 
