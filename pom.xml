@@ -6,7 +6,7 @@
     <groupId>nl.elsenschede</groupId>
     <artifactId>website</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>fullstackwebsite</name>
     <description>Fullstack website with Spring Hibernate Java React</description>
@@ -18,11 +18,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <properties>
-        <java.version>15</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
+<!--    <properties>-->
+<!--        <java.version>15</java.version>-->
+<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+<!--        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
+<!--    </properties>-->
 
     <dependencies>
         <dependency>
