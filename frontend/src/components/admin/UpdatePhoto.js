@@ -18,6 +18,8 @@ export default class UpdatePhoto extends Component {
         preview: null
     }
 
+
+
     componentDidMount() {
         //FIXME: create a method in the controller to fetch all artpieces
         axios.get("http://localhost:8080/api/showPhoto")
@@ -48,6 +50,7 @@ export default class UpdatePhoto extends Component {
     };
 
     render() {
+
         if (this.state.showMenu) {
             return <Menu/>
         } else
@@ -64,7 +67,6 @@ export default class UpdatePhoto extends Component {
                         </div>
                         <table id="artpiecesTable">
                             <thead>{this.renderTableHeader()}</thead>
-                            <br/>
                             <tbody>{this.renderTableData()}</tbody>
                         </table>
                         <hr/>
@@ -84,34 +86,28 @@ export default class UpdatePhoto extends Component {
                 description,
                 themes,
                 colors
-
             } = artpiece
             return (
-                <div>
-                    <tr key={artpiece.idArtpiece}>
+                    <tr key={index}>
                         <td width={30}>{idArtpiece}</td>
                         <td width={300}><img name="preview" src={selectedFile} height="150" alt=""/>
                         </td>
                         <td width={150}>{adaptation}</td>
                         <td width={1000}>{description} </td>
-                        <td width={300}>
-                            {/*   FIXME: how to show a theme per line?*/}
-                            {themes.toString().replaceAll(",", "\n")}
-
+                        <td key={themes.id} width={300}>
+                            {themes.map(s=><React.Fragment>{s}<br/></React.Fragment>)}
                         </td>
-                        <td width={300}>{colors.toString().replaceAll(",", "\n")}</td>
+                        <td key={colors.id} width={300}>
+                            {colors.map(s=><React.Fragment>{s}<br/></React.Fragment>)}
+                        </td>
                     </tr>
-                    <br/>
-                </div>
             )
-
         })
     }
 
 
     renderTableHeader() {
         return (
-            <div>
             <tr>
                 <td width={30}>ID</td>
                 <td width={300}>Preview</td>
@@ -120,8 +116,7 @@ export default class UpdatePhoto extends Component {
                 <td width={300}>Thema's</td>
                 <td width={300}>Kleuren</td>
             </tr>
-                <br />
-            </div>
+
         )
     }
 }
