@@ -113,7 +113,7 @@ export default class UpdatePhoto extends Component {
             <tr >
                 <td>Id</td>
                 <td>Preview</td>
-                <td>Type</td>
+                <td>Type</td>ggit
                 <td>Beschrijving</td>
                 <td>Thema's</td>
                 <td>Kleuren</td>
