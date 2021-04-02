@@ -100,4 +100,12 @@ input[type='radio']:checked:after, input[type='checkbox']:checked:after {
     padding: 10px;
 }
 
+#artpiecesTable {
+    width: 100%;
+    font-size: 1.3rem;
+
+}
+
+
+
 

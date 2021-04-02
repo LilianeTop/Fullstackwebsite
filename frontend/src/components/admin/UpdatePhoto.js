@@ -9,7 +9,6 @@ export default class UpdatePhoto extends Component {
         this.state = this.initialState;
         // this.onFormSubmit = this.onFormSubmit.bind(this)
         this.previewFile = this.previewFile.bind(this)
-
     }
 
     initialState = {
@@ -61,10 +60,9 @@ export default class UpdatePhoto extends Component {
                         <h3>Selecteer de foto die je wilt wijzigen.</h3>
                         <div key='bestand'
                              className="custom-file bestand"
-                             style={{width: 250}}>
+                        >
                         </div>
-                        {/*TODO: formatting table*/}
-                        <table id='artpieces'>
+                        <table id="artpiecesTable">
                             <thead>{this.renderTableHeader()}</thead>
                             <tbody>{this.renderTableData()}</tbody>
                         </table>
@@ -88,25 +86,31 @@ export default class UpdatePhoto extends Component {
 
             } = artpiece
             return (
-                <thead>
                 <tr key={artpiece.idArtpiece}>
-                    <td>{idArtpiece}</td>
-                    <td><img id="preview" name="preview" src={selectedFile} height="150" alt=""/>
+                    <td width={30}>{idArtpiece}</td>
+                    <td width={250}><img name="preview" src={selectedFile} height="150" alt=""/>
                     </td>
-                    <td>{adaptation}</td>
-                    <td>{description}</td>
-                    <td>{themes}</td>
-                    <td>{colors}</td>
+                    <td width={150}>{adaptation}</td>
+                    <td width={1000}>{description}</td>
+                    <td width={300} >
+                    {/*   FIXME: how to show a theme per line?*/}
+                    {/*    {themes.toString().replaceAll(",", "\n")}*/}
+                        {themes}
+                    </td>
+                    <td width={300}>{colors.toString().replaceAll(",","\n")}</td>
                 </tr>
-                </thead>
             )
 
         })
     }
 
+
+
+
+
     renderTableHeader() {
         return (
-            <tr>
+            <tr >
                 <td>Id</td>
                 <td>Preview</td>
                 <td>Type</td>
