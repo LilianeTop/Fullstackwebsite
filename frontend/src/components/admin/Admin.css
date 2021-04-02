@@ -102,23 +102,25 @@ input[type='radio']:checked:after, input[type='checkbox']:checked:after {
 
 #artpiecesTable {
     font-size: 1.3rem;
+    color: #d9e76b;
 }
 
 thead {
     font-size: 1.5rem;
     font-weight: bold;
     border-bottom: 1px solid #d9e76b;
-    margin-bottom: 1rem;
 }
 
-tbody.cellPadding {
-    padding-bottom: 10px;
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    color: #d9e76b;
 }
 
-/*why does this not have any effect on the rows?*/
-.cellPadding {
-    padding-bottom: 10px;
-}
+
+
+
+
+
+
 
 
 

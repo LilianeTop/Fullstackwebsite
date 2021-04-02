@@ -65,7 +65,7 @@ export default class UpdatePhoto extends Component {
                              className="custom-file bestand"
                         >
                         </div>
-                        <table id="artpiecesTable">
+                        <table id="artpiecesTable" className="table table-hover">
                             <thead>{this.renderTableHeader()}</thead>
                             <tbody>{this.renderTableData()}</tbody>
                         </table>
@@ -93,7 +93,7 @@ export default class UpdatePhoto extends Component {
                         <td width={300}><img name="preview" src={selectedFile} height="150" alt=""/>
                         </td>
                         <td width={150}>{adaptation}</td>
-                        <td width={1000}>{description} </td>
+                        <td width={500}>{description} </td>
                         <td key={themes.id} width={300}>
                             {themes.map(s=><React.Fragment>{s}<br/></React.Fragment>)}
                         </td>
@@ -112,7 +112,7 @@ export default class UpdatePhoto extends Component {
                 <td width={30}>ID</td>
                 <td width={300}>Preview</td>
                 <td width={150}>Type</td>
-                <td width={1000}>Beschrijving</td>
+                <td width={500}>Beschrijving</td>
                 <td width={300}>Thema's</td>
                 <td width={300}>Kleuren</td>
 
