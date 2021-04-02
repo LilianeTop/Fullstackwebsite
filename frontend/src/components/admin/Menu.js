@@ -1,7 +1,7 @@
 import './Admin.css';
 import React, {Component} from "react";
 import UploadPhoto from "./UploadPhoto";
-import ChangePhoto from "./ChangePhoto";
+import UpdatePhoto from "./UpdatePhoto";
 import DeletePhoto from "./DeletePhoto";
 
 
@@ -40,7 +40,7 @@ class Menu extends Component {
         if (this.state.showUploadPhotoForm) {
             return <UploadPhoto/>
         } else if (this.state.showChangePhotoForm) {
-            return <ChangePhoto/>
+            return <UpdatePhoto/>
         } else if (this.state.showDeletePhotoForm) {
             return <DeletePhoto/>
         } else
