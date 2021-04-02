@@ -10,7 +10,7 @@ import AboutEls from "../components/aboutEls/AboutEls";
 import Admin from '../components/admin/Admin';
 import Blog from '../components/blog/Blog';
 import UploadPhoto from "../components/admin/UploadPhoto";
-import ChangePhoto from "../components/admin/ChangePhoto";
+import UpdatePhoto from "../components/admin/UpdatePhoto";
 import DeletePhoto from "../components/admin/DeletePhoto";
 
 
