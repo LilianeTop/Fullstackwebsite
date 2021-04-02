@@ -8,23 +8,17 @@ export default class UpdatePhoto extends Component {
         super(props);
         this.state = this.initialState;
         // this.onFormSubmit = this.onFormSubmit.bind(this)
+        this.previewFile = this.previewFile.bind(this)
 
     }
 
     initialState = {
-        allArtpieces: [
-            // {
-            //     specials: "",
-            //     description: "",
-            //     themes: [],
-            //     colors: [],
-            //     selectedFile: "",
-            //     showMenu: false,
-            //     checkCount: 0,
-            //     preview: null
-            // }
-        ]
+        allArtpieces: [],
+        showMenu: false,
+        checkCount: 0,
+        preview: null
     }
+
     componentDidMount() {
         //FIXME: create a method in the controller to fetch all artpieces
         axios.get("http://localhost:8080/api/showPhoto")
@@ -35,6 +29,24 @@ export default class UpdatePhoto extends Component {
                 })
             })
     }
+
+    previewFile(event) {
+        this.setState({
+            preview: URL.createObjectURL(event.target.files[0])
+        })
+        const preview = document.querySelector('img[id=preview]');
+        const self = this;
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (upload) {
+            preview.src = reader.result;
+            self.setState({
+                selectedFile: upload.target.result
+            });
+        };
+        reader.readAsDataURL(file);
+    };
 
     render() {
         if (this.state.showMenu) {
@@ -53,11 +65,8 @@ export default class UpdatePhoto extends Component {
                         </div>
                         {/*TODO: formatting table*/}
                         <table id='artpieces'>
-                            <tbody>
-                            <tr>{this.renderTableHeader()}</tr>
-                            {this.renderTableData()}
-                            </tbody>
-
+                            <thead>{this.renderTableHeader()}</thead>
+                            <tbody>{this.renderTableData()}</tbody>
                         </table>
                         <hr/>
                         <button className='knop' type='submit'>Selecteer</button>
@@ -70,22 +79,26 @@ export default class UpdatePhoto extends Component {
     renderTableData() {
         return this.state.allArtpieces.map((artpiece, index) => {
             const {
-                id,
-                specials,
+                idArtpiece,
+                selectedFile,
+                adaptation,
                 description,
                 themes,
-                colors,
-                selectedFile
+                colors
+
             } = artpiece
             return (
-                <tr key={id}>
-                    <td>{id}</td>
-                    <td>{specials}</td>
+                <thead>
+                <tr key={artpiece.idArtpiece}>
+                    <td>{idArtpiece}</td>
+                    <td><img id="preview" name="preview" src={selectedFile} height="150" alt=""/>
+                    </td>
+                    <td>{adaptation}</td>
                     <td>{description}</td>
                     <td>{themes}</td>
                     <td>{colors}</td>
-                    <td>{selectedFile}</td>
                 </tr>
+                </thead>
             )
 
         })
