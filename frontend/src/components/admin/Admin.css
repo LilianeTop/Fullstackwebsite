@@ -101,10 +101,37 @@ input[type='radio']:checked:after, input[type='checkbox']:checked:after {
 }
 
 #artpiecesTable {
-    width: 100%;
     font-size: 1.3rem;
-
 }
+
+thead {
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 1px solid #d9e76b;
+    margin-bottom: 1rem;
+}
+
+tbody.cellPadding {
+    padding-bottom: 10px;
+}
+
+/*why does this not have any effect on the rows?*/
+.cellPadding {
+    padding-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
