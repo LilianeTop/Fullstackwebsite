@@ -94,8 +94,8 @@ export default class UpdatePhoto extends Component {
                     <td width={1000}>{description}</td>
                     <td width={300} >
                     {/*   FIXME: how to show a theme per line?*/}
-                    {/*    {themes.toString().replaceAll(",", "\n")}*/}
-                        {themes}
+                        {themes.toString().replaceAll(",", "\n")}
+
                     </td>
                     <td width={300}>{colors.toString().replaceAll(",","\n")}</td>
                 </tr>
