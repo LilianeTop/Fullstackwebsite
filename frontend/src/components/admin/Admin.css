@@ -101,10 +101,21 @@ input[type='radio']:checked:after, input[type='checkbox']:checked:after {
 }
 
 #artpiecesTable {
-    width: 100%;
     font-size: 1.3rem;
 
+
 }
+
+thead {
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 3px solid #d9e76b;
+}
+
+
+
+
+
 
 
 

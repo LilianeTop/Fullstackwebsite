@@ -64,6 +64,7 @@ export default class UpdatePhoto extends Component {
                         </div>
                         <table id="artpiecesTable">
                             <thead>{this.renderTableHeader()}</thead>
+                            <br/>
                             <tbody>{this.renderTableData()}</tbody>
                         </table>
                         <hr/>
@@ -86,38 +87,41 @@ export default class UpdatePhoto extends Component {
 
             } = artpiece
             return (
-                <tr key={artpiece.idArtpiece}>
-                    <td width={30}>{idArtpiece}</td>
-                    <td width={250}><img name="preview" src={selectedFile} height="150" alt=""/>
-                    </td>
-                    <td width={150}>{adaptation}</td>
-                    <td width={1000}>{description}</td>
-                    <td width={300} >
-                    {/*   FIXME: how to show a theme per line?*/}
-                        {themes.toString().replaceAll(",", "\n")}
+                <div>
+                    <tr key={artpiece.idArtpiece}>
+                        <td width={30}>{idArtpiece}</td>
+                        <td width={300}><img name="preview" src={selectedFile} height="150" alt=""/>
+                        </td>
+                        <td width={150}>{adaptation}</td>
+                        <td width={1000}>{description} </td>
+                        <td width={300}>
+                            {/*   FIXME: how to show a theme per line?*/}
+                            {themes.toString().replaceAll(",", "\n")}
 
-                    </td>
-                    <td width={300}>{colors.toString().replaceAll(",","\n")}</td>
-                </tr>
+                        </td>
+                        <td width={300}>{colors.toString().replaceAll(",", "\n")}</td>
+                    </tr>
+                    <br/>
+                </div>
             )
 
         })
     }
 
 
-
-
-
     renderTableHeader() {
         return (
-            <tr >
-                <td>Id</td>
-                <td>Preview</td>
-                <td>Type</td>
-                <td>Beschrijving</td>
-                <td>Thema's</td>
-                <td>Kleuren</td>
+            <div>
+            <tr>
+                <td width={30}>ID</td>
+                <td width={300}>Preview</td>
+                <td width={150}>Type</td>
+                <td width={1000}>Beschrijving</td>
+                <td width={300}>Thema's</td>
+                <td width={300}>Kleuren</td>
             </tr>
+                <br />
+            </div>
         )
     }
 }
