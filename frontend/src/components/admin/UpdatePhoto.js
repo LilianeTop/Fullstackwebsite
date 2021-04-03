@@ -22,7 +22,7 @@ export default class UpdatePhoto extends Component {
 
     componentDidMount() {
         //FIXME: create a method in the controller to fetch all artpieces
-        axios.get("http://localhost:8080/api/showPhoto")
+        axios.get("https://els-enschede-website.herokuapp.com/api/showPhoto")
             .then(response => {
                 const artpieces = response.data;
                 this.setState({
