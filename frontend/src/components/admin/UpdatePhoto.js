@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import "./Admin.css";
 import Menu from "./Menu";
 import axios from "axios";
+import UploadPhoto from "./UploadPhoto";
 
 export default class UpdatePhoto extends Component {
     constructor(props) {
@@ -9,15 +10,17 @@ export default class UpdatePhoto extends Component {
         this.state = this.initialState;
         // this.onFormSubmit = this.onFormSubmit.bind(this)
         this.previewFile = this.previewFile.bind(this)
+        this.showPhotoDetails = this.showPhotoDetails.bind(this)
     }
 
     initialState = {
         allArtpieces: [],
         showMenu: false,
         checkCount: 0,
-        preview: null
-    }
+        preview: null,
+        showUploadPhotoForm: false
 
+    }
 
 
     componentDidMount() {
@@ -50,9 +53,11 @@ export default class UpdatePhoto extends Component {
     };
 
     render() {
-
         if (this.state.showMenu) {
             return <Menu/>
+        }
+        else if (this.state.showUploadPhotoForm){
+           return <UploadPhoto />
         } else
             return (
                 <main>
@@ -88,20 +93,31 @@ export default class UpdatePhoto extends Component {
                 colors
             } = artpiece
             return (
-                    <tr key={index}>
-                        <td width={30}>{idArtpiece}</td>
-                        <td width={300}><img name="preview" src={selectedFile} height="150" alt=""/>
-                        </td>
-                        <td width={150}>{adaptation}</td>
-                        <td width={500}>{description} </td>
-                        <td key={themes.id} width={300}>
-                            {themes.map(s=><React.Fragment>{s}<br/></React.Fragment>)}
-                        </td>
-                        <td key={colors.id} width={300}>
-                            {colors.map(s=><React.Fragment>{s}<br/></React.Fragment>)}
-                        </td>
-                    </tr>
+                <tr key={index}>
+                    <td width={30}>{idArtpiece}</td>
+                    <td width={300}>
+                        <button type='button' onClick={this.showPhotoDetails}>
+                            <img name="preview" src={selectedFile} height="150" alt=""/>
+                        </button>
+                    </td>
+                    <td width={150}>{adaptation}</td>
+                    <td width={500}>{description} </td>
+                    <td key={themes.id} width={300}>
+                        {themes.map(s => <React.Fragment>{s}<br/></React.Fragment>)}
+                    </td>
+                    <td key={colors.id} width={300}>
+                        {colors.map(s => <React.Fragment>{s}<br/></React.Fragment>)}
+                    </td>
+                </tr>
             )
+        })
+    }
+
+    showPhotoDetails() {
+        //TODO: how to add the details of the clicked photo?
+        // TODO: heading should be "Update this photo"
+        this.setState({
+            showUploadPhotoForm: true
         })
     }
 
@@ -115,7 +131,6 @@ export default class UpdatePhoto extends Component {
                 <td width={500}>Beschrijving</td>
                 <td width={300}>Thema's</td>
                 <td width={300}>Kleuren</td>
-
             </tr>
         )
     }
