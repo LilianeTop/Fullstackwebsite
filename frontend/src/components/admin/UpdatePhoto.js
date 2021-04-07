@@ -10,6 +10,7 @@ export default class UpdatePhoto extends Component {
         this.state = this.initialState;
         // this.onFormSubmit = this.onFormSubmit.bind(this)
         this.previewFile = this.previewFile.bind(this)
+        this.showMenu = this.showMenu.bind(this)
         this.showPhotoDetails = this.showPhotoDetails.bind(this)
     }
 
@@ -18,6 +19,15 @@ export default class UpdatePhoto extends Component {
         showMenu: false,
         checkCount: 0,
         preview: null,
+        showPhotoDetails: false,
+        artpiece: {
+            idArtpiece: 0,
+            selectedFile: null,
+            adaptation: [],
+            description: "",
+            themes: [],
+            colors: []
+        }
 
     }
 
@@ -51,9 +61,17 @@ export default class UpdatePhoto extends Component {
         reader.readAsDataURL(file);
     };
 
+    showMenu() {
+        this.setState({
+            showMenu: true
+        })
+    }
+
     render() {
         if (this.state.showMenu) {
             return <Menu/>
+        } if (this.state.showPhotoDetails){
+            return <UploadPhoto props={this.state.artpiece}/>
         } else
             return (
                 <main>
@@ -71,7 +89,7 @@ export default class UpdatePhoto extends Component {
                             <tbody>{this.renderTableData()}</tbody>
                         </table>
                         <hr/>
-                        <button className='knop' type='submit'>Selecteer</button>
+                        {/*<button className='knop' type='submit'>Selecteer</button>*/}
                     </form>
                     <button className='terugknop' type='button' onClick={this.showMenu}>Terug naar Menu</button>
                 </main>
@@ -92,7 +110,7 @@ export default class UpdatePhoto extends Component {
                 <tr key={index}  >
                     <td width={30}>{idArtpiece}</td>
                     <td width={300}>
-                        <button type='button' onClick={() => this.showPhotoDetails(artpiece)}>
+                        <button type='button' onClick={(event) => this.showPhotoDetails(event, artpiece)}>
                         <img name="preview" src={selectedFile} height="150" alt=""/>
                         </button>
                     </td>
@@ -115,9 +133,22 @@ export default class UpdatePhoto extends Component {
         // TODO: heading should be "Update this photo"
         //TODO: add button 'Change to uploadPhotoForm"
         // const artpieceId = event.target.artpiece.idArtpiece;
-        return (
-            <UploadPhoto props={artpiece}/>
-        )
+        //otherwise create a new form with the FormComponents
+
+        // const artpiece = event.target.value;
+        // this.setState({
+        //     artpiece: this.state.artpiece
+        // })
+
+        // return (
+        //     <UploadPhoto props={artpiece} />
+        // )
+
+
+        this.setState({
+            showPhotoDetails: true,
+            artpiece: artpiece
+        })
     }
 
 

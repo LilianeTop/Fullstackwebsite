@@ -2,6 +2,7 @@ import "./Admin.css";
 import React, {Component} from 'react';
 import axios from "axios";
 import Menu from "./Menu";
+import PreviewFile from "./FormComponents/Preview";
 
 export default class UploadPhoto extends Component {
     //do we need props in our constructor and where do they come from? it still works without the props
