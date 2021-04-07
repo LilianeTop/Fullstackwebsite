@@ -18,13 +18,12 @@ export default class UpdatePhoto extends Component {
         showMenu: false,
         checkCount: 0,
         preview: null,
-        showUploadPhotoForm: false
 
     }
 
 
     componentDidMount() {
-        //FIXME: create a method in the controller to fetch all artpieces
+        //FIXME: create a method in the controller to fetch all artpieces instead of only Photos
         axios.get("http://localhost:8080/api/showPhoto")
             .then(response => {
                 const artpieces = response.data;
@@ -55,9 +54,6 @@ export default class UpdatePhoto extends Component {
     render() {
         if (this.state.showMenu) {
             return <Menu/>
-        }
-        else if (this.state.showUploadPhotoForm){
-           return <UploadPhoto />
         } else
             return (
                 <main>
@@ -93,11 +89,11 @@ export default class UpdatePhoto extends Component {
                 colors
             } = artpiece
             return (
-                <tr key={index}>
+                <tr key={index}  >
                     <td width={30}>{idArtpiece}</td>
                     <td width={300}>
-                        <button type='button' onClick={this.showPhotoDetails}>
-                            <img name="preview" src={selectedFile} height="150" alt=""/>
+                        <button type='button' onClick={() => this.showPhotoDetails(artpiece)}>
+                        <img name="preview" src={selectedFile} height="150" alt=""/>
                         </button>
                     </td>
                     <td width={150}>{adaptation}</td>
@@ -113,12 +109,15 @@ export default class UpdatePhoto extends Component {
         })
     }
 
-    showPhotoDetails() {
+    showPhotoDetails = (event, artpiece) => {
+        //FIXME: it doesn't show the uploadphotoform why?
         //TODO: how to add the details of the clicked photo?
         // TODO: heading should be "Update this photo"
-        this.setState({
-            showUploadPhotoForm: true
-        })
+        //TODO: add button 'Change to uploadPhotoForm"
+        // const artpieceId = event.target.artpiece.idArtpiece;
+        return (
+            <UploadPhoto props={artpiece}/>
+        )
     }
 
 
