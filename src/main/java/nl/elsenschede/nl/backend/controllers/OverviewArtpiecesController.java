@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping({"/api"})
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://els-enschede.herokuapp.com/")
 public class OverviewArtpiecesController {
     private ArtpieceDao artpieceDao;
 
