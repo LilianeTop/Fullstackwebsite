@@ -25,7 +25,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping({"/api"})
-@CrossOrigin(origins = "https://els-enschede.herokuapp.com")
+@CrossOrigin(origins = "https://els-enschede.herokuapp.com/")
 public class PhotoFormController {
     private ArtpieceDao artpieceDao;
 
