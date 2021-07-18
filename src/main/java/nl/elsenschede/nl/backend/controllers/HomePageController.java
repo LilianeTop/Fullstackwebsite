@@ -19,7 +19,7 @@ public class HomePageController {
     @GetMapping({"/"})
     public String homepageHandle() {
 
-        return "/";
+        return "root";
     }
 }
 
