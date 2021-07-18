@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping({"/api"})
-@CrossOrigin(origins="https://els-enschede.herokuapp.com/")
+@CrossOrigin(origins="https://els-enschede.herokuapp.com")
 public class HomePageController {
 
     @Autowired
@@ -19,10 +19,10 @@ public class HomePageController {
 
 //FIXME: how is it possible that the homepage will still run without this method?
     //this method doesn't do anything
-    @GetMapping({"/"})
-    public String homepageHandle() {
-
-        return "/";
-    }
+//    @GetMapping({"/"})
+//    public String homepageHandle() {
+//
+//        return "/";
+//    }
 }
 
