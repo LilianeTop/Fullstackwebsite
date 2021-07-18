@@ -19,7 +19,7 @@ public class HomePageController {
     @GetMapping({"/"})
     public String homepageHandle() {
 
-        return "/ will this show?";
+        return "redirect:/";
     }
 }
 
