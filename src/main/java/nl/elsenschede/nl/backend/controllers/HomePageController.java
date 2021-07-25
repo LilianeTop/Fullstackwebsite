@@ -2,11 +2,16 @@ package nl.elsenschede.nl.backend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import javax.servlet.http.HttpServletResponse;
+
+//@RequestMapping(value = "/path", method = RequestMethod.GET)
+//public void handleGet(HttpServletResponse response) {
+//    response.setHeader("Location", "localhost:3000/MainPage");
+//    response.setStatus(302);
+//}
+@RestController
 @RequestMapping({"/api"})
 @CrossOrigin(origins="https://els-enschede.herokuapp.com/")
 public class HomePageController {
@@ -16,10 +21,10 @@ public class HomePageController {
         super();
     }
 
-    @GetMapping({"/"})
-    public String homepageHandle() {
-
-        return "/";
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public void homepageHandle(HttpServletResponse response) {
+    response.setHeader("Location", "https://els-enschede.herokuapp.com/");
+    response.setStatus(302);
     }
 }
 

@@ -8,9 +8,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import {BrowserRouter, HashRouter} from "react-router-dom";
 
 ReactDOM.render(
-  <HashRouter>
+  <BrowserRouter>
     <App />
-  </HashRouter>,
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

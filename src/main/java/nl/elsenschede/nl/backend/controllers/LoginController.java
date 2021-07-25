@@ -20,6 +20,7 @@ public class LoginController {
 
     @GetMapping({"/admin"})
     public String showLoginForm() {
+
         return "/admin";
     }
 
