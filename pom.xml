@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>fullstackwebsite</name>
+    <name>Fullstackwebsite</name>
     <description>Fullstack website with Spring Hibernate Java React</description>
 
     <parent>
