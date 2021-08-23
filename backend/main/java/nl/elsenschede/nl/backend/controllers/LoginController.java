@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping({"/api"})
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://els-enschede.herokuapp.com/")
+
 public class LoginController {
     private UserDao userDao;
 
@@ -19,6 +20,7 @@ public class LoginController {
 
     @GetMapping({"/admin"})
     public String showLoginForm() {
+
         return "/admin";
     }
 

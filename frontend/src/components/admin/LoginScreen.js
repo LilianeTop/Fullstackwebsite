@@ -20,7 +20,7 @@ export default class LoginScreen extends Component {
     onFormSubmit(event) {
         event.preventDefault();
 
-        axios.post("http://localhost:8080/api/login",
+        axios.post("/api/login",
             {
                 username: this.state.username,
                 password: this.state.password
