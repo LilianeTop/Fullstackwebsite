@@ -59,7 +59,7 @@ export default class UploadPhoto extends Component {
             return;
         }
 
-        axios.post("/api/addArtpiece", artpieceData)
+        axios.post("http://localhost:8080/api/addArtpiece", artpieceData)
             .then(response => {
                 if (response.data === 'exists') {
                     this.emptyForm();

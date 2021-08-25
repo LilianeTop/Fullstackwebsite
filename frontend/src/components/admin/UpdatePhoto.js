@@ -34,7 +34,7 @@ export default class UpdatePhoto extends Component {
 
     componentDidMount() {
         //FIXME: create a method in the controller to fetch all artpieces instead of only Photos
-        axios.get("/api/showPhoto")
+        axios.get("http://localhost:8080/api/showPhoto")
             .then(response => {
                 const artpieces = response.data;
                 this.setState({

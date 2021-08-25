@@ -21,8 +21,8 @@ const App = () => {
                 <div className="app">
                     <Route path='*' component={NavBar}/>
                     <Route path='*' component={Footer}/>
-                    <Route exact={true} path='/' component={Home}/>
-                    <Route exact={true} path='/admin' component={Admin}/>
+                    <Route exact path='/' component={Home}/>
+                    <Route exact path='/admin' component={Admin}/>
                     <Route exact path='/blog' component={Blog}/>
                     <Route exact path='/standpunt' component={AboutEls}/>
                     <Route exact path='/landschap' component={Portfolio}/>
