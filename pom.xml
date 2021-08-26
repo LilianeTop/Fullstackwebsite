@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>fullstackwebsite</name>
-    <description>Fullstack website with Spring Hibernate Java React</description>
+    <description>Fullstack website with Java Spring Boot React MySQL</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -18,11 +18,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-<!--    <properties>-->
-<!--        <java.version>15</java.version>-->
-<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
-<!--        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
-<!--    </properties>-->
+    <properties>
+        <java.version>11</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -94,12 +94,6 @@
             <artifactId>frontend-maven-plugin</artifactId>
             <version>1.9.1</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.oracle</groupId>-->
-<!--            <artifactId>ojdbc8</artifactId>-->
-<!--            <version>19.3</version>-->
-<!--        </dependency>-->
-
     </dependencies>
 
     <build>
@@ -107,6 +101,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.4.2</version>
+
+
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -179,44 +176,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Heroku Maven Plugin Configuration -->
-            <plugin>
-                <groupId>com.heroku.sdk</groupId>
-                <artifactId>heroku-maven-plugin</artifactId>
-                <version>2.0.3</version>
-                <configuration>
-                    <appName>els-enschede-website</appName>
-                    <includeTarget>false</includeTarget>
-                    <includes>
-                        <include>${project.build.directory}/${project.build.finalName}.jar</include>
-                    </includes>
-                    <jdkVersion>${java.version}</jdkVersion>
-                    <processTypes>
-                        <web>java $JAVA_OPTS -jar ${project.build.directory}/${project.build.finalName}.jar</web>
-                    </processTypes>
-                </configuration>
-            </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-dependency-plugin</artifactId>-->
-<!--                <version>3.3.1</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals><goal>copy</goal></goals>-->
-<!--                        <configuration>-->
-<!--                            <artifactItems>-->
-<!--                                <artifactItem>-->
-<!--                                    <groupId>com.heroku</groupId>-->
-<!--                                    <artifactId>webapp-runner</artifactId>-->
-<!--                                    <version>9.0.30.0</version>-->
-<!--                                    <destFileName>webapp-runner.jar</destFileName>-->
-<!--                                </artifactItem>-->
-<!--                            </artifactItems>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
         </plugins>
     </build>
     <distributionManagement>
