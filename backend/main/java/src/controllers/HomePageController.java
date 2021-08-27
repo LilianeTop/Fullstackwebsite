@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping({"/api"})
-@CrossOrigin(origins="http://localhost:8080")//changed from 3000 to 8080
+@CrossOrigin(origins="http://localhost:3000")
 public class HomePageController {
 
     @Autowired

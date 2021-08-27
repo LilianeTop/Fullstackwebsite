@@ -35,7 +35,7 @@ public class PhotoFormController {
 
     @PostMapping("/addArtpiece")
     public String uploadPhoto(@RequestBody PhotoFormParameters photoFormParameters) throws NoSuchAlgorithmException {
-        Adaptation specials = photoFormParameters.getAdaptation();
+        Adaptation specials = photoFormParameters.getSpecials();
         String selectedFile = photoFormParameters.getSelectedFile();
         String description = photoFormParameters.getDescription();
         List<Theme> themes = photoFormParameters.getThemes();

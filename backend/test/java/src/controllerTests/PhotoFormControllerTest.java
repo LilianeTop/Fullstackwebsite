@@ -56,7 +56,7 @@ public class PhotoFormControllerTest {
     @Test
     void testUploadPhoto() throws Exception {
         photoFormParameters = new PhotoFormParameters();
-        photoFormParameters.setAdaptation(artpiece.getAdaptation());
+        photoFormParameters.setSpecials(artpiece.getAdaptation());
         photoFormParameters.setSelectedFile(artpiece.getSelectedFile());
         photoFormParameters.setThemes(artpiece.getThemes());
         photoFormParameters.setColors(artpiece.getColors());

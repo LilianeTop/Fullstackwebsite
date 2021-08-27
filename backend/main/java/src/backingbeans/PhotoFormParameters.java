@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class PhotoFormParameters {
-    public Adaptation adaptation;
+    public Adaptation specials;
     public String description;
     public String selectedFile;
     public List<Theme> themes;
