@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping({"/api"})
 @CrossOrigin(origins = "http://localhost:3000")
 public class LoginController {
-    private UserDao userDao;
+    private final UserDao userDao;
 
     @Autowired
     public LoginController(UserDao userDao) {
