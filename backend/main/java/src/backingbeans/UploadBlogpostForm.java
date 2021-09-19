@@ -9,11 +9,11 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class UploadBlogpostForm {
-    String title;
-    Date date;
-    String description;
-    String story;
-    Image image1;
-    Image image2;
-    String author;
+    private String title;
+    private Date date;
+    private String description;
+    private String story;
+    private Image image1;
+    private Image image2;
+    private String author;
 }

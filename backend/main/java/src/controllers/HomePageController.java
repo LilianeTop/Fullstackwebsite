@@ -16,9 +16,10 @@ public class HomePageController {
         super();
     }
 
-    @GetMapping(value = {"/"})
+    @GetMapping(value = {"/", ""})
     public String homepageHandle() {
-        return "/homepage";
+//        return "redirect:/frontend/public/index";
+        return "";
     }
 }
 
