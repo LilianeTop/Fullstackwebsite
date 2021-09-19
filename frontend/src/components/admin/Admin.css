@@ -100,4 +100,9 @@ input[type='radio']:checked:after, input[type='checkbox']:checked:after {
     padding: 10px;
 }
 
+#artpiecesTable {
+    font-family: Roboto, sans-serif;
+    color: #d9e76b;
+}
+
 
